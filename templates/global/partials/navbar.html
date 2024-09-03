@@ -1,0 +1,19 @@
+{% load static %}
+<nav class="flex justify-between px-20 py-2 shadow-lg">
+  <a href="{% url "core:home" %}">
+    <img src="{% static "logo.svg" %}"
+         alt="UFCAT logo"
+         height="auto"
+         width="auto">
+  </a>
+  <ul class="flex items-center gap-4 text-xs text-primary">
+    <li>
+      <a href="{% url "core:home" %}" class="{% if request.path == "/" %}text-secondary{% endif %}">Home</a>
+    </li>
+    <li>
+      <a href="{% url "core:work-order-form" %}" class="{% if request.path == "/register/" %}text-secondary{% endif %}">
+        Cadastrar Ordem de Serviço
+      </a>
+    </li>
+  </ul>
+</nav>

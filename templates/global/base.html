@@ -1,11 +1,23 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SiGOS-UFCAT</title>
-    {% load static %}
+    <title>
+      {% block title %}
+      {% endblock title %}
+    | SiGOS-UFCAT</title>
+    <!-- Rawline -->
+    <link href="https://fonts.cdnfonts.com/css/rawline" rel="stylesheet">
+    <!-- Tailwind -->
     <link rel="stylesheet" href="{% static "css/output.css" %}">
   </head>
-  <body></body>
+  <body class="font-rawline">
+    {% include "global/partials/navbar.html" %}
+    <main>
+      {% block main %}
+      {% endblock main %}
+    </main>
+  </body>
 </html>
