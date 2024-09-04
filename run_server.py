@@ -3,13 +3,13 @@ import threading
 
 
 def run_server():
-    print("Starting Django development server...\n")
+    print("Starting Django development server...")
     global server_process
     server_process = subprocess.Popen("python manage.py runserver", shell=True)
 
 
 def run_tailwind():
-    print("Starting Tailwind CSS watcher...\n")
+    print("Starting Tailwind CSS watcher...")
     global tailwind_process
     tailwind_process = subprocess.Popen(
         "npx tailwindcss -i ./static/css/input.css -o ./static/css/output.css --watch",
