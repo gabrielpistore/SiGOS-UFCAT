@@ -14,6 +14,8 @@ def run_tailwind():
     tailwind_process = subprocess.Popen(
         "npx tailwindcss -i ./static/css/input.css -o ./static/css/output.css --watch",
         shell=True,
+        stdout=subprocess.DEVNULL,  # Redirect standard output to DEVNULL
+        stderr=subprocess.DEVNULL,  # Redirect standard error to DEVNULL
     )
 
 
