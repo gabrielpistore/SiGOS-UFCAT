@@ -44,6 +44,7 @@ class WorkOrder(models.Model):
     )
 
     requested_by = models.CharField(max_length=255, verbose_name="Solicitante")
+    # add choices for department
     dept_name = models.CharField(max_length=255, verbose_name="Departamento")
     email = models.EmailField()
     mobile_phone = models.CharField(max_length=20, verbose_name="Celular")
