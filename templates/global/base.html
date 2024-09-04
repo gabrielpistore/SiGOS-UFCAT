@@ -8,9 +8,16 @@
           content="O SiGOS-UFCAT é um sistema de gerenciamento de ordens de serviço, projetado para otimizar operações e aumentar a produtividade na UFCAT. Gerencie, acompanhe e organize solicitações de serviço de forma fácil e eficiente.">
     <meta name="keywords"
           content="sistema, gerenciamento, orderm de serviço, UFCAT">
-    <title>{% block title %}{% endblock title %} | SiGOS-UFCAT</title>
+    <title>
+      {% block title %}
+      {% endblock title %}
+    | SiGOS-UFCAT</title>
     <!-- Rawline -->
     <link href="https://fonts.cdnfonts.com/css/rawline" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{% static "fontawesomefree/css/fontawesome.css" %}" rel="stylesheet" type="text/css">
+    <link href="{% static "fontawesomefree/css/brands.css" %}" rel="stylesheet" type="text/css">
+    <link href="{% static "fontawesomefree/css/solid.css" %}" rel="stylesheet" type="text/css">
     <!-- Tailwind -->
     <link rel="stylesheet" href="{% static "css/output.css" %}">
   </head>

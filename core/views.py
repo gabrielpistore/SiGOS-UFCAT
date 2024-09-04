@@ -9,7 +9,6 @@ class HomeView(TemplateView):
 
 
 class WorkOrderCreateView(CreateView):
-    template_name = "core/work-order-form.html"
     model = WorkOrder
     fields = "__all__"
     success_url = "/"

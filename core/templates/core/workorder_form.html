@@ -5,7 +5,9 @@
 {% block main %}
   <form action="{% url "core:work-order-form" %}" method="post">
     {% csrf_token %}
-    {{ form }}
-    <button type="submit">Salvar Dados</button>
+    {% include "core/partials/personal-info.html" %}
+    <input type="submit"
+           value="Salvar"
+           class="px-6 py-2 text-white rounded-full bg-primary hover:bg-primary/[.5] cursor-pointer">
   </form>
 {% endblock main %}
