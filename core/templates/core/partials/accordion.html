@@ -1,0 +1,20 @@
+<section x-data="{selected:0}" class="mb-8">
+  <div @click="selected !== 0 ? selected = 0 : selected = null"
+       class="flex items-baseline gap-6">
+    <h1 class="mb-4 text-xl font-medium">
+      {% block title %}
+      {% endblock title %}
+    </h1>
+    <i :class="selected === 0 ? 'fa-solid fa-angle-up text-primary' : 'fa-solid fa-angle-down text-primary'"></i>
+  </div>
+  <div x-show="selected == 0"
+       x-transition:enter="transition ease-out duration-150"
+       x-transition:enter-start="opacity-0 transform"
+       x-transition:enter-end="opacity-100 transform"
+       x-transition:leave="transition ease-in duration-250"
+       x-transition:leave-start="opacity-100 transform"
+       x-transition:leave-end="opacity-0 transform">
+    {% block content %}
+    {% endblock content %}
+  </div>
+</section>
