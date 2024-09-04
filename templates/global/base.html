@@ -4,10 +4,11 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-      {% block title %}
-      {% endblock title %}
-    | SiGOS-UFCAT</title>
+    <meta name="description"
+          content="O SiGOS-UFCAT é um sistema de gerenciamento de ordens de serviço, projetado para otimizar operações e aumentar a produtividade na UFCAT. Gerencie, acompanhe e organize solicitações de serviço de forma fácil e eficiente.">
+    <meta name="keywords"
+          content="sistema, gerenciamento, orderm de serviço, UFCAT">
+    <title>{% block title %}{% endblock title %} | SiGOS-UFCAT</title>
     <!-- Rawline -->
     <link href="https://fonts.cdnfonts.com/css/rawline" rel="stylesheet">
     <!-- Tailwind -->
@@ -15,7 +16,7 @@
   </head>
   <body class="font-rawline">
     {% include "global/partials/navbar.html" %}
-    <main>
+    <main class="py-20 px-36">
       {% block main %}
       {% endblock main %}
     </main>

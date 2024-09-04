@@ -3,4 +3,9 @@
   Cadastrar
 {% endblock title %}
 {% block main %}
+  <form action="{% url "core:work-order-form" %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Salvar Dados</button>
+  </form>
 {% endblock main %}

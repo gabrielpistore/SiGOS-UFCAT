@@ -62,13 +62,17 @@ class WorkOrder(models.Model):
     priority = models.CharField(max_length=7, choices=LEVEL, verbose_name="Prioridade")
     opening_date = models.DateTimeField(verbose_name="Data de Abertura")
     closing_date = models.DateTimeField(verbose_name="Data de Fechamento")
-    service_start_date = models.DateTimeField(verbose_name="Data de Início do Serviço")
-    service_end_date = models.DateTimeField(verbose_name="Data de Término do Serviço")
+    service_start_date = models.DateTimeField(
+        blank=True, null=True, verbose_name="Data de Início do Serviço"
+    )
+    service_end_date = models.DateTimeField(
+        blank=True, null=True, verbose_name="Data de Término do Serviço"
+    )
     status = models.CharField(max_length=12, choices=STATUS, verbose_name="Status")
     title = models.CharField(max_length=100, verbose_name="Título do Relato")
-    report_detail = models.TextField(verbose_name="Detalhamento do Relato")
+    report_description = models.TextField(verbose_name="Detalhamento do Relato")
 
     # attachments: to be added
 
     def __str__(self):
-        return self.id
+        return self.title
