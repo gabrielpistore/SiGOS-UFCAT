@@ -1,0 +1,75 @@
+{% extends "core/partials/accordion.html" %}
+{% load widget_tweaks %}
+{% block title %}
+  Detalhes da Solicitação
+{% endblock title %}
+{% block content %}
+  <!-- Dados de Gerenciamento-->
+  <div class="mb-6 text-sm">
+    <h2 class="mb-2 font-medium">Dados de Gerenciamento</h2>
+    <div class="grid grid-cols-3 gap-8">
+      <div class="flex flex-col gap-1">
+        <label for="{{ form.category.id_for_label }}">Categoria</label>
+        {% render_field form.category class="border-[#8888] border rounded p-2 focus:ring-2 ring-primary focus:outline-none placeholder:font-medium" placeholder="Selecione" %}
+      </div>
+      <div class="flex flex-col gap-1">
+        <label for="{{ form.responsible_employee.id_for_label }}">Funcionário Responsável</label>
+        {% render_field form.responsible_employee class="border-[#8888] border rounded p-2 focus:ring-2 ring-primary focus:outline-none placeholder:font-medium" placeholder="Selecione" %}
+      </div>
+    </div>
+  </div>
+  <!-- Critérios de Classificação -->
+  <div class="mb-6 text-sm">
+    <h2 class="mb-2 font-medium">Critérios de Classificação</h2>
+    <div class="grid grid-cols-3 gap-8">
+      <div class="flex flex-col gap-1">
+        <label for="{{ form.impact.id_for_label }}">Impacto</label>
+        {% render_field form.impact class="border-[#8888] border rounded p-2 focus:ring-2 ring-primary focus:outline-none placeholder:font-medium" placeholder="Selecione" %}
+      </div>
+      <div class="flex flex-col gap-1">
+        <label for="{{ form.urgency.id_for_label }}">Urgência</label>
+        {% render_field form.urgency class="border-[#8888] border rounded p-2 focus:ring-2 ring-primary focus:outline-none placeholder:font-medium" placeholder="Selecione" %}
+      </div>
+      <div class="flex flex-col gap-1">
+        <label for="{{ form.priority.id_for_label }}">Prioridade</label>
+        {% render_field form.priority class="border-[#8888] border rounded p-2 focus:ring-2 ring-primary focus:outline-none placeholder:font-medium" placeholder="Selecione" %}
+      </div>
+    </div>
+  </div>
+  <!-- Informações de Serviço -->
+  <div class="mb-6 text-sm">
+    <h2 class="mb-2 font-medium">Informações do Serviço</h2>
+    <div class="grid grid-cols-3 gap-8">
+      <div class="flex flex-col gap-1">
+        <label for="{{ form.location.id_for_label }}">Local</label>
+        {% render_field form.location class="border-[#8888] border rounded p-2 focus:ring-2 ring-primary focus:outline-none placeholder:font-medium" placeholder="Insira a localização" %}
+      </div>
+      <div class="flex flex-col gap-1">
+        <label for="{{ form.service_start_date.id_for_label }}">Data de Início</label>
+        {% render_field form.service_start_date class="border-[#8888] border rounded p-2 focus:ring-2 ring-primary focus:outline-none placeholder:font-medium" placeholder="Insira a data de início" %}
+      </div>
+      <div class="flex flex-col gap-1">
+        <label for="{{ form.service_end_date.id_for_label }}">Data de Término</label>
+        {% render_field form.service_end_date class="border-[#8888] border rounded p-2 focus:ring-2 ring-primary focus:outline-none placeholder:font-medium" placeholder="Insira a data de término" %}
+      </div>
+    </div>
+  </div>
+  <!-- Informações da Ordem de Serviço -->
+  <div class="mb-6 text-sm">
+    <h2 class="mb-2 font-medium">Informações da Ordem de Serviço</h2>
+    <div class="grid grid-cols-3 gap-8">
+      <div class="flex flex-col gap-1">
+        <label for="{{ form.status.id_for_label }}">Status</label>
+        {% render_field form.status class="border-[#8888] border rounded p-2 focus:ring-2 ring-primary focus:outline-none placeholder:font-medium" placeholder="Selecione" %}
+      </div>
+      <div class="flex flex-col gap-1">
+        <label for="{{ form.opening_date.id_for_label }}">Data de Abertura</label>
+        {% render_field form.opening_date class="border-[#8888] border rounded p-2 focus:ring-2 ring-primary focus:outline-none placeholder:font-medium" placeholder="Insira a data de abertura" %}
+      </div>
+      <div class="flex flex-col gap-1">
+        <label for="{{ form.closing_date.id_for_label }}">Data de Encerramento</label>
+        {% render_field form.closing_date class="border-[#8888] border rounded p-2 focus:ring-2 ring-primary focus:outline-none placeholder:font-medium" placeholder="Insira a data de encerramento" %}
+      </div>
+    </div>
+  </div>
+{% endblock content %}

@@ -6,6 +6,7 @@
   <form action="{% url "core:workorder_form" %}" method="post">
     {% csrf_token %}
     {% include "core/partials/personal_info.html" %}
+    {% include "core/partials/order_details.html" %}
     <input type="submit"
            value="Salvar"
            class="px-6 py-2 text-white rounded-full bg-primary hover:bg-primary/[.5] cursor-pointer">

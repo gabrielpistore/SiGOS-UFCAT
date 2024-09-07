@@ -100,7 +100,7 @@ class WorkOrder(models.Model):
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, verbose_name="Categoria"
     )
-    resposible_employee = models.ForeignKey(
+    responsible_employee = models.ForeignKey(
         Employee, on_delete=models.DO_NOTHING, verbose_name="Funcionário Responsável"
     )
     impact = models.CharField(max_length=7, choices=LEVEL, verbose_name="Impacto")
