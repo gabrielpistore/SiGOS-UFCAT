@@ -42,7 +42,6 @@ class WorkOrder(models.Model):
         ("Fechado", "Fechado"),
     )
     DEPT_NAMES = (
-        ("", "Selecione"),
         ("REITORIA", "REITORIA"),
         ("COAD-GR", "COAD-GR"),
         ("CCS", "CCS"),
@@ -96,7 +95,6 @@ class WorkOrder(models.Model):
     )
     email = models.EmailField()
     phone = models.CharField(max_length=20, verbose_name="Celular")
-    order_type = models.CharField(max_length=255, verbose_name="Tipo")
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, verbose_name="Categoria"
     )
