@@ -12,7 +12,7 @@ def run_tailwind():
     print("Starting Tailwind CSS watcher...")
     global tailwind_process
     tailwind_process = subprocess.Popen(
-        "npx tailwindcss -i ./static/css/input.css -o ./static/css/output.css --watch",
+        "./tailwindcss -i ./static/css/input.css -o ./static/css/output.css --watch",
         shell=True,
         stdout=subprocess.DEVNULL,  # Redirect standard output to DEVNULL
         stderr=subprocess.DEVNULL,  # Redirect standard error to DEVNULL

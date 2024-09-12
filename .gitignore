@@ -137,8 +137,5 @@ GitHub.sublime-settings
 !.vscode/extensions.json 
 .history
 
-# Node Modules  #
-node_modules/
-
 # Tailwind #
 static/css/output.css
