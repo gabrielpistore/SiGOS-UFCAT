@@ -1,5 +1,7 @@
 from django.db import models
 
+from .managers import WorkOrderQuerySet
+
 
 class Category(models.Model):
     class Meta:
@@ -118,6 +120,8 @@ class WorkOrder(models.Model):
     report_description = models.TextField(verbose_name="Detalhamento do Relato")
 
     # attachments: to be added
+
+    objects = WorkOrderQuerySet.as_manager()
 
     def __str__(self):
         return self.title
