@@ -8,6 +8,17 @@
     {% include "core/partials/personal_info.html" %}
     {% include "core/partials/order_details.html" %}
     {% include "core/partials/report_details.html" %}
-    {% include "core/partials/btn_group.html" %}
+    <div class="flex justify-between">
+      <button type="reset"
+              class="px-6 py-2 rounded-full text-primary hover:bg-primary/[.08]">
+        <i class="mr-2 fa-solid fa-eraser"></i>Limpar Dados
+      </button>
+      <div class="flex gap-4">
+        <a href="{% url "core:home" %}"
+           class="px-6 py-2 border rounded-full text-primary border-primary hover:bg-primary/[.08]">Cancelar</a>
+        <button type="submit"
+                class="px-6 py-2 text-white rounded-full bg-primary hover:bg-primary/[.6]">Enviar Dados</button>
+      </div>
+    </div>
   </form>
 {% endblock main %}

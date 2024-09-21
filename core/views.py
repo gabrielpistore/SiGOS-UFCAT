@@ -1,5 +1,4 @@
 from django import forms
-from django.http import HttpResponse
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
 
@@ -24,7 +23,3 @@ class WorkOrderCreateView(CreateView):
         form.fields["opening_date"].widget = forms.DateInput(attrs={"type": "date"})
         form.fields["closing_date"].widget = forms.DateInput(attrs={"type": "date"})
         return form
-
-    def form_invalid(self, form: forms.BaseModelForm) -> HttpResponse:
-        print(form.errors)
-        return super().form_invalid(form)
