@@ -138,4 +138,5 @@ GitHub.sublime-settings
 .history
 
 # Tailwind #
+tailwindcss
 static/css/output.css
