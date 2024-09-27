@@ -16,7 +16,7 @@ def run_tailwind_watch():
     tailwindcli = (
         ".\\bin\\tailwindcss"
         if platform.system().lower() == "windows"
-        else ".bin/tailwindcss"
+        else "./bin/tailwindcss"
     )
 
     tailwind_process = subprocess.Popen(
