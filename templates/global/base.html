@@ -16,10 +16,10 @@
   </head>
   <body class="font-rawline">
     {% include "global/partials/navbar.html" %}
-    <main class="py-20 px-36">
+    <main class="px-10 py-20 md:px-36">
       {% block main %}
       {% endblock main %}
     </main>
-      <script src="{% static "js/plotly-2.35.2.min.js" %}"></script>
+    <script src="{% static "js/plotly-2.35.2.min.js" %}"></script>
   </body>
 </html>
