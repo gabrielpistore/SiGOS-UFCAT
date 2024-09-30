@@ -10,11 +10,11 @@
     <div class="grid grid-cols-3 gap-8">
       <div class="flex flex-col gap-1">
         <label for="{{ form.requested_by.id_for_label }}">Nome</label>
-        {% render_field form.requested_by class="border-[#8888] border rounded p-2 focus:ring-2 ring-primary focus:outline-none placeholder:font-medium" placeholder="Insira seu nome completo" %}
+        {% render_field form.requested_by class="input" placeholder="Insira seu nome completo" %}
       </div>
       <div class="flex flex-col gap-1">
         <label for="{{ form.dept_name.id_for_label }}">Departamento</label>
-        {% render_field form.dept_name class="border-[#8888] border rounded p-2 focus:ring-2 ring-primary focus:outline-none placeholder:font-medium" placeholder="Selecione" %}
+        {% render_field form.dept_name class="input" placeholder="Selecione" %}
       </div>
     </div>
   </div>
@@ -24,11 +24,11 @@
     <div class="grid grid-cols-3 gap-8">
       <div class="flex flex-col gap-1">
         <label for="{{ form.email.id_for_label }}">E-mail</label>
-        {% render_field form.email class="border-[#8888] border rounded p-2 focus:ring-2 ring-primary focus:outline-none placeholder:font-medium" placeholder="Insira seu e-mail" %}
+        {% render_field form.email class="input" placeholder="Insira seu e-mail" %}
       </div>
       <div class="flex flex-col gap-1">
         <label for="{{ form.phone.id_for_label }}">Telefone</label>
-        {% render_field form.phone class="border-[#8888] border rounded p-2 focus:ring-2 ring-primary focus:outline-none placeholder:font-medium" placeholder="(DDD) 00000-0000" x-mask="99 99999-9999" %}
+        {% render_field form.phone class="input" placeholder="(DDD) 00000-0000" x-mask="99 99999-9999" %}
       </div>
     </div>
   </div>
