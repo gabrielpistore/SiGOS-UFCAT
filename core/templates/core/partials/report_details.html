@@ -6,12 +6,12 @@
 {% block content %}
   <div class="mb-6">
     <h2 class="mb-2 font-medium">Detalhamento do Relato</h2>
-    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-      <div class="flex flex-col gap-1">
+    <div class="flex flex-col gap-8">
+      <div class="flex flex-col gap-1 max-w-96">
         <label for="{{ form.title.id_for_label }}">Título</label>
         {% render_field form.title class="input" placeholder="Insira o título do relato" %}
       </div>
-      <div class="flex flex-col col-span-3 gap-1">
+      <div class="flex flex-col gap-1">
         <label for="{{ form.report_description.id_for_label }}">Relato</label>
         {% render_field form.report_description class="input" placeholder="Insira o relato" %}
       </div>
