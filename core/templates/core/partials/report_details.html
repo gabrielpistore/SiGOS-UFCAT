@@ -4,16 +4,16 @@
   Detalhamento do Relato
 {% endblock title %}
 {% block content %}
-  <div class="mb-6 text-sm">
+  <div class="mb-6">
     <h2 class="mb-2 font-medium">Detalhamento do Relato</h2>
-    <div class="grid grid-cols-3 gap-8">
+    <div class="flex flex-col gap-8">
       <div class="flex flex-col gap-1">
         <label for="{{ form.title.id_for_label }}">Título</label>
-        {% render_field form.title class="border-[#8888] border rounded p-2 focus:ring-2 focus:ring-primary focus:outline-none" placeholder="Insira o título do relato" %}
+        {% render_field form.title class="input" placeholder="Insira o título do relato" %}
       </div>
-      <div class="flex flex-col col-span-3 gap-1">
+      <div class="flex flex-col gap-1">
         <label for="{{ form.report_description.id_for_label }}">Relato</label>
-        {% render_field form.report_description class="border-[#8888] border rounded p-2 focus:ring-2 focus:ring-primary focus:outline-none placeholder:font-medium" placeholder="Insira o relato" %}
+        {% render_field form.report_description class="input" placeholder="Insira o relato" %}
       </div>
     </div>
   </div>

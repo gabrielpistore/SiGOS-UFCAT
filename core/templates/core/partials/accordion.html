@@ -1,11 +1,11 @@
 <section x-data="{selected:0}" class="mb-8">
-  <div @click="selected !== 0 ? selected = 0 : selected = null"
-       class="flex items-baseline gap-6">
+  <div class="flex items-baseline gap-6">
     <h1 class="mb-4 text-xl font-medium">
       {% block title %}
       {% endblock title %}
     </h1>
-    <i :class="selected === 0 ? 'fa-solid fa-angle-up text-primary' : 'fa-solid fa-angle-down text-primary'"></i>
+    <i @click="selected !== 0 ? selected = 0 : selected = null"
+       :class="selected === 0 ? 'fa-solid fa-angle-up text-primary hover:cursor-pointer' : 'fa-solid fa-angle-down text-primary hover:cursor-pointer'"></i>
   </div>
   <div x-show="selected == 0"
        x-transition:enter="transition ease-out duration-150"

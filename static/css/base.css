@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .input {
+    @apply border border-[#8888] rounded p-2 focus:border-2 focus:border-primary focus:outline-none placeholder:font-medium;
+  }
+
+  .btn {
+    @apply px-6 py-2 rounded-full;
+  }
+}
