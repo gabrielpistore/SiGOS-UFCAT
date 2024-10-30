@@ -1,6 +1,9 @@
 import platform
 import subprocess
 import threading
+from pathlib import Path
+
+BASE_DIR = Path(__file__).parent
 
 
 def run_server():
@@ -18,6 +21,8 @@ def run_tailwind_watch():
         if platform.system().lower() == "windows"
         else "./bin/tailwindcss"
     )
+
+    tailwindcli = BASE_DIR / "bin" / "tailwindcss"
 
     tailwind_process = subprocess.Popen(
         f"{tailwindcli} -i ./static/css/input.css -o ./static/css/output.css --watch",
