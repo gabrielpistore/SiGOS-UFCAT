@@ -1,4 +1,3 @@
-import platform
 import subprocess
 import threading
 from pathlib import Path
@@ -15,17 +14,9 @@ def run_server():
 def run_tailwind_watch():
     print("Starting Tailwind CSS watcher...\n")
     global tailwind_process
-
-    tailwindcli = (
-        ".\\bin\\tailwindcss"
-        if platform.system().lower() == "windows"
-        else "./bin/tailwindcss"
-    )
-
     tailwindcli = BASE_DIR / "bin" / "tailwindcss"
-
     tailwind_process = subprocess.Popen(
-        f"{tailwindcli} -i ./static/css/input.css -o ./static/css/output.css --watch",
+        f"{tailwindcli} -i ./static/css/base.css -o ./static/css/styles.css --watch",
         shell=True,
         stdout=subprocess.DEVNULL,  # Redirect standard output to DEVNULL
         stderr=subprocess.DEVNULL,  # Redirect standard error to DEVNULL
