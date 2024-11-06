@@ -8,20 +8,20 @@ import requests
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Get OS and Architecture
-system = platform.system().lower()
-machine = platform.machine().lower()
+SYSTEM = platform.SYSTEM().lower()
+MACHINE = platform.MACHINE().lower()
 
 # Base URL
-base_url = f"https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-{system}"
+BASE_URL = f"https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-{SYSTEM}"
 
-if machine in ["amd64", "x86_64"]:
-    tailwindcss_url = f"{base_url}-x64"
-elif "arm" in machine or "aarch" in machine:
-    tailwindcss_url = f"{base_url}-arm64"
+if MACHINE in ["amd64", "x86_64"]:
+    tailwindcss_url = f"{BASE_URL}-x64"
+elif "arm" in MACHINE or "aarch" in MACHINE:
+    tailwindcss_url = f"{BASE_URL}-arm64"
 else:
-    raise Exception(f"Unsupported architecture: {machine}")
+    raise Exception(f"Unsupported architecture: {MACHINE}")
 
-if system == "windows":
+if SYSTEM == "windows":
     tailwindcss_url += ".exe"
 
 # Output directory
@@ -34,7 +34,7 @@ if not os.path.exists(output_dir):
 # Set the filename based on the OS
 filename = "tailwindcss"
 
-if system == "windows":
+if SYSTEM == "windows":
     filename = "tailwindcss.exe"
 
 output_file = BASE_DIR / output_dir / filename
@@ -53,7 +53,7 @@ else:
     )
 
 # Make the downloaded file executable (not needed on Windows)
-if system != "windows":
+if SYSTEM != "windows":
     st = os.stat(output_file)
     os.chmod(output_file, st.st_mode | stat.S_IEXEC)
 
