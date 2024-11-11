@@ -8,8 +8,8 @@ import requests
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Get OS and Architecture
-SYSTEM = platform.SYSTEM().lower()
-MACHINE = platform.MACHINE().lower()
+SYSTEM = platform.system().lower()
+MACHINE = platform.machine().lower()
 
 # Base URL
 BASE_URL = f"https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-{SYSTEM}"
