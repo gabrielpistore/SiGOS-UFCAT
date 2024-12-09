@@ -11,8 +11,6 @@ dependencies = [
     "django-widget-tweaks>=1.5.0",
     "djlint>=1.35.2",
     "fontawesomefree>=6.6.0",
-    "pandas>=2.2.3",
-    "plotly>=5.24.1",
     "requests>=2.32.3",
     "faker>=33.1.0",
 ]
