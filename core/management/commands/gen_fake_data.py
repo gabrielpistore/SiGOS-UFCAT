@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand
 from django.utils import timezone
 from faker import Faker
 
-from core.models import Category, Employee, WorkOrder
+from core.models import Category, Department, Employee, WorkOrder
 
 fake = Faker("pt_BR")
 
@@ -24,7 +24,7 @@ class Command(BaseCommand):
 
         # Create Employees
         employees = []
-        for _ in range(20):
+        for _ in range(10):
             employee = Employee.objects.create(
                 name=fake.name(),
                 email=fake.email(),
@@ -33,10 +33,17 @@ class Command(BaseCommand):
             employees.append(employee)
         self.stdout.write(f"Created {len(employees)} employees.")
 
-        # Create orders
-        dept_names = [choice[0] for choice in WorkOrder.DEPT_NAMES]
+        # Ensure departments are populated
+        departments = list(Department.objects.all())
+        if not departments:
+            self.stdout.write(self.style.WARNING("No departments found! Please populate the Department model first."))
+            return
+        self.stdout.write(f"Found {len(departments)} departments.")
+
         levels = [choice[0] for choice in WorkOrder.LEVEL]
         statuses = [choice[0] for choice in WorkOrder.STATUS]
+
+        # Create Work Orders
         for _ in range(50):
             opening_date = timezone.make_aware(fake.date_time_this_year(), timezone.get_current_timezone())
             closing_date = timezone.make_aware(fake.date_time_this_year(), timezone.get_current_timezone())
@@ -45,7 +52,7 @@ class Command(BaseCommand):
 
             WorkOrder.objects.create(
                 requested_by=fake.name(),
-                dept_name=random.choice(dept_names),
+                dept_name=random.choice(departments),
                 email=fake.email(),
                 phone=fake.phone_number(),
                 category=random.choice(categories),
