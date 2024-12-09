@@ -4,34 +4,30 @@ from .managers import WorkOrderQuerySet
 
 
 class Category(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Nome")
+
     class Meta:
         verbose_name = "Categoria"
         verbose_name_plural = "Categorias"
-
-    name = models.CharField(max_length=255, verbose_name="Nome")
 
     def __str__(self):
         return self.name
 
 
 class Employee(models.Model):
-    class Meta:
-        verbose_name = "Funcionário"
-        verbose_name_plural = "Funcionários"
-
     name = models.CharField(max_length=255, verbose_name="Nome")
     email = models.EmailField()
     mobile_phone = models.CharField(max_length=20, verbose_name="Celular")
+
+    class Meta:
+        verbose_name = "Funcionário"
+        verbose_name_plural = "Funcionários"
 
     def __str__(self):
         return self.name
 
 
 class WorkOrder(models.Model):
-    class Meta:
-        verbose_name = "Ordem de Serviço"
-        verbose_name_plural = "Ordens de Serviço"
-
     LEVEL = (
         ("Baixo", "Baixo"),
         ("Médio", "Médio"),
@@ -92,14 +88,10 @@ class WorkOrder(models.Model):
     )
 
     requested_by = models.CharField(max_length=255, verbose_name="Solicitante")
-    dept_name = models.CharField(
-        max_length=32, choices=DEPT_NAMES, verbose_name="Departamento"
-    )
+    dept_name = models.CharField(max_length=32, choices=DEPT_NAMES, verbose_name="Departamento")
     email = models.EmailField()
     phone = models.CharField(max_length=20, verbose_name="Celular")
-    category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, verbose_name="Categoria"
-    )
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="Categoria")
     responsible_employee = models.ForeignKey(
         Employee, on_delete=models.DO_NOTHING, verbose_name="Funcionário Responsável"
     )
@@ -109,19 +101,21 @@ class WorkOrder(models.Model):
     location = models.CharField(max_length=255, verbose_name="Local do Serviço")
     opening_date = models.DateTimeField(verbose_name="Data de Abertura")
     closing_date = models.DateTimeField(verbose_name="Data de Fechamento")
-    service_start_date = models.DateTimeField(
-        blank=True, null=True, verbose_name="Data de Início do Serviço"
-    )
-    service_end_date = models.DateTimeField(
-        blank=True, null=True, verbose_name="Data de Término do Serviço"
-    )
+    service_start_date = models.DateTimeField(blank=True, null=True, verbose_name="Data de Início do Serviço")
+    service_end_date = models.DateTimeField(blank=True, null=True, verbose_name="Data de Término do Serviço")
     status = models.CharField(max_length=12, choices=STATUS, verbose_name="Status")
     title = models.CharField(max_length=100, verbose_name="Título do Relato")
     report_description = models.TextField(verbose_name="Detalhamento do Relato")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
-    # attachments: to be added
+    # TODO: Add attachment field
 
     objects = WorkOrderQuerySet.as_manager()
+
+    class Meta:
+        verbose_name = "Ordem de Serviço"
+        verbose_name_plural = "Ordens de Serviço"
 
     def __str__(self):
         return self.title

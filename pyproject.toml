@@ -1,7 +1,7 @@
 [project]
 name = "sigos-ufcat"
 version = "0.1.0"
-description = "Add your description here"
+description = "Sistema de gestão de ordens de serviço"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

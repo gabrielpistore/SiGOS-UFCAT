@@ -33,11 +33,10 @@ class Command(BaseCommand):
             employees.append(employee)
         self.stdout.write(f"Created {len(employees)} employees.")
 
-        # Create Work Orders
+        # Create orders
         dept_names = [choice[0] for choice in WorkOrder.DEPT_NAMES]
         levels = [choice[0] for choice in WorkOrder.LEVEL]
         statuses = [choice[0] for choice in WorkOrder.STATUS]
-
         for _ in range(50):
             opening_date = timezone.make_aware(fake.date_time_this_year(), timezone.get_current_timezone())
             closing_date = timezone.make_aware(fake.date_time_this_year(), timezone.get_current_timezone())
@@ -62,6 +61,8 @@ class Command(BaseCommand):
                 status=random.choice(statuses),
                 title=fake.sentence(nb_words=6),
                 report_description=fake.paragraph(nb_sentences=5),
+                created_at=timezone.now(),
+                updated_at=timezone.now(),
             )
 
         self.stdout.write("Created 50 work orders.")
