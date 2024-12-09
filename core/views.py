@@ -2,7 +2,7 @@ from django import forms
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 
-from core.models import Category, Employee, WorkOrder
+from core.models import WorkOrder
 
 
 class HomeView(ListView):
