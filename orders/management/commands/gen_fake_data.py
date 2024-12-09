@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand
 from django.utils import timezone
 from faker import Faker
 
-from core.models import Category, Department, Employee, WorkOrder
+from orders.models import Category, Department, Employee, WorkOrder
 
 fake = Faker("pt_BR")
 

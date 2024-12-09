@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from core.models import Category, Employee, WorkOrder
+from orders.models import Category, Department, Employee, WorkOrder
 
 
 @admin.register(Category)
@@ -10,6 +10,11 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Employee)
 class EmployeeAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Department)
+class DepartmentAdmin(admin.ModelAdmin):
     pass
 
 

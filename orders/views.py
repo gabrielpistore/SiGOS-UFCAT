@@ -2,12 +2,12 @@ from django import forms
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 
-from core.models import WorkOrder
+from orders.models import WorkOrder
 
 
 class HomeView(ListView):
     model = WorkOrder
-    template_name = "core/home.html"
+    template_name = "orders/home.html"
     context_object_name = "work_orders"
 
     def get_queryset(self):

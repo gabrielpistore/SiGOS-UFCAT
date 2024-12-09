@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from core.models import Department
+from orders.models import Department
 
 
 class Command(BaseCommand):

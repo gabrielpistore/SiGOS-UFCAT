@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     "fontawesomefree",
     "widget_tweaks",
     # Local
-    "core",
+    "orders",
 ]
 
 MIDDLEWARE = [
