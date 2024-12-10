@@ -1,4 +1,5 @@
 from django import forms
+from django.utils import timezone
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 
@@ -16,6 +17,12 @@ class HomeView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["last_modified_orders"] = WorkOrder.objects.order_by("-created_at")[:6]
+        current_year = timezone.now().year
+        context["orders_data"] = {
+            "opened": WorkOrder.objects.filter(status="Aberto", created_at__year=current_year).count(),
+            "ongoing": WorkOrder.objects.filter(status="Em Andamento", created_at__year=current_year).count(),
+            "closed": WorkOrder.objects.filter(status="Fechado", created_at__year=current_year).count(),
+        }
         return context
 
 
