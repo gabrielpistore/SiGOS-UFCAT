@@ -10,11 +10,11 @@
     <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
       <div class="flex flex-col gap-1">
         <label for="{{ form.category.id_for_label }}">Categoria</label>
-        {% render_field form.category class="input" placeholder="Selecione" %}
+        {% render_field form.category class="input" %}
       </div>
       <div class="flex flex-col gap-1">
         <label for="{{ form.responsible_employee.id_for_label }}">Funcionário Responsável</label>
-        {% render_field form.responsible_employee class="input" placeholder="Selecione" %}
+        {% render_field form.responsible_employee class="input" %}
       </div>
     </div>
   </div>
@@ -24,15 +24,15 @@
     <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
       <div class="flex flex-col gap-1">
         <label for="{{ form.impact.id_for_label }}">Impacto</label>
-        {% render_field form.impact class="input" placeholder="Selecione" %}
+        {% render_field form.impact class="input" %}
       </div>
       <div class="flex flex-col gap-1">
         <label for="{{ form.urgency.id_for_label }}">Urgência</label>
-        {% render_field form.urgency class="input" placeholder="Selecione" %}
+        {% render_field form.urgency class="input" %}
       </div>
       <div class="flex flex-col gap-1">
         <label for="{{ form.priority.id_for_label }}">Prioridade</label>
-        {% render_field form.priority class="input" placeholder="Selecione" %}
+        {% render_field form.priority class="input" %}
       </div>
     </div>
   </div>
@@ -60,7 +60,7 @@
     <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
       <div class="flex flex-col gap-1">
         <label for="{{ form.status.id_for_label }}">Status</label>
-        {% render_field form.status class="input" placeholder="Selecione" %}
+        {% render_field form.status class="input" %}
       </div>
       <div class="flex flex-col gap-1">
         <label for="{{ form.opening_date.id_for_label }}">Data de Abertura</label>
