@@ -1,7 +1,5 @@
 from django.db import models
 
-from .managers import WorkOrderQuerySet
-
 
 class Category(models.Model):
     name = models.CharField(max_length=150, verbose_name="Nome")
@@ -15,7 +13,7 @@ class Category(models.Model):
 
 
 class Employee(models.Model):
-    name = models.CharField(max_length=150, verbose_name="Nome")
+    name = models.CharField(max_length=100, verbose_name="Nome")
     email = models.EmailField()
     mobile_phone = models.CharField(max_length=20, verbose_name="Celular")
 
@@ -28,7 +26,7 @@ class Employee(models.Model):
 
 
 class Department(models.Model):
-    name = models.CharField(max_length=150, verbose_name="Nome")
+    name = models.CharField(max_length=100, verbose_name="Nome")
 
     class Meta:
         verbose_name = "Departamento"
@@ -51,7 +49,7 @@ class WorkOrder(models.Model):
         ("Fechado", "Fechado"),
     )
 
-    requested_by = models.CharField(max_length=150, verbose_name="Solicitante")
+    requested_by = models.CharField(max_length=100, verbose_name="Solicitante")
     dept_name = models.ForeignKey(Department, verbose_name="Departamento", on_delete=models.DO_NOTHING)
     email = models.EmailField()
     phone = models.CharField(max_length=20, verbose_name="Celular")
@@ -59,23 +57,21 @@ class WorkOrder(models.Model):
     responsible_employee = models.ForeignKey(
         Employee, on_delete=models.DO_NOTHING, verbose_name="Funcionário Responsável"
     )
-    impact = models.CharField(max_length=25, choices=LEVEL, verbose_name="Impacto")
-    urgency = models.CharField(max_length=25, choices=LEVEL, verbose_name="Urgência")
-    priority = models.CharField(max_length=25, choices=LEVEL, verbose_name="Prioridade")
-    location = models.CharField(max_length=255, verbose_name="Local do Serviço")
+    impact = models.CharField(max_length=25, choices=LEVEL, blank=True, null=True, verbose_name="Impacto")
+    urgency = models.CharField(max_length=25, choices=LEVEL, blank=True, null=True, verbose_name="Urgência")
+    priority = models.CharField(max_length=25, choices=LEVEL, blank=True, null=True, verbose_name="Prioridade")
+    location = models.CharField(max_length=100, verbose_name="Local do Serviço")
     opening_date = models.DateTimeField(verbose_name="Data de Abertura")
-    closing_date = models.DateTimeField(verbose_name="Data de Fechamento")
+    closing_date = models.DateTimeField(blank=True, null=True, verbose_name="Data de Fechamento")
     service_start_date = models.DateTimeField(blank=True, null=True, verbose_name="Data de Início do Serviço")
     service_end_date = models.DateTimeField(blank=True, null=True, verbose_name="Data de Término do Serviço")
     status = models.CharField(max_length=25, choices=STATUS, verbose_name="Status")
-    title = models.CharField(max_length=100, verbose_name="Título do Relato")
+    title = models.CharField(max_length=50, verbose_name="Título do Relato")
     report_description = models.TextField(verbose_name="Detalhamento do Relato")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     # TODO: Add attachment field
-
-    objects = WorkOrderQuerySet.as_manager()
 
     class Meta:
         verbose_name = "Ordem de Serviço"
