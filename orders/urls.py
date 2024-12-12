@@ -6,5 +6,6 @@ app_name = "orders"
 
 urlpatterns = [
     path("", views.HomeView.as_view(), name="home"),
-    path("ordem/novo/", views.WorkOrderCreateView.as_view(), name="workorder_form"),
+    path("ordens/", views.WorkOrderListView.as_view(), name="workorder_list"),
+    path("ordens/novo/", views.WorkOrderCreateView.as_view(), name="workorder_form"),
 ]

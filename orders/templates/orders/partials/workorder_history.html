@@ -1,17 +1,6 @@
-<div class="px-4 shadow-2xl">
+<div class="px-4 py-2 shadow-2xl">
   <div class="flex items-baseline gap-2 mb-4 text-base font-semibold">
     <i class="fas fa-history"></i>
     <h2>Histórico</h2>
-  </div>
-  <ul class="flex flex-col justify-between">
-    {% for order in last_modified_orders %}
-      <li class="flex h-16 gap-4 text-sm border-b-2">
-        <span class="my-auto">{{ order.title }}</span>
-      </li>
-    {% endfor %}
-  </ul>
-  {# TODO: change href #}
-  <div class="py-3">
-    <a href="#" class="text-base font-semibold text-primary">Ver histórico</a>
   </div>
 </div>

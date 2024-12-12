@@ -8,7 +8,7 @@ from orders.models import WorkOrder
 
 class HomeView(ListView):
     model = WorkOrder
-    template_name = "orders/home.html"
+    template_name = "orders/index.html"
     context_object_name = "work_orders"
 
     def get_queryset(self):
@@ -38,3 +38,11 @@ class WorkOrderCreateView(CreateView):
         form.fields["opening_date"].widget = forms.DateInput(attrs={"type": "date"})
         form.fields["closing_date"].widget = forms.DateInput(attrs={"type": "date"})
         return form
+
+
+class WorkOrderListView(ListView):
+    model = WorkOrder
+    context_object_name = "work_orders"
+
+    def get_queryset(self):
+        return super().get_queryset().prefetch_related("category", "responsible_employee")
