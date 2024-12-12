@@ -21,29 +21,31 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <script>
-    const orders_data = {
-        opened: parseInt("{{orders_data.opened}}", 10) || 0,
-        ongoing: parseInt("{{orders_data.ongoing}}", 10) || 0,
-        closed: parseInt("{{orders_data.closed}}", 10) || 0,
-    };
-    const chart = document.getElementById("stats");
-    const statsChart = new Chart(chart.getContext("2d"), {
-        type: "doughnut",
-        data: {
-            labels: ["Abertas", "Em Andamento", "Fechadas", ],
-            datasets: [{
-                data: [orders_data.opened, orders_data.closed, orders_data.ongoing],
-                backgroundColor: ["#007BFF", "#FFC107", "#DC3545"],
-                hoverOffset: 4
-            }]
+  const orders_data = {
+    opened: parseInt("{{orders_data.opened}}", 10) || 0,
+    ongoing: parseInt("{{orders_data.ongoing}}", 10) || 0,
+    closed: parseInt("{{orders_data.closed}}", 10) || 0,
+  };
+  const chart = document.getElementById("stats");
+  const statsChart = new Chart(chart.getContext("2d"), {
+    type: "doughnut",
+    data: {
+      labels: ["Abertas", "Em Andamento", "Fechadas"],
+      datasets: [
+        {
+          data: [orders_data.opened, orders_data.closed, orders_data.ongoing],
+          backgroundColor: ["#007BFF", "#FFC107", "#DC3545"],
+          hoverOffset: 4,
         },
-        options: {
-            cutout: "60%",
-            plugins: {
-                legend: {
-                    display: false
-                }
-            }
+      ],
+    },
+    options: {
+      cutout: "60%",
+      plugins: {
+        legend: {
+          display: false,
         },
-    });
+      },
+    },
+  });
 </script>

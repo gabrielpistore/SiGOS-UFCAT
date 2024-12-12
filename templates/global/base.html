@@ -9,10 +9,9 @@
     <meta name="keywords"
           content="sistema, gerenciamento, orderm de serviço, UFCAT">
     {% include "global/partials/head.html" %}
-    <title>
-      {% block title %}
-      {% endblock title %}
-    | SiGOS-UFCAT</title>
+    {# djlint: off #}
+    <title>{% block title %}{% endblock title %} | SiGOS-UFCAT</title>
+    {# djlint: on #}
   </head>
   <body class="font-rawline">
     {% include "global/partials/navbar.html" %}
@@ -20,6 +19,5 @@
       {% block main %}
       {% endblock main %}
     </main>
-    <script src="{% static "js/plotly-2.35.2.min.js" %}"></script>
   </body>
 </html>
