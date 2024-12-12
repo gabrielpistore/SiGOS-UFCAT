@@ -9,6 +9,8 @@
     <meta name="keywords"
           content="sistema, gerenciamento, orderm de serviço, UFCAT">
     {% include "global/partials/head.html" %}
+    {% block head %}
+    {% endblock head %}
     {# djlint: off #}
     <title>{% block title %}{% endblock title %} | SiGOS-UFCAT</title>
     {# djlint: on #}
@@ -19,5 +21,7 @@
       {% block main %}
       {% endblock main %}
     </main>
+    {% block js %}
+    {% endblock js %}
   </body>
 </html>

@@ -1,6 +1,13 @@
 {% extends "global/base.html" %}
+{% block head %}
+  <link rel="stylesheet"
+        href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+{% endblock head %}
 {% block title %}
   Listar
 {% endblock title %}
 {% block main %}
 {% endblock main %}
+{% block js %}
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+{% endblock js %}
