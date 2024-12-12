@@ -1,6 +1,49 @@
-<div class="px-4 shadow-2xl">
+<div class="px-4 py-2 shadow-2xl">
   <div class="flex items-baseline gap-2 mb-4 text-base font-semibold">
-    <i class="fa-solid fa-chart-line"></i>
+    <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
     <h2>Status</h2>
   </div>
+  <canvas id="stats"></canvas>
+  <ul class="flex flex-col gap-2">
+    <li class="flex gap-2">
+      <div class="h-6 w-6 bg-[#007BFF]"></div>
+      Abertas
+    </li>
+    <li class="flex gap-2">
+      <div class="h-6 w-6 bg-[#FFC107]"></div>
+      Em Andamento
+    </li>
+    <li class="flex gap-2">
+      <div class="h-6 w-6 bg-[#DC3545]"></div>
+      Fechadas
+    </li>
+  </ul>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script>
+    const orders_data = {
+        opened: parseInt("{{orders_data.opened}}", 10) || 0,
+        ongoing: parseInt("{{orders_data.ongoing}}", 10) || 0,
+        closed: parseInt("{{orders_data.closed}}", 10) || 0,
+    };
+    const chart = document.getElementById("stats");
+    const statsChart = new Chart(chart.getContext("2d"), {
+        type: "doughnut",
+        data: {
+            labels: ["Abertas", "Em Andamento", "Fechadas", ],
+            datasets: [{
+                data: [orders_data.opened, orders_data.closed, orders_data.ongoing],
+                backgroundColor: ["#007BFF", "#FFC107", "#DC3545"],
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            cutout: "60%",
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        },
+    });
+</script>

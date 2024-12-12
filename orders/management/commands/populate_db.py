@@ -10,7 +10,7 @@ fake = Faker("pt_BR")
 
 
 class Command(BaseCommand):
-    help = "Generate fake data for testing purposes"
+    help = "Populate database for development."
 
     def handle(self, *args, **kwargs):
         self.stdout.write("Starting...")
