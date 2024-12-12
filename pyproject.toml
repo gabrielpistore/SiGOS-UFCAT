@@ -9,7 +9,6 @@ dependencies = [
     "django-browser-reload>=1.17.0",
     "django-stubs>=5.1.1",
     "django-widget-tweaks>=1.5.0",
-    "djlint>=1.35.2",
     "fontawesomefree>=6.6.0",
     "requests>=2.32.3",
     "faker>=33.1.0",
