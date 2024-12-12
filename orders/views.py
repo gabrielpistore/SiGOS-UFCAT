@@ -40,6 +40,10 @@ class WorkOrderCreateView(CreateView):
         return form
 
 
+class WorkOrderListViewJSONResponse(ListView):
+    pass
+
+
 class WorkOrderListView(ListView):
     model = WorkOrder
     context_object_name = "work_orders"
