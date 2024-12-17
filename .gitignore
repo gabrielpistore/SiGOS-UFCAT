@@ -140,4 +140,5 @@ GitHub.sublime-settings
 # Tailwind #
 bin/*
 !bin/.keep
+!bin/dev
 static/css/styles.css

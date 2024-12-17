@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# check if tailwindcss is in bin
+if [ ! -d "bin/tailwindcss" ]; then
+  uv run script/download_tailwindcss_cli.py
+fi
+
+# Disable output buffering
+export PYTHONUNBUFFERED=1
+
+exec foreman start -f Procfile.dev
