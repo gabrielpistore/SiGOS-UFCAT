@@ -1,13 +1,54 @@
 {% extends "global/base.html" %}
-{% block head %}
-  <link rel="stylesheet"
-        href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
-{% endblock head %}
+{% load static %}
+{% comment %} {% block head %}
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+{% endblock head %} {% endcomment %}
 {% block title %}
   Listar
 {% endblock title %}
 {% block main %}
+  {# djlint:off #}
+  <table id="workOrdersTable" class="w-full text-sm font-normal table-auto">
+    <thead class="text-primary bg-[#F0F0F0]"> 
+      <tr class="text-left">
+        <th class="p-4">ID</th>
+        <th class="p-4">Título</th>
+        <th class="p-4">Categoria</th>
+        <th class="p-4">Data de Criação</th>
+        <th class="p-4">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+  </table>
+  {# djlint:on #}
 {% endblock main %}
 {% block js %}
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+  <script src="{% static "vendor/datatables-bt-BR.js" %}"></script>
+  <script>
+    $(document).ready(function () {
+      $("#workOrdersTable").DataTable({
+        serverSide: true,
+        ajax: {
+          url: "{% url 'orders:workorder_list_json' %}",
+          type: "GET",
+        },
+        language: portuguese,
+        columns: [
+          { data: "id" },
+          { data: "title" },
+          { data: "category" }, 
+          { data: "created_at" }, 
+          { data: "status" },
+        ],
+        createdRow: function (row, data, dataIndex) {
+          $("td", row).addClass("p-4");
+          $(row).addClass("border-b")
+        },
+      });
+    });
+  </script>
 {% endblock js %}
