@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# check if tailwindcss is in bin
-if [ ! -d "bin/tailwindcss" ]; then
+# Check if tailwindcss cli is downloaded
+if [ ! -f "./bin/tailwindcss" ]; then
   uv run script/download_tailwindcss_cli.py
 fi
 
