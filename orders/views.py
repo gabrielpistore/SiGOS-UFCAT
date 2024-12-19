@@ -62,13 +62,15 @@ class WorkOrderListViewJSONResponse(View):
         search_value = request.GET.get("search[value]", "")
 
         # Default sorting
-        order_column_index = int(request.GET.get("order[0][column]", 0))
-        order_dir = request.GET.get("order[0][dir]", "asc")
+        order_column_index = int(
+            request.GET.get("order[0][column]", 3)
+        )  # Default to 'created_at' column
+        order_dir = request.GET.get("order[0][dir]", "desc")
         columns = ["id", "title", "category", "created_at", "status"]
 
         # Validate column index
         if order_column_index >= len(columns):
-            order_column_index = 0
+            order_column_index = 3  # Default to 'created_at' column
 
         # Build ordering query
         sort_column = columns[order_column_index]

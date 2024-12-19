@@ -1,8 +1,9 @@
 {% extends "global/base.html" %}
 {% load static %}
-{% comment %} {% block head %}
-  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
-{% endblock head %} {% endcomment %}
+{% block head %}
+  <link rel="stylesheet"
+        href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+{% endblock head %}
 {% block title %}
   Listar
 {% endblock title %}
@@ -11,11 +12,11 @@
   <table id="workOrdersTable" class="w-full text-sm font-normal table-auto">
     <thead class="text-primary bg-[#F0F0F0]"> 
       <tr class="text-left">
-        <th class="p-4">ID</th>
-        <th class="p-4">Título</th>
-        <th class="p-4">Categoria</th>
-        <th class="p-4">Data de Criação</th>
-        <th class="p-4">Status</th>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Categoria</th>
+        <th>Data de Criação</th>
+        <th>Status</th>
       </tr>
     </thead>
     <tbody>
@@ -43,8 +44,14 @@
           { data: "created_at" }, 
           { data: "status" },
         ],
+        pagingType: "simple",
+        layout: {
+          topStart: "pageLength",
+          topEnd: "",
+          bottomStart: "info",
+          bottemEnd: "paginate"
+        },
         createdRow: function (row, data, dataIndex) {
-          $("td", row).addClass("p-4");
           $(row).addClass("border-b")
         },
       });

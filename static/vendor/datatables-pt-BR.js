@@ -1,6 +1,6 @@
 const portuguese = {
   emptyTable: "Nenhum registro encontrado",
-  info: "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+  info: "_START_ - _END_ de _TOTAL_ items",
   infoFiltered: "(Filtrados de _MAX_ registros)",
   infoThousands: ".",
   loadingRecords: "Carregando...",
@@ -65,7 +65,7 @@ const portuguese = {
     fillHorizontal: "Preencher células horizontalmente",
     fillVertical: "Preencher células verticalmente",
   },
-  lengthMenu: "Exibir _MENU_ resultados por página",
+  lengthMenu: "Exibir _MENU_",
   searchBuilder: {
     add: "Adicionar Condição",
     button: {
