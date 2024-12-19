@@ -8,11 +8,12 @@
   Listar
 {% endblock title %}
 {% block main %}
+  <h2 class="text-lg font-semibold">Solicitações</h2>
   {# djlint:off #}
   <table id="workOrdersTable" class="w-full text-sm font-normal table-auto">
     <thead class="text-primary bg-[#F0F0F0]"> 
       <tr class="text-left">
-        <th>ID</th>
+        <th>Id</th>
         <th>Título</th>
         <th>Categoria</th>
         <th>Data de Criação</th>
@@ -46,14 +47,23 @@
         ],
         pagingType: "simple",
         layout: {
-          topStart: "pageLength",
+          topStart: "",
           topEnd: "",
-          bottomStart: "info",
+            bottomStart: [
+              "pageLength",
+              {
+                "div": {
+                  "className": "text-gray-400",
+                  "text": "|"
+                }
+              },
+              "info", 
+            ],
           bottemEnd: "paginate"
         },
         createdRow: function (row, data, dataIndex) {
           $(row).addClass("border-b")
-        },
+        }
       });
     });
   </script>

@@ -1,6 +1,6 @@
 const portuguese = {
   emptyTable: "Nenhum registro encontrado",
-  info: "_START_ - _END_ de _TOTAL_ items",
+  info: "_START_ - _END_ de _TOTAL_ itens",
   infoFiltered: "(Filtrados de _MAX_ registros)",
   infoThousands: ".",
   loadingRecords: "Carregando...",
