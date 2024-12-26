@@ -12,4 +12,5 @@ dependencies = [
     "fontawesomefree>=6.6.0",
     "requests>=2.32.3",
     "faker>=33.1.0",
+    "django-htmx>=1.21.0",
 ]

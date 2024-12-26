@@ -7,10 +7,10 @@ const portuguese = {
   zeroRecords: "Nenhum registro encontrado",
   search: "Pesquisar",
   paginate: {
-    next: "Próximo",
-    previous: "Anterior",
-    first: "Primeiro",
-    last: "Último",
+    next: ">",
+    previous: "<",
+    first: "<<",
+    last: ">>",
   },
   aria: {
     sortAscending: ": Ordenar colunas de forma ascendente",

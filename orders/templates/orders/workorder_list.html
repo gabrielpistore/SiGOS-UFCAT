@@ -1,8 +1,7 @@
 {% extends "global/base.html" %}
 {% load static %}
 {% block head %}
-  <link rel="stylesheet"
-        href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+  <link rel="stylesheet" href="{% static "css/custom-data-Tables.css" %}">
 {% endblock head %}
 {% block title %}
   Listar
@@ -10,7 +9,7 @@
 {% block main %}
   <h2 class="text-lg font-semibold">Solicitações</h2>
   {# djlint:off #}
-  <table id="workOrdersTable" class="w-full text-sm font-normal table-auto">
+  <table id="workOrdersTable" class="w-full text-sm font-normal table-auto display">
     <thead class="text-primary bg-[#F0F0F0]"> 
       <tr class="text-left">
         <th>Id</th>
@@ -19,16 +18,13 @@
         <th>Data de Criação</th>
         <th>Status</th>
       </tr>
-    </thead>
-    <tbody>
-    </tbody>
   </table>
   {# djlint:on #}
 {% endblock main %}
 {% block js %}
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
-  <script src="{% static "vendor/datatables-pt-BR.js" %}"></script>
+  <script src="{% static "vendor/dataTables-pt-br.js" %}"></script>
   <script>
     $(document).ready(function () {
       $("#workOrdersTable").DataTable({
@@ -45,7 +41,8 @@
           { data: "created_at" }, 
           { data: "status" },
         ],
-        pagingType: "simple",
+        order: [[3, "desc"]],
+        pagingType: "full",
         layout: {
           topStart: "",
           topEnd: "",
