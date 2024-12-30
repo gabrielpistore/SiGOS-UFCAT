@@ -7,7 +7,7 @@
   Listar
 {% endblock title %}
 {% block main %}
-  <h2 class="text-lg font-semibold">Solicitações</h2>
+  {% include "orders/partials/workorder_list_filters.html" %}
   {# djlint:off #}
   <table id="workOrdersTable" class="w-full text-sm font-normal table-auto display">
     <thead class="text-primary bg-[#F0F0F0]"> 
