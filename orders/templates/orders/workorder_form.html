@@ -3,21 +3,22 @@
   Cadastrar
 {% endblock title %}
 {% block main %}
-  <form action="{% url "orders:workorder_form" %}" method="post" class="text-xs md:text-sm">
+  <h1 class="mb-8 text-5xl font-extralight">Cadastro Ordem de Serviço</h1>
+  <form action="{% url "orders:workorder_form" %}"
+        method="post"
+        class="text-xs md:text-sm">
     {% csrf_token %}
     {% include "orders/partials/personal_info.html" %}
     {% include "orders/partials/order_details.html" %}
     {% include "orders/partials/report_details.html" %}
     <div class="flex justify-between">
-      <button type="reset"
-              class="btn text-primary hover:bg-primary/[.08]">
+      <button type="reset" class="btn text-primary hover:bg-primary/[.08]">
         <i class="mr-2 fa-solid fa-eraser"></i>Limpar Dados
       </button>
       <div class="flex gap-4">
         <a href="{% url "orders:home" %}"
            class="btn border text-primary border-primary hover:bg-primary/[.08]">Cancelar</a>
-        <button type="submit"
-                class="btn text-white bg-primary hover:bg-primary/[.6]">Enviar Dados</button>
+        <button type="submit" class="btn text-white bg-primary hover:bg-primary/[.6]">Enviar Dados</button>
       </div>
     </div>
   </form>

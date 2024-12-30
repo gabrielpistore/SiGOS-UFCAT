@@ -14,7 +14,7 @@ $(document).ready(function () {
       { data: "status" },
       { data: "actions", orderable: false },
     ],
-    order: [[3, "desc"]],
+    order: [],
     pagingType: "simple",
     layout: {
       topStart: "",

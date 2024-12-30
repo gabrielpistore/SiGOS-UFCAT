@@ -1,6 +1,5 @@
 from django import forms
 from django.core.paginator import Paginator
-from django.db.models import Q
 from django.http import JsonResponse
 from django.utils import timezone
 from django.views import View

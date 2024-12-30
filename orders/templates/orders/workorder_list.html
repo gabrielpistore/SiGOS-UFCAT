@@ -7,7 +7,8 @@
   Listar
 {% endblock title %}
 {% block main %}
-  {% include "orders/partials/workorder_list_filters.html" %}
+  <h1 class="mb-8 text-5xl font-extralight">Lista de Solicitações</h1>
+  {% comment %} {% include "orders/partials/workorder_list_filters.html" %} {% endcomment %}
   {# djlint:off #}
   <table id="workOrdersTable" class="w-full text-sm font-normal table-auto display">
     <thead class="text-primary bg-[#F0F0F0]"> 
@@ -23,7 +24,7 @@
   {# djlint:on #}
 {% endblock main %}
 {% block js %}
-  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+  <script src="{% static "vendor/dataTables.min.js" %}"></script>
   <script src="{% static "vendor/dataTables-pt-br.js" %}"></script>
   <script src="{% static "orders/js/workorder_list.js" %}"></script>
 {% endblock js %}
