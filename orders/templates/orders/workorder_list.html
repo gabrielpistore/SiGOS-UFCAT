@@ -17,51 +17,13 @@
         <th>Categoria</th>
         <th>Data de Criação</th>
         <th>Status</th>
+        <th>Ações</th>
       </tr>
   </table>
   {# djlint:on #}
 {% endblock main %}
 {% block js %}
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
   <script src="{% static "vendor/dataTables-pt-br.js" %}"></script>
-  <script>
-    $(document).ready(function () {
-      $("#workOrdersTable").DataTable({
-        serverSide: true,
-        ajax: {
-          url: "{% url 'orders:workorder_list_json' %}",
-          type: "GET",
-        },
-        language: portuguese,
-        columns: [
-          { data: "id" },
-          { data: "title" },
-          { data: "category" }, 
-          { data: "created_at" }, 
-          { data: "status" },
-        ],
-        order: [[3, "desc"]],
-        pagingType: "simple",
-        layout: {
-          topStart: "",
-          topEnd: "",
-            bottomStart: [
-              "pageLength",
-              {
-                "div": {
-                  "className": "text-gray-400",
-                  "text": "|"
-                }
-              },
-              "info", 
-            ],
-          bottemEnd: "paginate"
-        },
-        createdRow: function (row, data, dataIndex) {
-          $(row).addClass("border-b")
-        }
-      });
-    });
-  </script>
+  <script src="{% static "orders/js/workorder_list.js" %}"></script>
 {% endblock js %}

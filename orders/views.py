@@ -59,18 +59,11 @@ class WorkOrderListViewJSONResponse(View):
         draw = int(request.GET.get("draw", 1))
         start = int(request.GET.get("start", 0))
         length = int(request.GET.get("length", 10))
-        search_value = request.GET.get("search[value]", "")
 
-        # Default sorting
-        order_column_index = int(
-            request.GET.get("order[0][column]", 3)
-        )  # Default to 'created_at' column
+        # Default to 'created_at' column
+        order_column_index = int(request.GET.get("order[0][column]", 3))
         order_dir = request.GET.get("order[0][dir]", "desc")
-        columns = ["id", "title", "category", "created_at", "status"]
-
-        # Validate column index
-        if order_column_index >= len(columns):
-            order_column_index = 3  # Default to 'created_at' column
+        columns = ["id", "title", "category", "created_at", "status", "actions"]
 
         # Build ordering query
         sort_column = columns[order_column_index]
@@ -79,12 +72,6 @@ class WorkOrderListViewJSONResponse(View):
 
         # Queryset with search filtering
         queryset = WorkOrder.objects.all().select_related("category")
-        if search_value:
-            queryset = queryset.filter(
-                Q(title__icontains=search_value)
-                | Q(status__icontains=search_value)
-                | Q(category__name__icontains=search_value)
-            )
 
         # Apply sorting
         queryset = queryset.order_by(sort_column)
@@ -103,6 +90,16 @@ class WorkOrderListViewJSONResponse(View):
                 "status": work_order.status,
                 "created_at": work_order.created_at.strftime("%d/%m/%Y"),
                 "category": work_order.category.name if work_order.category else "",
+                "actions": f"""
+                    <div class="flex gap-2 text-primary">
+                        <a href="#">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                        <button data-id="{work_order.id}" class="">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                """,
             }
             for work_order in page.object_list
         ]
@@ -125,3 +122,7 @@ class WorkOrderListView(ListView):
         return (
             super().get_queryset().prefetch_related("category", "responsible_employee")
         )
+
+
+class WorkOrderDeleteView:
+    pass
