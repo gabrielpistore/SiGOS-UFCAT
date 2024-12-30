@@ -91,10 +91,10 @@ class WorkOrderListViewJSONResponse(View):
                 "category": work_order.category.name if work_order.category else "",
                 "actions": f"""
                     <div class="flex gap-2 text-primary">
-                        <a href="#">
+                        <a href="">
                             <i class="fa-solid fa-pen-to-square"></i>
-                        </a>
-                        <button data-id="{work_order.id}" class="">
+                        </a>                        
+                        <button data-work-order-id="{work_order.id}" class="delete-work-order">
                             <i class="fa-solid fa-trash"></i>
                         </button>
                     </div>
@@ -123,5 +123,11 @@ class WorkOrderListView(ListView):
         )
 
 
-class WorkOrderDeleteView:
-    pass
+class WorkOrderDeleteView(View):
+    def delete(self, request, pk, *args, **kwargs):
+        try:
+            work_order = WorkOrder.objects.get(pk=pk)
+            work_order.delete()
+            return JsonResponse({"success": True})
+        except WorkOrder.DoesNotExist:
+            return JsonResponse({"error": "Work order not found."}, status=404)

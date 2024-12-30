@@ -27,4 +27,23 @@
   <script src="{% static "vendor/dataTables.min.js" %}"></script>
   <script src="{% static "vendor/dataTables-pt-br.js" %}"></script>
   <script src="{% static "orders/js/workorder_list.js" %}"></script>
+  <script>
+    $(document).on("click", ".delete-work-order", function () {
+      const workOrderId = $(this).data("work-order-id");
+      if (confirm("Certeza que deseja excluir?")) {
+        $.ajax({
+          url: `./${workOrderId}/deletar/`,
+          type: "DELETE",
+          headers: { "X-CSRFToken": "{{ csrf_token }}" },
+          success: function (response) {
+            alert("Ordem de serviço excluída com sucesso.");
+            $("#workOrdersTable").DataTable().ajax.reload();
+          },
+          error: function (xhr) {
+            alert("Erro ao excluir ordem de serviço.");
+          },
+        });
+      }
+    });
+  </script>
 {% endblock js %}
