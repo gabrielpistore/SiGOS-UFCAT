@@ -3,7 +3,7 @@ import random
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 from faker import Faker
-
+from django.core.management import call_command
 from orders.models import Category, Department, Employee, WorkOrder
 
 fake = Faker("pt_BR")
@@ -20,7 +20,7 @@ class Command(BaseCommand):
         for _ in range(10):
             category = Category.objects.create(name=fake.word().capitalize())
             categories.append(category)
-        self.stdout.write(f"Created {len(categories)} categories.")
+        self.stdout.write(self.style.SUCCESS(f"Created {len(categories)} categories."))
 
         # Create Employees
         employees = []
@@ -31,24 +31,31 @@ class Command(BaseCommand):
                 mobile_phone=fake.phone_number(),
             )
             employees.append(employee)
-        self.stdout.write(f"Created {len(employees)} employees.")
+        self.stdout.write(self.style.SUCCESS(f"Created {len(employees)} employees."))
 
         # Ensure departments are populated
         departments = list(Department.objects.all())
         if not departments:
-            self.stdout.write(self.style.WARNING("No departments found! Please populate the Department model first."))
-            return
-        self.stdout.write(f"Found {len(departments)} departments.")
+            call_command("populate_dept")
+            departments = list(Department.objects.all())
 
         levels = [choice[0] for choice in WorkOrder.LEVEL]
         statuses = [choice[0] for choice in WorkOrder.STATUS]
 
         # Create Work Orders
         for _ in range(50):
-            opening_date = timezone.make_aware(fake.date_time_this_year(), timezone.get_current_timezone())
-            closing_date = timezone.make_aware(fake.date_time_this_year(), timezone.get_current_timezone())
-            service_start_date = timezone.make_aware(fake.date_time_this_year(), timezone.get_current_timezone())
-            service_end_date = timezone.make_aware(fake.date_time_this_year(), timezone.get_current_timezone())
+            opening_date = timezone.make_aware(
+                fake.date_time_this_year(), timezone.get_current_timezone()
+            )
+            closing_date = timezone.make_aware(
+                fake.date_time_this_year(), timezone.get_current_timezone()
+            )
+            service_start_date = timezone.make_aware(
+                fake.date_time_this_year(), timezone.get_current_timezone()
+            )
+            service_end_date = timezone.make_aware(
+                fake.date_time_this_year(), timezone.get_current_timezone()
+            )
 
             WorkOrder.objects.create(
                 requested_by=fake.name(),
@@ -72,5 +79,5 @@ class Command(BaseCommand):
                 updated_at=timezone.now(),
             )
 
-        self.stdout.write("Created 50 work orders.")
+        self.stdout.write(self.style.SUCCESS("Created 50 work orders."))
         self.stdout.write(self.style.SUCCESS("Completed."))

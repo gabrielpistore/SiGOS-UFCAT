@@ -3,7 +3,7 @@ from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.utils import timezone
 from django.views import View
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 
 from orders.models import WorkOrder
@@ -53,6 +53,16 @@ class WorkOrderCreateView(CreateView):
         return form
 
 
+class WorkOrderListView(ListView):
+    model = WorkOrder
+    context_object_name = "work_orders"
+
+    def get_queryset(self):
+        return (
+            super().get_queryset().prefetch_related("category", "responsible_employee")
+        )
+
+
 class WorkOrderListViewJSONResponse(View):
     def get(self, request, *args, **kwargs):
         draw = int(request.GET.get("draw", 1))
@@ -91,7 +101,7 @@ class WorkOrderListViewJSONResponse(View):
                 "category": work_order.category.name if work_order.category else "",
                 "actions": f"""
                     <div class="flex gap-2 text-primary">
-                        <a href="">
+                        <a href="{work_order.id}/editar/">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>                        
                         <button data-work-order-id="{work_order.id}" class="delete-work-order">
@@ -113,17 +123,7 @@ class WorkOrderListViewJSONResponse(View):
         )
 
 
-class WorkOrderListView(ListView):
-    model = WorkOrder
-    context_object_name = "work_orders"
-
-    def get_queryset(self):
-        return (
-            super().get_queryset().prefetch_related("category", "responsible_employee")
-        )
-
-
-class WorkOrderDeleteView(View):
+class WorkOrderDeleteViewJSONResponse(View):
     def delete(self, request, pk, *args, **kwargs):
         try:
             work_order = WorkOrder.objects.get(pk=pk)
@@ -131,3 +131,19 @@ class WorkOrderDeleteView(View):
             return JsonResponse({"success": True})
         except WorkOrder.DoesNotExist:
             return JsonResponse({"error": "Work order not found."}, status=404)
+
+
+class WorkOrderUpdateView(UpdateView):
+    model = WorkOrder
+    fields = "__all__"
+    success_url = "/"
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields["service_start_date"].widget = forms.DateInput(
+            attrs={"type": "date"}
+        )
+        form.fields["service_end_date"].widget = forms.DateInput(attrs={"type": "date"})
+        form.fields["opening_date"].widget = forms.DateInput(attrs={"type": "date"})
+        form.fields["closing_date"].widget = forms.DateInput(attrs={"type": "date"})
+        return form

@@ -57,7 +57,8 @@ class Command(BaseCommand):
 
         for dept_name in dept_names:
             _, created = Department.objects.get_or_create(name=dept_name)
-            if created:
-                self.stdout.write(self.style.SUCCESS(f"Added department: {dept_name}"))
-            else:
-                self.stdout.write(self.style.WARNING(f"Department already exists: {dept_name}"))
+            if not created:
+                self.stdout.write(
+                    self.style.WARNING(f"Department already exists: {dept_name}")
+                )
+        self.stdout.write(self.style.SUCCESS(f"Created {len(dept_names)} departments."))
