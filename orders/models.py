@@ -50,21 +50,41 @@ class WorkOrder(models.Model):
     )
 
     requested_by = models.CharField(max_length=100, verbose_name="Solicitante")
-    dept_name = models.ForeignKey(Department, verbose_name="Departamento", on_delete=models.DO_NOTHING)
+    dept_name = models.ForeignKey(
+        Department, verbose_name="Departamento", on_delete=models.DO_NOTHING
+    )
     email = models.EmailField()
     phone = models.CharField(max_length=20, verbose_name="Celular")
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="Categoria")
-    responsible_employee = models.ForeignKey(
-        Employee, on_delete=models.DO_NOTHING, verbose_name="Funcionário Responsável"
+    category = models.ForeignKey(
+        Category, on_delete=models.CASCADE, verbose_name="Categoria"
     )
-    impact = models.CharField(max_length=25, choices=LEVEL, blank=True, null=True, verbose_name="Impacto")
-    urgency = models.CharField(max_length=25, choices=LEVEL, blank=True, null=True, verbose_name="Urgência")
-    priority = models.CharField(max_length=25, choices=LEVEL, blank=True, null=True, verbose_name="Prioridade")
+    responsible_employee = models.ForeignKey(
+        Employee,
+        on_delete=models.DO_NOTHING,
+        verbose_name="Funcionário Responsável",
+        blank=True,
+        null=True,
+    )
+    impact = models.CharField(
+        max_length=25, choices=LEVEL, blank=True, null=True, verbose_name="Impacto"
+    )
+    urgency = models.CharField(
+        max_length=25, choices=LEVEL, blank=True, null=True, verbose_name="Urgência"
+    )
+    priority = models.CharField(
+        max_length=25, choices=LEVEL, blank=True, null=True, verbose_name="Prioridade"
+    )
     location = models.CharField(max_length=100, verbose_name="Local do Serviço")
     opening_date = models.DateTimeField(verbose_name="Data de Abertura")
-    closing_date = models.DateTimeField(blank=True, null=True, verbose_name="Data de Fechamento")
-    service_start_date = models.DateTimeField(blank=True, null=True, verbose_name="Data de Início do Serviço")
-    service_end_date = models.DateTimeField(blank=True, null=True, verbose_name="Data de Término do Serviço")
+    closing_date = models.DateTimeField(
+        blank=True, null=True, verbose_name="Data de Fechamento"
+    )
+    service_start_date = models.DateTimeField(
+        blank=True, null=True, verbose_name="Data de Início do Serviço"
+    )
+    service_end_date = models.DateTimeField(
+        blank=True, null=True, verbose_name="Data de Término do Serviço"
+    )
     status = models.CharField(max_length=25, choices=STATUS, verbose_name="Status")
     title = models.CharField(max_length=50, verbose_name="Título do Relato")
     report_description = models.TextField(verbose_name="Detalhamento do Relato")

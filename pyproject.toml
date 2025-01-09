@@ -13,4 +13,5 @@ dependencies = [
     "requests>=2.32.3",
     "faker>=33.1.0",
     "django-htmx>=1.21.0",
+    "django-cors-headers>=4.6.0",
 ]
