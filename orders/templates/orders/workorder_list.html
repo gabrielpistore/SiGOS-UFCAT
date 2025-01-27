@@ -8,10 +8,9 @@
 {% endblock title %}
 {% block main %}
   <h1 class="mb-8 text-5xl font-extralight">Lista de Solicitações</h1>
-  {% comment %} {% include "orders/partials/workorder_list_filters.html" %} {% endcomment %}
-  {# djlint:off #}
-  <table id="workOrdersTable" class="w-full text-sm font-normal table-auto display">
-    <thead class="text-primary bg-[#F0F0F0]"> 
+  <table id="workOrdersTable"
+         class="w-full text-sm font-normal table-auto display">
+    <thead class="text-primary bg-[#F0F0F0]">
       <tr class="text-left">
         <th>Id</th>
         <th>Título</th>
@@ -20,8 +19,8 @@
         <th>Status</th>
         <th>Ações</th>
       </tr>
+    </thead>
   </table>
-  {# djlint:on #}
 {% endblock main %}
 {% block js %}
   <script src="{% static "vendor/dataTables.min.js" %}"></script>
@@ -36,12 +35,8 @@
           type: "DELETE",
           headers: { "X-CSRFToken": "{{ csrf_token }}" },
           success: function (response) {
-            alert("Ordem de serviço excluída com sucesso.");
             $("#workOrdersTable").DataTable().ajax.reload();
-          },
-          error: function (xhr) {
-            alert("Erro ao excluir ordem de serviço.");
-          },
+          }
         });
       }
     });
