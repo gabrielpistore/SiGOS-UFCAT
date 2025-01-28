@@ -8,6 +8,13 @@
         method="post"
         class="text-xs md:text-sm">
     {% csrf_token %}
+    {% if form.non_field_errors %}
+      <div class="p-4 mb-6 text-center text-red-600 border border-red-200 rounded-lg bg-red-50">
+        <ul>
+          {% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
+        </ul>
+      </div>
+    {% endif %}
     {% include "orders/partials/personal_info.html" %}
     {% include "orders/partials/order_details.html" %}
     {% include "orders/partials/report_details.html" %}

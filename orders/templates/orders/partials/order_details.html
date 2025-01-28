@@ -11,10 +11,20 @@
       <div class="flex flex-col gap-1">
         <label for="{{ form.category.id_for_label }}">Categoria</label>
         {% render_field form.category class="input" %}
+        {% if form.category.errors %}
+          <div class="text-sm text-red-500">
+            {% for error in form.category.errors %}<p>{{ error }}</p>{% endfor %}
+          </div>
+        {% endif %}
       </div>
       <div class="flex flex-col gap-1">
         <label for="{{ form.responsible_employee.id_for_label }}">Funcionário Responsável</label>
         {% render_field form.responsible_employee class="input" %}
+        {% if form.responsible_employee.errors %}
+          <div class="text-sm text-red-500">
+            {% for error in form.responsible_employee.errors %}<p>{{ error }}</p>{% endfor %}
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>
@@ -25,14 +35,29 @@
       <div class="flex flex-col gap-1">
         <label for="{{ form.impact.id_for_label }}">Impacto</label>
         {% render_field form.impact class="input" %}
+        {% if form.impact.errors %}
+          <div class="text-sm text-red-500">
+            {% for error in form.impact.errors %}<p>{{ error }}</p>{% endfor %}
+          </div>
+        {% endif %}
       </div>
       <div class="flex flex-col gap-1">
         <label for="{{ form.urgency.id_for_label }}">Urgência</label>
         {% render_field form.urgency class="input" %}
+        {% if form.urgency.errors %}
+          <div class="text-sm text-red-500">
+            {% for error in form.urgency.errors %}<p>{{ error }}</p>{% endfor %}
+          </div>
+        {% endif %}
       </div>
       <div class="flex flex-col gap-1">
         <label for="{{ form.priority.id_for_label }}">Prioridade</label>
         {% render_field form.priority class="input" %}
+        {% if form.priority.errors %}
+          <div class="text-sm text-red-500">
+            {% for error in form.priority.errors %}<p>{{ error }}</p>{% endfor %}
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>
@@ -43,14 +68,29 @@
       <div class="flex flex-col gap-1">
         <label for="{{ form.location.id_for_label }}">Local</label>
         {% render_field form.location class="input" placeholder="Insira a localização" %}
+        {% if form.location.errors %}
+          <div class="text-sm text-red-500">
+            {% for error in form.location.errors %}<p>{{ error }}</p>{% endfor %}
+          </div>
+        {% endif %}
       </div>
       <div class="flex flex-col gap-1">
         <label for="{{ form.service_start_date.id_for_label }}">Data de Início</label>
         {% render_field form.service_start_date class="input" placeholder="Insira a data de início" %}
+        {% if form.service_start_date.errors %}
+          <div class="text-sm text-red-500">
+            {% for error in form.service_start_date.errors %}<p>{{ error }}</p>{% endfor %}
+          </div>
+        {% endif %}
       </div>
       <div class="flex flex-col gap-1">
         <label for="{{ form.service_end_date.id_for_label }}">Data de Término</label>
         {% render_field form.service_end_date class="input" placeholder="Insira a data de término" %}
+        {% if form.service_end_date.errors %}
+          <div class="text-sm text-red-500">
+            {% for error in form.service_end_date.errors %}<p>{{ error }}</p>{% endfor %}
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>
@@ -61,14 +101,29 @@
       <div class="flex flex-col gap-1">
         <label for="{{ form.status.id_for_label }}">Status</label>
         {% render_field form.status class="input" %}
+        {% if form.status.errors %}
+          <div class="text-sm text-red-500">
+            {% for error in form.status.errors %}<p>{{ error }}</p>{% endfor %}
+          </div>
+        {% endif %}
       </div>
       <div class="flex flex-col gap-1">
         <label for="{{ form.opening_date.id_for_label }}">Data de Abertura</label>
         {% render_field form.opening_date class="input" placeholder="Insira a data de abertura" %}
+        {% if form.opening_date.errors %}
+          <div class="text-sm text-red-500">
+            {% for error in form.opening_date.errors %}<p>{{ error }}</p>{% endfor %}
+          </div>
+        {% endif %}
       </div>
       <div class="flex flex-col gap-1">
         <label for="{{ form.closing_date.id_for_label }}">Data de Encerramento</label>
         {% render_field form.closing_date class="input" placeholder="Insira a data de encerramento" %}
+        {% if form.closing_date.errors %}
+          <div class="text-sm text-red-500">
+            {% for error in form.closing_date.errors %}<p>{{ error }}</p>{% endfor %}
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>

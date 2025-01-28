@@ -4,6 +4,11 @@
 {% endblock title %}
 {% block main %}
   <h1 class="mb-8 text-5xl font-extralight">Painel de Atividades</h1>
+  {% if messages %}
+    {% for message in messages %}
+      <div class="p-4 mb-6 text-center text-green-600 border border-green-200 rounded-lg bg-green-50">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
   <div class="grid grid-cols-3 gap-6">
     {% include "orders/partials/workorder_stats.html" %}
     {% include "orders/partials/workorder_chart.html" %}

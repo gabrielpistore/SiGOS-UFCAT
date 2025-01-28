@@ -10,10 +10,20 @@
       <div class="flex flex-col gap-1">
         <label for="{{ form.title.id_for_label }}">Título</label>
         {% render_field form.title class="input" placeholder="Insira o título do relato" %}
+        {% if form.title.errors %}
+          <div class="text-sm text-red-500">
+            {% for error in form.title.errors %}<p>{{ error }}</p>{% endfor %}
+          </div>
+        {% endif %}
       </div>
       <div class="flex flex-col gap-1">
         <label for="{{ form.report_description.id_for_label }}">Relato</label>
         {% render_field form.report_description class="input" placeholder="Insira o relato" %}
+        {% if form.report_description.errors %}
+          <div class="text-sm text-red-500">
+            {% for error in form.report_description.errors %}<p>{{ error }}</p>{% endfor %}
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>

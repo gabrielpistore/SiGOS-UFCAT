@@ -1,3 +1,5 @@
+from django.core.exceptions import ValidationError
+from django.core.validators import FileExtensionValidator
 from django.db import models
 
 
@@ -38,12 +40,14 @@ class Department(models.Model):
 
 class WorkOrder(models.Model):
     LEVEL = (
+        ("", "Selecione"),
         ("Baixo", "Baixo"),
         ("Médio", "Médio"),
         ("Alto", "Alto"),
         ("Crítico", "Crítico"),
     )
     STATUS = (
+        ("", "Selecione"),
         ("Aberto", "Aberto"),
         ("Em Andamento", "Em Andamento"),
         ("Fechado", "Fechado"),
@@ -91,11 +95,60 @@ class WorkOrder(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    # TODO: Add attachment field
+    def clean(self):
+        # Validate that opening_date is before closing_date
+        if self.closing_date and self.opening_date > self.closing_date:
+            raise ValidationError(
+                {
+                    "closing_date": "A data de fechamento deve ser posterior à data de abertura."
+                }
+            )
+
+        # Validate that service_start_date is before service_end_date
+        if self.service_start_date and self.service_end_date:
+            if self.service_start_date > self.service_end_date:
+                raise ValidationError(
+                    {
+                        "service_end_date": "A data de término do serviço deve ser posterior à data de início."
+                    }
+                )
+        super().clean()
 
     class Meta:
         verbose_name = "Ordem de Serviço"
         verbose_name_plural = "Ordens de Serviço"
+        ordering = ["-opening_date"]
 
     def __str__(self):
         return self.title
+
+
+class WorkOrderImage(models.Model):
+    work_order = models.ForeignKey(
+        WorkOrder,
+        on_delete=models.CASCADE,
+        related_name="images",
+        verbose_name="Ordem de Serviço",
+    )
+    image = models.ImageField(
+        upload_to="work_orders/%Y/%m/%d/",
+        validators=[FileExtensionValidator(allowed_extensions=["jpg", "jpeg", "png"])],
+        verbose_name="Imagem",
+    )
+    uploaded_at = models.DateTimeField(auto_now_add=True, verbose_name="Data de Upload")
+
+    class Meta:
+        verbose_name = "Imagem da Ordem de Serviço"
+        verbose_name_plural = "Imagens da Ordem de Serviço"
+
+    def __str__(self):
+        return f"Imagem {self.id} - {self.work_order.title}"
+
+    def clean(self):
+        # Limit the number of images to 3 per WorkOrder
+        if self.work_order.images.count() >= 3:
+            raise ValidationError("Cada ordem de serviço pode ter no máximo 3 imagens.")
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)

@@ -1,6 +1,6 @@
 import json
 
-from django import forms
+from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.utils import timezone
@@ -10,12 +10,13 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 
+from orders.forms import WorkOrderForm
 from orders.models import Category, Department, WorkOrder
 
 
 class HomeView(ListView):
     model = WorkOrder
-    template_name = "orders/index.html"
+    template_name = "orders/pages/home.html"
     context_object_name = "work_orders"
 
     def get_queryset(self):
@@ -43,18 +44,14 @@ class HomeView(ListView):
 
 class WorkOrderCreateView(CreateView):
     model = WorkOrder
-    fields = "__all__"
+    form_class = WorkOrderForm
+    template_name = "orders/pages/workorder_create_form.html"
     success_url = "/"
 
-    def get_form(self, form_class=None):
-        form = super().get_form(form_class)
-        form.fields["service_start_date"].widget = forms.DateInput(
-            attrs={"type": "date"}
-        )
-        form.fields["service_end_date"].widget = forms.DateInput(attrs={"type": "date"})
-        form.fields["opening_date"].widget = forms.DateInput(attrs={"type": "date"})
-        form.fields["closing_date"].widget = forms.DateInput(attrs={"type": "date"})
-        return form
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, "Ordem de serviço criada com sucesso!")
+        return response
 
 
 @method_decorator(csrf_exempt, name="dispatch")
@@ -89,8 +86,8 @@ class WorkOrderCreateAPIView(View):
                 location=data["location"],
                 title=data["title"],
                 report_description=data["report_description"],
-                status="Aberto",  # Default status
-                opening_date=timezone.now(),  # Automatically set opening date
+                status="Aberto",
+                opening_date=timezone.now(),
             )
 
             return JsonResponse(
@@ -108,6 +105,7 @@ class WorkOrderCreateAPIView(View):
 
 class WorkOrderListView(ListView):
     model = WorkOrder
+    template_name = "orders/pages/workorder_list.html"
     context_object_name = "work_orders"
 
     def get_queryset(self):
@@ -188,18 +186,9 @@ class WorkOrderDeleteViewJSONResponse(View):
 
 class WorkOrderUpdateView(UpdateView):
     model = WorkOrder
-    fields = "__all__"
+    form_class = WorkOrderForm
+    template_name = "orders/pages/workorder_update_form.html"
     success_url = "/"
-
-    def get_form(self, form_class=None):
-        form = super().get_form(form_class)
-        form.fields["service_start_date"].widget = forms.DateInput(
-            attrs={"type": "date"}
-        )
-        form.fields["service_end_date"].widget = forms.DateInput(attrs={"type": "date"})
-        form.fields["opening_date"].widget = forms.DateInput(attrs={"type": "date"})
-        form.fields["closing_date"].widget = forms.DateInput(attrs={"type": "date"})
-        return form
 
 
 class CategoryListAPIView(View):
