@@ -46,12 +46,12 @@ $(document).ready(function () {
   });
 
   // Apply filters
-  $("#applyFilters").on("click", function () {
+  $("#apply-filters").on("click", function () {
     table.ajax.reload(); // Reload the table with new filters
   });
 
   // Clear filters
-  $("#clearFilters").on("click", function () {
+  $("#clear-filters").on("click", function () {
     $("#filter-category").val("");
     $("#filter-id").val("");
     $("#filter-status").val("");
