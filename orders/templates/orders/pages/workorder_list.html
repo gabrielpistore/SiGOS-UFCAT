@@ -8,7 +8,11 @@
 {% endblock title %}
 {% block main %}
   <h1 class="mb-8 text-5xl font-extralight">Lista de Solicitações</h1>
-  <table id="workOrdersTable"
+  {% include "orders/partials/workorder_list_filters.html" %}
+  <hr class="my-12 border-t border-gray-300">
+  <h2>Solicitações</h2>
+  {# Table #}
+  <table id="workorder-table"
          class="w-full text-sm font-normal table-auto display">
     <thead class="text-primary bg-[#F0F0F0]">
       <tr class="text-left">

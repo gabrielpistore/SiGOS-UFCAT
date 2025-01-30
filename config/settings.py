@@ -131,10 +131,3 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # CORS
 
 CORS_ALLOW_ALL_ORIGINS = True
-
-
-# Date and time formats
-
-DATE_FORMAT = "d/m/Y"
-
-DATETIME_FORMAT = "d/m/Y H:i:s"

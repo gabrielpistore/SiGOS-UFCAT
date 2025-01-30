@@ -1,9 +1,18 @@
 $(document).ready(function () {
-  $("#workOrdersTable").DataTable({
+  const table = $("#workorder-table").DataTable({
     serverSide: true,
     ajax: {
       url: "../api/ordens/",
       type: "GET",
+      data: function (d) {
+        // Add filter parameters to the request
+        d.category = $("#filter-category").val();
+        d.id = $("#filter-id").val();
+        d.status = $("#filter-status").val();
+        d.location = $("#filter-location").val();
+        d.start_created_at = $("#filter-start-created-at").val();
+        d.end_created_at = $("#filter-end-created-at").val();
+      },
     },
     language: portuguese,
     columns: [
@@ -34,5 +43,21 @@ $(document).ready(function () {
     createdRow: function (row, data, dataIndex) {
       $(row).addClass("border-b");
     },
+  });
+
+  // Apply filters
+  $("#applyFilters").on("click", function () {
+    table.ajax.reload(); // Reload the table with new filters
+  });
+
+  // Clear filters
+  $("#clearFilters").on("click", function () {
+    $("#filter-category").val("");
+    $("#filter-id").val("");
+    $("#filter-status").val("");
+    $("#filter-location").val("");
+    $("#filter-start-created-at").val("");
+    $("#filter-end-created-at").val("");
+    table.ajax.reload(); // Reload the table without filters
   });
 });

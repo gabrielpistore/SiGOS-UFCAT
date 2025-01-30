@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.utils import timezone
+from django.utils.dateparse import parse_date
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
@@ -108,10 +109,10 @@ class WorkOrderListView(ListView):
     template_name = "orders/pages/workorder_list.html"
     context_object_name = "work_orders"
 
-    def get_queryset(self):
-        return (
-            super().get_queryset().prefetch_related("category", "responsible_employee")
-        )
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categories"] = Category.objects.all()
+        return context
 
 
 class WorkOrderListViewJSONResponse(View):
@@ -132,6 +133,37 @@ class WorkOrderListViewJSONResponse(View):
 
         # Queryset with search filtering
         queryset = WorkOrder.objects.all().select_related("category")
+
+        # Apply filters
+        category = request.GET.get("category")
+        if category:
+            queryset = queryset.filter(category__name=category)
+
+        id_filter = request.GET.get("id")
+        if id_filter:
+            queryset = queryset.filter(id=id_filter)
+
+        status = request.GET.get("status")
+        if status:
+            queryset = queryset.filter(status=status)
+
+        location = request.GET.get("location")
+        if location:
+            queryset = queryset.filter(location__icontains=location)
+
+        # Date range filter for created_at
+        start_created_at = request.GET.get("start_created_at")
+        end_created_at = request.GET.get("end_created_at")
+
+        if start_created_at:
+            start_date = parse_date(start_created_at)
+            if start_date:
+                queryset = queryset.filter(created_at__gte=start_date)
+
+        if end_created_at:
+            end_date = parse_date(end_created_at)
+            if end_date:
+                queryset = queryset.filter(created_at__lte=end_date)
 
         # Apply sorting
         queryset = queryset.order_by(sort_column)
