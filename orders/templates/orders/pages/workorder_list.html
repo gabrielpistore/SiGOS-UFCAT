@@ -9,8 +9,8 @@
 {% block main %}
   <h1 class="mb-8 text-5xl font-extralight">Lista de Solicitações</h1>
   {% include "orders/partials/workorder_list_filters.html" %}
-  <hr class="my-12 border-t border-gray-300">
-  <h2>Solicitações</h2>
+  <hr class="mb-6 border-t border-gray-300 mt-14">
+  <h2 class="text-base font-semibold">Solicitações</h2>
   {# Table #}
   <table id="workorder-table"
          class="w-full text-sm font-normal table-auto display">
@@ -39,7 +39,7 @@
           type: "DELETE",
           headers: { "X-CSRFToken": "{{ csrf_token }}" },
           success: function (response) {
-            $("#workOrdersTable").DataTable().ajax.reload();
+            $("#workorder-table").DataTable().ajax.reload();
           }
         });
       }
