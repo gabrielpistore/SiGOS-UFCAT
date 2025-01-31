@@ -3,6 +3,7 @@ import json
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import JsonResponse
+from django.urls import reverse_lazy
 from django.utils import timezone
 from django.utils.dateparse import parse_date
 from django.utils.decorators import method_decorator
@@ -220,7 +221,7 @@ class WorkOrderUpdateView(UpdateView):
     model = WorkOrder
     form_class = WorkOrderForm
     template_name = "orders/pages/workorder_update_form.html"
-    success_url = "/"
+    success_url = reverse_lazy("orders:workorder_list")
 
 
 class CategoryListAPIView(View):

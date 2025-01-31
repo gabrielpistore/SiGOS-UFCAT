@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "django_browser_reload",
     "django_htmx",
     "fontawesomefree",
+    "simple_history",
     "widget_tweaks",
     # Local
     "orders",
@@ -46,6 +47,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django_browser_reload.middleware.BrowserReloadMiddleware",
     "django_htmx.middleware.HtmxMiddleware",
+    "simple_history.middleware.HistoryRequestMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"

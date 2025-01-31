@@ -15,4 +15,5 @@ dependencies = [
     "django-htmx>=1.21.0",
     "django-cors-headers>=4.6.0",
     "pillow>=11.1.0",
+    "django-simple-history>=3.8.0",
 ]

@@ -112,6 +112,18 @@ wheels = [
 ]
 
 [[package]]
+name = "django-simple-history"
+version = "3.8.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/6c/46/4cbf411f9a8e426ed721785beb2cfd37c47cd5462697d92ff29dc6943d38/django_simple_history-3.8.0.tar.gz", hash = "sha256:e70d70fb4cc2af60a50904f1420d5a6440d24efddceba3daeff8b02d269ebdf0", size = 233906 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e2/f0/f09f87199a0b4e21a10314b02e04472a8cc601ead4990e813a0b3cc43f09/django_simple_history-3.8.0-py3-none-any.whl", hash = "sha256:7f8bbdaa5b2c4c1c9a48c89a95ff3389eda6c82cf9de9b09ae99b558205d132f", size = 142593 },
+]
+
+[[package]]
 name = "django-stubs"
 version = "5.1.1"
 source = { registry = "https://pypi.org/simple" }
@@ -253,6 +265,7 @@ dependencies = [
     { name = "django-browser-reload" },
     { name = "django-cors-headers" },
     { name = "django-htmx" },
+    { name = "django-simple-history" },
     { name = "django-stubs" },
     { name = "django-widget-tweaks" },
     { name = "faker" },
@@ -267,6 +280,7 @@ requires-dist = [
     { name = "django-browser-reload", specifier = ">=1.17.0" },
     { name = "django-cors-headers", specifier = ">=4.6.0" },
     { name = "django-htmx", specifier = ">=1.21.0" },
+    { name = "django-simple-history", specifier = ">=3.8.0" },
     { name = "django-stubs", specifier = ">=5.1.1" },
     { name = "django-widget-tweaks", specifier = ">=1.5.0" },
     { name = "faker", specifier = ">=33.1.0" },

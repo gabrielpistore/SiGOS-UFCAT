@@ -1,6 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator
 from django.db import models
+from simple_history.models import HistoricalRecords
 
 
 class Category(models.Model):
@@ -40,14 +41,12 @@ class Department(models.Model):
 
 class WorkOrder(models.Model):
     LEVEL = (
-        ("", "Selecione"),
         ("Baixo", "Baixo"),
         ("Médio", "Médio"),
         ("Alto", "Alto"),
         ("Crítico", "Crítico"),
     )
     STATUS = (
-        ("", "Selecione"),
         ("Aberto", "Aberto"),
         ("Em Andamento", "Em Andamento"),
         ("Fechado", "Fechado"),
@@ -94,6 +93,7 @@ class WorkOrder(models.Model):
     report_description = models.TextField(verbose_name="Detalhamento do Relato")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    history = HistoricalRecords()
 
     def clean(self):
         # Validate that opening_date is before closing_date
