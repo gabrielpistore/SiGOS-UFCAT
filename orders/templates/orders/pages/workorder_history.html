@@ -1,0 +1,30 @@
+{% extends "global/base.html" %}
+{% load static %}
+{% block head %}
+  <link rel="stylesheet" href="{% static "css/custom-data-tables.css" %}">
+{% endblock head %}
+{% block title %}
+  Histórico
+{% endblock title %}
+{% block main %}
+  <h1 class="mb-8 text-5xl font-extralight">Histórico</h1>
+  {# Table #}
+  <table id="workorder-history-table"
+         class="w-full text-sm font-normal table-auto display">
+    <thead class="text-primary bg-[#F0F0F0]">
+      <tr class="text-left">
+        <th>Ordem de Serviço</th>
+        <th>Data da Alteração</th>
+        <th>Usuário</th>
+        <th>Status Anterior</th>
+        <th>Status Atual</th>
+        <th>Alterações</th>
+      </tr>
+    </thead>
+  </table>
+{% endblock main %}
+{% block js %}
+  <script src="{% static "vendor/dataTables.min.js" %}"></script>
+  <script src="{% static "vendor/dataTables-pt-br.js" %}"></script>
+  <script src="{% static "orders/js/workorder_history_list.js" %}"></script>
+{% endblock js %}

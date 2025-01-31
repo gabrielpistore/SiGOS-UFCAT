@@ -1,6 +1,7 @@
 import json
 
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.urls import reverse_lazy
@@ -16,7 +17,7 @@ from orders.forms import WorkOrderForm
 from orders.models import Category, Department, WorkOrder
 
 
-class HomeView(ListView):
+class HomeView(LoginRequiredMixin, ListView):
     model = WorkOrder
     template_name = "orders/pages/home.html"
     context_object_name = "work_orders"
@@ -44,7 +45,7 @@ class HomeView(ListView):
         return context
 
 
-class WorkOrderCreateView(CreateView):
+class WorkOrderCreateView(LoginRequiredMixin, CreateView):
     model = WorkOrder
     form_class = WorkOrderForm
     template_name = "orders/pages/workorder_create_form.html"
@@ -105,7 +106,7 @@ class WorkOrderCreateAPIView(View):
             return JsonResponse({"error": "Invalid JSON"}, status=400)
 
 
-class WorkOrderListView(ListView):
+class WorkOrderListView(LoginRequiredMixin, ListView):
     model = WorkOrder
     template_name = "orders/pages/workorder_list.html"
     context_object_name = "work_orders"
@@ -116,7 +117,7 @@ class WorkOrderListView(ListView):
         return context
 
 
-class WorkOrderListViewJSONResponse(View):
+class WorkOrderListViewJSONResponse(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         draw = int(request.GET.get("draw", 1))
         start = int(request.GET.get("start", 0))
@@ -217,11 +218,119 @@ class WorkOrderDeleteViewJSONResponse(View):
             return JsonResponse({"error": "Work order not found."}, status=404)
 
 
-class WorkOrderUpdateView(UpdateView):
+class WorkOrderUpdateView(LoginRequiredMixin, UpdateView):
     model = WorkOrder
     form_class = WorkOrderForm
     template_name = "orders/pages/workorder_update_form.html"
     success_url = reverse_lazy("orders:workorder_list")
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        # Explicitly set the history_user
+        self.object.save()  # Ensure the object is saved first
+        self.object.history.last().history_user = self.request.user
+        self.object.history.last().save()
+        messages.success(self.request, "Ordem de serviço atualizada com sucesso!")
+        return response
+
+
+class WorkOrderHistoryListViewJSONResponse(View):
+    def get(self, request, *args, **kwargs):
+        # Extract DataTables parameters
+        draw = int(request.GET.get("draw", 1))
+        start = int(request.GET.get("start", 0))
+        length = int(request.GET.get("length", 10))
+        order_column_index = int(
+            request.GET.get("order[0][column]", 1)
+        )  # Default to "history_date"
+        order_dir = request.GET.get("order[0][dir]", "desc")
+
+        # Define column mappings for sorting
+        columns = [
+            "title",
+            "history_date",
+            "history_user",
+            "prev_status",
+            "status",
+            "changes",
+        ]
+
+        # Build ordering query
+        sort_column = columns[order_column_index]
+        if order_dir == "desc":
+            sort_column = f"-{sort_column}"
+
+        # Queryset with all historical records
+        queryset = (
+            WorkOrder.history.all().select_related("history_user").order_by(sort_column)
+        )
+
+        # Pagination
+        total_records = queryset.count()
+        paginated_queryset = queryset[start : start + length]
+
+        # Prepare response data
+        data = []
+        for record in paginated_queryset:
+            # Get previous status from the previous record
+            prev_status = record.prev_record.status if record.prev_record else None
+
+            # Get changes between the current and previous record
+            changes = []
+            if record.prev_record:
+                for change in record.diff_against(record.prev_record).changes:
+                    changes.append(
+                        {"field": change.field, "old": change.old, "new": change.new}
+                    )
+
+            data.append(
+                {
+                    "title": record.title,
+                    "history_date": record.history_date.isoformat(),
+                    "history_user": str(record.history_user)
+                    if record.history_user
+                    else None,
+                    "prev_status": prev_status,
+                    "status": record.status,
+                    "changes": changes,
+                }
+            )
+
+        # Return JSON response
+        return JsonResponse(
+            {
+                "draw": draw,
+                "recordsTotal": total_records,
+                "recordsFiltered": total_records,
+                "data": data,
+            }
+        )
+
+
+class WorkOrderHistoryListView(LoginRequiredMixin, ListView):
+    template_name = "orders/pages/workorder_history.html"
+    context_object_name = "all_history_records"
+    paginate_by = 20  # Optional: Add pagination for better performance
+
+    def get_queryset(self):
+        # Retrieve all historical records for all WorkOrders, ordered by history_date (newest first)
+        return WorkOrder.history.all().order_by("-history_date")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Precompute the changes for each historical record
+        history_records_with_changes = []
+        for record in context["all_history_records"]:
+            if record.prev_record:
+                changes = record.diff_against(record.prev_record).changes
+            else:
+                changes = None
+            history_records_with_changes.append((record, changes))
+
+        # Add the enriched data to the context
+        context["history_records_with_changes"] = history_records_with_changes
+        return context
 
 
 class CategoryListAPIView(View):
