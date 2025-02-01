@@ -18,5 +18,10 @@
         Cadastrar Ordem de Serviço
       </a>
     </li>
+    <li>
+      <a href="{% url "orders:workorder_history" %}" class="{% if request.path == "/ordens/historico/" %}text-secondary{% endif %}">
+        Histórico
+      </a>
+    </li>
   </ul>
 </nav>
