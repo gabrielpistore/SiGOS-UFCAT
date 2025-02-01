@@ -13,7 +13,7 @@ urlpatterns = [
     path("ordens/novo/", views.WorkOrderCreateView.as_view(), name="workorder_form"),
     path("ordens/historico/", views.WorkOrderHistoryListView.as_view(), name="workorder_history"),
     path("api/ordens/", views.WorkOrderListViewJSONResponse.as_view(), name="workorder_list_json"),
-    path("api/historico", views.WorkOrderHistoryListViewJSONResponse.as_view(), name="workorder_history_json"),
+    path("api/historico/", views.WorkOrderHistoryListViewJSONResponse.as_view(), name="workorder_history_json"),
     # UFCAT Mobile API
     path("api/ordens/novo/", views.WorkOrderCreateAPIView.as_view()),
     path("api/depts/", views.DeptListAPIView.as_view()),

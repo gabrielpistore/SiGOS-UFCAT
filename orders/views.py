@@ -10,6 +10,7 @@ from django.utils.dateparse import parse_date
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 
@@ -106,10 +107,8 @@ class WorkOrderCreateAPIView(View):
             return JsonResponse({"error": "Invalid JSON"}, status=400)
 
 
-class WorkOrderListView(LoginRequiredMixin, ListView):
-    model = WorkOrder
+class WorkOrderListView(LoginRequiredMixin, TemplateView):
     template_name = "orders/pages/workorder_list.html"
-    context_object_name = "work_orders"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -307,30 +306,8 @@ class WorkOrderHistoryListViewJSONResponse(View):
         )
 
 
-class WorkOrderHistoryListView(LoginRequiredMixin, ListView):
+class WorkOrderHistoryListView(LoginRequiredMixin, TemplateView):
     template_name = "orders/pages/workorder_history.html"
-    context_object_name = "all_history_records"
-    paginate_by = 20  # Optional: Add pagination for better performance
-
-    def get_queryset(self):
-        # Retrieve all historical records for all WorkOrders, ordered by history_date (newest first)
-        return WorkOrder.history.all().order_by("-history_date")
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        # Precompute the changes for each historical record
-        history_records_with_changes = []
-        for record in context["all_history_records"]:
-            if record.prev_record:
-                changes = record.diff_against(record.prev_record).changes
-            else:
-                changes = None
-            history_records_with_changes.append((record, changes))
-
-        # Add the enriched data to the context
-        context["history_records_with_changes"] = history_records_with_changes
-        return context
 
 
 class CategoryListAPIView(View):
