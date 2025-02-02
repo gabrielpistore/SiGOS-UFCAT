@@ -58,10 +58,8 @@ class WorkOrderListViewJSONResponse(LoginRequiredMixin, View):
         if order_dir == "desc":
             sort_column = f"-{sort_column}"
 
-        # Queryset with search filtering
         queryset = WorkOrder.objects.all().select_related("category")
 
-        # Apply filters
         category = request.GET.get("category")
         if category:
             queryset = queryset.filter(category__name=category)
@@ -78,10 +76,8 @@ class WorkOrderListViewJSONResponse(LoginRequiredMixin, View):
         if location:
             queryset = queryset.filter(location__icontains=location)
 
-        # Date range filter for created_at
         start_created_at = request.GET.get("start_created_at")
         end_created_at = request.GET.get("end_created_at")
-
         if start_created_at:
             start_date = parse_date(start_created_at)
             if start_date:
@@ -92,7 +88,6 @@ class WorkOrderListViewJSONResponse(LoginRequiredMixin, View):
             if end_date:
                 queryset = queryset.filter(created_at__lte=end_date)
 
-        # Apply sorting
         queryset = queryset.order_by(sort_column)
 
         # Pagination
@@ -101,7 +96,6 @@ class WorkOrderListViewJSONResponse(LoginRequiredMixin, View):
         current_page = (start // length) + 1
         page = paginator.get_page(current_page)
 
-        # Prepare response data
         data = [
             {
                 "id": work_order.id,
@@ -185,19 +179,18 @@ class WorkOrderHistoryListViewJSONResponse(View):
         draw = int(request.GET.get("draw", 1))
         start = int(request.GET.get("start", 0))
         length = int(request.GET.get("length", 10))
-        order_column_index = int(request.GET.get("order[0][column]", 1))
+        order_column_index = int(request.GET.get("order[0][column]", 5))
         order_dir = request.GET.get("order[0][dir]", "desc")
 
         columns = [
+            "id",
             "title",
-            "history_date",
             "history_user",
-            "prev_status",
             "status",
             "changes",
+            "history_date",
         ]
 
-        # Build ordering query
         sort_column = columns[order_column_index]
         if order_dir == "desc":
             sort_column = f"-{sort_column}"
@@ -206,30 +199,30 @@ class WorkOrderHistoryListViewJSONResponse(View):
             WorkOrder.history.all().select_related("history_user").order_by(sort_column)
         )
 
+        # pagination
         total_records = queryset.count()
         paginated_queryset = queryset[start : start + length]
 
         data = []
         for record in paginated_queryset:
+            len(paginated_queryset)
             if record.history_type == "+":
                 change_message = "Ordem criada"
             elif record.history_type == "-":
                 change_message = "Ordem deletada"
-            elif record.history_type == "~":
+            else:
                 change_message = "Ordem atualizada"
 
             data.append(
                 {
+                    "id": record.id,
                     "title": record.title,
-                    "history_date": record.history_date.isoformat(),
                     "history_user": str(record.history_user)
                     if record.history_user
                     else None,
-                    "prev_status": record.prev_record.status
-                    if record.prev_record
-                    else None,
-                    "status": record.status,
                     "changes": change_message,
+                    "status": record.status,
+                    "history_date": record.history_date.isoformat(),
                 }
             )
 

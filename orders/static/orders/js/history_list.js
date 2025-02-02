@@ -11,17 +11,8 @@ $(document).ready(function () {
     },
     language: portuguese,
     columns: [
-      {
-        data: "title",
-        name: "Ordem de Serviço",
-      },
-      {
-        data: "history_date",
-        name: "Data da Alteração",
-        render: function (data) {
-          return data ? new Date(data).toLocaleString() : "N/A";
-        },
-      },
+      { data: "id", name: "ID" },
+      { data: "title", name: "Ordem de Serviço" },
       {
         data: "history_user",
         name: "Usuário",
@@ -29,18 +20,18 @@ $(document).ready(function () {
           return data || "Sistema";
         },
       },
-      {
-        data: "prev_status",
-        name: "Status Anterior",
-      },
-      {
-        data: "status",
-        name: "Status Atual",
-      },
+      { data: "status", name: "Status" },
       {
         data: "changes",
-        name: "Alterações",
+        name: "Categoria/Tipo",
         orderable: false,
+      },
+      {
+        data: "history_date",
+        name: "Data da Alteração",
+        render: function (data) {
+          return data ? new Date(data).toLocaleString() : "N/A";
+        },
       },
     ],
     order: [],

@@ -1,9 +1,12 @@
 import random
+from datetime import timedelta
 
+from django.contrib.auth import get_user_model
+from django.core.management import call_command
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 from faker import Faker
-from django.core.management import call_command
+
 from orders.models import Category, Department, Employee, WorkOrder
 
 fake = Faker("pt_BR")
@@ -14,6 +17,11 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         self.stdout.write("Starting...")
+
+        # Create superuser
+        User = get_user_model()
+        if not User.objects.filter(username="admin").exists():
+            User.objects.create_superuser("admin", "", "admin")
 
         # Create Categories
         categories = []
@@ -42,19 +50,17 @@ class Command(BaseCommand):
         levels = [choice[0] for choice in WorkOrder.LEVEL]
         statuses = [choice[0] for choice in WorkOrder.STATUS]
 
-        # Create Work Orders
+        # Create orders
         for _ in range(50):
             opening_date = timezone.make_aware(
                 fake.date_time_this_year(), timezone.get_current_timezone()
             )
-            closing_date = timezone.make_aware(
-                fake.date_time_this_year(), timezone.get_current_timezone()
-            )
+            closing_date = opening_date + timedelta(days=random.randint(1, 10))
             service_start_date = timezone.make_aware(
                 fake.date_time_this_year(), timezone.get_current_timezone()
             )
-            service_end_date = timezone.make_aware(
-                fake.date_time_this_year(), timezone.get_current_timezone()
+            service_end_date = service_start_date + timedelta(
+                days=random.randint(1, 10)
             )
 
             WorkOrder.objects.create(
