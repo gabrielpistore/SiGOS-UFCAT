@@ -8,6 +8,7 @@
 {% endblock title %}
 {% block main %}
   <h1 class="mb-8 text-5xl font-extralight">Lista de Solicitações</h1>
+  {% include "orders/partials/messages.html" %}
   {% include "orders/partials/workorder_list_filters.html" %}
   <hr class="mb-6 border-t border-gray-300 mt-14">
   <h2 class="text-base font-semibold">Solicitações</h2>

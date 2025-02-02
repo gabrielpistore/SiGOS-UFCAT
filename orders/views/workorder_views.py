@@ -1,5 +1,3 @@
-import json
-
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
@@ -7,15 +5,13 @@ from django.http import JsonResponse
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.utils.dateparse import parse_date
-from django.utils.decorators import method_decorator
 from django.views import View
-from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 
 from orders.forms import WorkOrderForm
-from orders.models import Category, Department, WorkOrder
+from orders.models import Category, WorkOrder
 
 
 class HomeView(LoginRequiredMixin, ListView):
@@ -43,76 +39,6 @@ class HomeView(LoginRequiredMixin, ListView):
                 status="Fechado", created_at__year=current_year
             ).count(),
         }
-        return context
-
-
-class WorkOrderCreateView(LoginRequiredMixin, CreateView):
-    model = WorkOrder
-    form_class = WorkOrderForm
-    template_name = "orders/pages/workorder_create_form.html"
-    success_url = "/"
-
-    def form_valid(self, form):
-        response = super().form_valid(form)
-        messages.success(self.request, "Ordem de serviço criada com sucesso!")
-        return response
-
-
-@method_decorator(csrf_exempt, name="dispatch")
-class WorkOrderCreateAPIView(View):
-    def post(self, request, *args, **kwargs):
-        try:
-            data = json.loads(request.body)
-            required_fields = [
-                "requested_by",
-                "dept_name",
-                "phone",
-                "category",
-                "location",
-                "title",
-                "report_description",
-            ]
-
-            # Check if all required fields are present
-            if not all(field in data for field in required_fields):
-                return JsonResponse({"error": "Missing required fields"}, status=400)
-
-            # Get the related objects
-            dept = Department.objects.get(name=data["dept_name"])
-            cat = Category.objects.get(name=data["category"])
-
-            # Create WorkOrder
-            work_order = WorkOrder.objects.create(
-                requested_by=data["requested_by"],
-                dept_name=dept,
-                phone=data["phone"],
-                category=cat,
-                location=data["location"],
-                title=data["title"],
-                report_description=data["report_description"],
-                status="Aberto",
-                opening_date=timezone.now(),
-            )
-
-            return JsonResponse(
-                {"id": work_order.id, "message": "Work order created successfully"},
-                status=201,
-            )
-
-        except Department.DoesNotExist:
-            return JsonResponse({"error": "Department not found"}, status=404)
-        except Category.DoesNotExist:
-            return JsonResponse({"error": "Category not found"}, status=404)
-        except json.JSONDecodeError:
-            return JsonResponse({"error": "Invalid JSON"}, status=400)
-
-
-class WorkOrderListView(LoginRequiredMixin, TemplateView):
-    template_name = "orders/pages/workorder_list.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["categories"] = Category.objects.all()
         return context
 
 
@@ -207,14 +133,25 @@ class WorkOrderListViewJSONResponse(LoginRequiredMixin, View):
         )
 
 
-class WorkOrderDeleteViewJSONResponse(View):
-    def delete(self, request, pk, *args, **kwargs):
-        try:
-            work_order = WorkOrder.objects.get(pk=pk)
-            work_order.delete()
-            return JsonResponse({"success": True})
-        except WorkOrder.DoesNotExist:
-            return JsonResponse({"error": "Work order not found."}, status=404)
+class WorkOrderListView(LoginRequiredMixin, TemplateView):
+    template_name = "orders/pages/workorder_list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categories"] = Category.objects.all()
+        return context
+
+
+class WorkOrderCreateView(LoginRequiredMixin, CreateView):
+    model = WorkOrder
+    form_class = WorkOrderForm
+    template_name = "orders/pages/workorder_create_form.html"
+    success_url = "/"
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, "Ordem de serviço criada com sucesso!")
+        return response
 
 
 class WorkOrderUpdateView(LoginRequiredMixin, UpdateView):
@@ -233,18 +170,24 @@ class WorkOrderUpdateView(LoginRequiredMixin, UpdateView):
         return response
 
 
+class WorkOrderDeleteViewJSONResponse(View):
+    def delete(self, request, pk, *args, **kwargs):
+        try:
+            work_order = WorkOrder.objects.get(pk=pk)
+            work_order.delete()
+            return JsonResponse({"success": True})
+        except WorkOrder.DoesNotExist:
+            return JsonResponse({"error": "Work order not found."}, status=404)
+
+
 class WorkOrderHistoryListViewJSONResponse(View):
     def get(self, request, *args, **kwargs):
-        # Extract DataTables parameters
         draw = int(request.GET.get("draw", 1))
         start = int(request.GET.get("start", 0))
         length = int(request.GET.get("length", 10))
-        order_column_index = int(
-            request.GET.get("order[0][column]", 1)
-        )  # Default to "history_date"
+        order_column_index = int(request.GET.get("order[0][column]", 1))
         order_dir = request.GET.get("order[0][dir]", "desc")
 
-        # Define column mappings for sorting
         columns = [
             "title",
             "history_date",
@@ -259,28 +202,21 @@ class WorkOrderHistoryListViewJSONResponse(View):
         if order_dir == "desc":
             sort_column = f"-{sort_column}"
 
-        # Queryset with all historical records
         queryset = (
             WorkOrder.history.all().select_related("history_user").order_by(sort_column)
         )
 
-        # Pagination
         total_records = queryset.count()
         paginated_queryset = queryset[start : start + length]
 
-        # Prepare response data
         data = []
         for record in paginated_queryset:
-            # Get previous status from the previous record
-            prev_status = record.prev_record.status if record.prev_record else None
-
-            # Get changes between the current and previous record
-            changes = []
-            if record.prev_record:
-                for change in record.diff_against(record.prev_record).changes:
-                    changes.append(
-                        {"field": change.field, "old": change.old, "new": change.new}
-                    )
+            if record.history_type == "+":
+                change_message = "Ordem criada"
+            elif record.history_type == "-":
+                change_message = "Ordem deletada"
+            elif record.history_type == "~":
+                change_message = "Ordem atualizada"
 
             data.append(
                 {
@@ -289,13 +225,14 @@ class WorkOrderHistoryListViewJSONResponse(View):
                     "history_user": str(record.history_user)
                     if record.history_user
                     else None,
-                    "prev_status": prev_status,
+                    "prev_status": record.prev_record.status
+                    if record.prev_record
+                    else None,
                     "status": record.status,
-                    "changes": changes,
+                    "changes": change_message,
                 }
             )
 
-        # Return JSON response
         return JsonResponse(
             {
                 "draw": draw,
@@ -307,16 +244,4 @@ class WorkOrderHistoryListViewJSONResponse(View):
 
 
 class WorkOrderHistoryListView(LoginRequiredMixin, TemplateView):
-    template_name = "orders/pages/workorder_history.html"
-
-
-class CategoryListAPIView(View):
-    def get(self, request, *args, **kwargs):
-        cats = Category.objects.values_list("name", flat=True)
-        return JsonResponse(list(cats), safe=False)
-
-
-class DeptListAPIView(View):
-    def get(self, request, *args, **kwargs):
-        depts = Department.objects.values_list("name", flat=True)
-        return JsonResponse(list(depts), safe=False)
+    template_name = "orders/pages/history.html"

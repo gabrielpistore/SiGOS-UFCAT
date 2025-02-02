@@ -6,54 +6,41 @@ $(document).ready(function () {
       type: "GET",
       error: function (xhr, error, thrown) {
         console.error("Error loading DataTable:", error, thrown);
-        alert("Erro ao carregar os dados. Por favor, tente novamente."); // User-friendly error message
+        alert("Erro ao carregar os dados. Por favor, tente novamente.");
       },
     },
-    language: portuguese, // Ensure the Portuguese translation is loaded
+    language: portuguese,
     columns: [
       {
         data: "title",
         name: "Ordem de Serviço",
-      }, // WorkOrder Title
+      },
       {
         data: "history_date",
         name: "Data da Alteração",
         render: function (data) {
-          return data ? new Date(data).toLocaleString() : "N/A"; // Format date or show "N/A"
+          return data ? new Date(data).toLocaleString() : "N/A";
         },
       },
       {
         data: "history_user",
         name: "Usuário",
         render: function (data) {
-          return data || "Sistema"; // Fallback to "Sistema" if no user is logged
+          return data || "Sistema";
         },
       },
       {
         data: "prev_status",
         name: "Status Anterior",
-      }, // Previous Status
+      },
       {
         data: "status",
         name: "Status Atual",
-      }, // Current Status
+      },
       {
         data: "changes",
         name: "Alterações",
         orderable: false,
-        render: function (data) {
-          if (data && Array.isArray(data) && data.length > 0) {
-            return data
-              .map(
-                (change) =>
-                  `<strong>${change.field}:</strong> ${change.old || "N/A"} → ${
-                    change.new || "N/A"
-                  }`
-              )
-              .join("<br>");
-          }
-          return "Criado inicialmente."; // Default message if no changes
-        },
       },
     ],
     order: [],

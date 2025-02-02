@@ -158,26 +158,10 @@ table.dataTable thead > tr > td.dt-ordering-desc span.dt-column-order:after {
   opacity: 0.6;
 }
 
-table.dataTable
-  thead
-  > tr
-  > th.sorting_desc_disabled
-  span.dt-column-order:after,
-table.dataTable
-  thead
-  > tr
-  > th.sorting_asc_disabled
-  span.dt-column-order:before,
-table.dataTable
-  thead
-  > tr
-  > td.sorting_desc_disabled
-  span.dt-column-order:after,
-table.dataTable
-  thead
-  > tr
-  > td.sorting_asc_disabled
-  span.dt-column-order:before {
+table.dataTable thead > tr > th.sorting_desc_disabled span.dt-column-order:after,
+table.dataTable thead > tr > th.sorting_asc_disabled span.dt-column-order:before,
+table.dataTable thead > tr > td.sorting_desc_disabled span.dt-column-order:after,
+table.dataTable thead > tr > td.sorting_asc_disabled span.dt-column-order:before {
   display: none;
 }
 
@@ -552,22 +536,15 @@ div.dt-container div.dt-layout-row div.dt-layout-cell:empty {
     text-align: center;
   }
 
-  div.dt-container
-    div.dt-layout-row:not(.dt-layout-table)
-    div.dt-layout-cell
-    > * {
+  div.dt-container div.dt-layout-row:not(.dt-layout-table) div.dt-layout-cell > * {
     margin: 0.5em 0;
   }
 
-  div.dt-container
-    div.dt-layout-row:not(.dt-layout-table)
-    div.dt-layout-cell.dt-layout-start {
+  div.dt-container div.dt-layout-row:not(.dt-layout-table) div.dt-layout-cell.dt-layout-start {
     margin-right: 0;
   }
 
-  div.dt-container
-    div.dt-layout-row:not(.dt-layout-table)
-    div.dt-layout-cell.dt-layout-end {
+  div.dt-container div.dt-layout-row:not(.dt-layout-table) div.dt-layout-cell.dt-layout-end {
     margin-left: 0;
   }
 }
@@ -692,34 +669,10 @@ div.dt-container .dataTables_scroll div.dt-scroll-body {
   -webkit-overflow-scrolling: touch;
 }
 
-div.dt-container
-  .dataTables_scroll
-  div.dt-scroll-body
-  > table
-  > thead
-  > tr
-  > th,
-div.dt-container
-  .dataTables_scroll
-  div.dt-scroll-body
-  > table
-  > thead
-  > tr
-  > td,
-div.dt-container
-  .dataTables_scroll
-  div.dt-scroll-body
-  > table
-  > tbody
-  > tr
-  > th,
-div.dt-container
-  .dataTables_scroll
-  div.dt-scroll-body
-  > table
-  > tbody
-  > tr
-  > td {
+div.dt-container .dataTables_scroll div.dt-scroll-body > table > thead > tr > th,
+div.dt-container .dataTables_scroll div.dt-scroll-body > table > thead > tr > td,
+div.dt-container .dataTables_scroll div.dt-scroll-body > table > tbody > tr > th,
+div.dt-container .dataTables_scroll div.dt-scroll-body > table > tbody > tr > td {
   vertical-align: middle;
 }
 
@@ -801,4 +754,11 @@ div.dt-container.dt-empty-footer .dt-scroll-body tbody > tr:last-child > * {
 
 *[dir="rtl"] div.dt-container div.dt-search input {
   margin: 0 3px 0 0;
+}
+
+/* Override any background color or box-shadow for table cells */
+table.dataTable td,
+table.dataTable tbody tr > * {
+  background-color: #fff !important;
+  box-shadow: none !important;
 }
