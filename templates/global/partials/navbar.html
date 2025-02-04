@@ -1,27 +1,29 @@
 {% load static %}
-<nav class="sticky top-0 z-50 flex justify-between px-10 py-2 bg-white shadow-xl md:px-20">
+<nav class="sticky top-0 z-50 flex items-center justify-between px-10 py-2 bg-white shadow-xl md:px-20">
   <a href="{% url "orders:home" %}">
     <img src="{% static "logo.svg" %}"
          alt="UFCAT logo"
          height="auto"
          width="auto">
   </a>
-  <ul class="flex items-center gap-4 text-xs text-primary">
-    <li>
-      <a href="{% url "orders:home" %}" class="{% if request.path == "/" %}text-secondary{% endif %}">Home</a>
-    </li>
-    <li>
-      <a href="{% url "orders:workorder_list" %}" class="{% if request.path == "/ordens/" %}text-secondary{% endif %}">Listar Ordens de Serviço</a>
-    </li>
-    <li>
-      <a href="{% url "orders:workorder_form" %}" class="{% if request.path == "/ordens/novo/" %}text-secondary{% endif %}">
-        Cadastrar Ordem de Serviço
-      </a>
-    </li>
-    <li>
-      <a href="{% url "orders:history" %}" class="{% if request.path == "/ordens/historico/" %}text-secondary{% endif %}">
-        Histórico
-      </a>
-    </li>
-  </ul>
+  <button id="menu-toggle"
+          class="block md:hidden text-primary focus:outline-none">
+    <i class="text-xl fa-solid fa-bars"></i>
+  </button>
+  <div id="menu"
+       class="absolute left-0 hidden w-full bg-white shadow-md md:w-fit top-full md:shadow-none md:relative md:flex md:items-center md:gap-4 md:text-xs text-primary">
+    <a href="{% url "orders:home" %}" class="block px-4 py-2 md:p-0 {% if request.path == "/" %}text-secondary{% endif %}">Home</a>
+    <a href="{% url "orders:workorder_list" %}" class="block px-4 py-2 md:p-0 {% if request.path == "/ordens/" %}text-secondary{% endif %}">Listar Ordens de Serviço</a>
+    <a href="{% url "orders:workorder_form" %}" class="block px-4 py-2 md:p-0 {% if request.path == "/ordens/novo/" %}text-secondary{% endif %}">Cadastrar Ordem de Serviço</a>
+    <a href="{% url "orders:history" %}" class="block px-4 py-2 md:p-0 {% if request.path == "/ordens/historico/" %}text-secondary{% endif %}">Histórico</a>
+    <span class="hidden h-4 border-l-2 md:block"></span>
+    <a href="{% url "account_logout" %}" class="block px-4 py-2 md:p-0">
+      <i class="text-base fa-solid fa-right-from-bracket"></i>
+    </a>
+  </div>
 </nav>
+<script>
+  document.getElementById("menu-toggle").addEventListener("click", function() {
+    document.getElementById("menu").classList.toggle("hidden");
+  });
+</script>
