@@ -3,8 +3,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.urls import reverse_lazy
-from django.utils import timezone
 from django.utils.dateparse import parse_date
+from django.utils.timezone import now, timedelta
 from django.views import View
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, UpdateView
@@ -26,8 +26,10 @@ class HomeView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["last_modified_orders"] = WorkOrder.objects.order_by("-created_at")[:6]
-        current_year = timezone.now().year
+
+        current_year = now().year
+        one_month_ago = now() - timedelta(days=30)
+
         context["orders_data"] = {
             "opened": WorkOrder.objects.filter(
                 status="Aberto", created_at__year=current_year
@@ -38,7 +40,22 @@ class HomeView(LoginRequiredMixin, ListView):
             "closed": WorkOrder.objects.filter(
                 status="Fechado", created_at__year=current_year
             ).count(),
+            "new_orders": WorkOrder.objects.filter(
+                created_at__gte=one_month_ago
+            ).count(),
+            "high_priority_orders": WorkOrder.objects.filter(priority="Alto")
+            .exclude(status="Fechado")
+            .count(),
+            "critical_priority_orders": WorkOrder.objects.filter(priority="Crítico")
+            .exclude(status="Fechado")
+            .count(),
+            "low_medium_priority_orders": WorkOrder.objects.filter(
+                priority__in=["Baixo", "Médio"]
+            )
+            .exclude(status="Fechado")
+            .count(),
         }
+
         return context
 
 
