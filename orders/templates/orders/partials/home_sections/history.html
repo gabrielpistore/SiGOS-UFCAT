@@ -1,0 +1,21 @@
+<div class="px-4 py-2 shadow-2xl">
+  <div class="flex items-baseline gap-2 mb-4 text-base font-semibold">
+    <i class="fas fa-history"></i>
+    <h2>Histórico</h2>
+  </div>
+  <div class="mb-3">
+    {% for record in orders.history %}
+      <div class="flex items-center justify-between gap-2 px-2 py-4 text-sm border-b">
+        <span>Ordem #{{ record.id }}</span>
+        {% if record.history_type == "+" %}
+          <div class="px-4 py-1 text-white bg-green-700 border border-green-700 rounded">Nova</div>
+        {% elif record.history_type == "~" %}
+          <div class="px-4 py-1 text-blue-600 bg-blue-100 border border-blue-600 rounded">Atualizada</div>
+        {% else %}
+          <div class="px-4 py-1 text-white bg-red-700 border border-red-700 rounded">Cancelada</div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+  <a href="{% url "orders:history" %}" class="font-semibold text-primary">Ver Histórico</a>
+</div>

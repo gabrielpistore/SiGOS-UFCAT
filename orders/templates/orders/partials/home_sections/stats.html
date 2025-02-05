@@ -10,7 +10,7 @@
       </div>
       <div>
         <p class="text-sm font-medium text-gray-700">Novas Ordens de Serviço</p>
-        <p class="text-4xl font-bold">{{ orders_data.new_orders }}</p>
+        <p class="text-4xl font-bold">{{ orders.new_orders }}</p>
       </div>
     </li>
     <li class="flex items-center gap-4 pb-4 text-red-600 border-b">
@@ -19,7 +19,7 @@
       </div>
       <div>
         <p class="text-sm font-medium text-gray-700">Emergente</p>
-        <p class="text-4xl font-bold">{{ orders_data.high_priority_orders }}</p>
+        <p class="text-4xl font-bold">{{ orders.high_priority_orders }}</p>
       </div>
     </li>
     <li class="flex items-center gap-4 pb-4 text-yellow-600 border-b">
@@ -28,7 +28,7 @@
       </div>
       <div>
         <p class="text-sm font-medium text-gray-700">Urgente</p>
-        <p class="text-4xl font-bold">{{ orders_data.critical_priority_orders }}</p>
+        <p class="text-4xl font-bold">{{ orders.critical_priority_orders }}</p>
       </div>
     </li>
     <li class="flex items-center gap-4 text-stone-600">
@@ -37,7 +37,7 @@
       </div>
       <div>
         <p class="text-sm font-medium text-gray-700">Não Urgente</p>
-        <p class="text-4xl font-bold">{{ orders_data.low_medium_priority_orders }}</p>
+        <p class="text-4xl font-bold">{{ orders.low_medium_priority_orders }}</p>
       </div>
     </li>
   </ul>

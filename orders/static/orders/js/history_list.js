@@ -1,5 +1,7 @@
 $(document).ready(function () {
   const table = $("#history-table").DataTable({
+    responsive: true,
+    scrollX: true,
     serverSide: true,
     ajax: {
       url: "../../api/historico",

@@ -5,9 +5,9 @@
 {% block main %}
   <h1 class="mb-8 text-5xl font-extralight">Painel de Atividades</h1>
   {% include "orders/partials/messages.html" %}
-  <div class="grid grid-cols-3 gap-6">
-    {% include "orders/partials/home_sections/workorder_stats.html" %}
-    {% include "orders/partials/home_sections/workorder_chart.html" %}
-    {% include "orders/partials/home_sections/workorder_history.html" %}
+  <div class="grid w-full gap-6 md:grid-cols-3">
+    {% include "orders/partials/home_sections/stats.html" %}
+    {% include "orders/partials/home_sections/chart.html" %}
+    {% include "orders/partials/home_sections/history.html" %}
   </div>
 {% endblock main %}

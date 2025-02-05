@@ -30,7 +30,7 @@ class HomeView(LoginRequiredMixin, ListView):
         current_year = now().year
         one_month_ago = now() - timedelta(days=30)
 
-        context["orders_data"] = {
+        context["orders"] = {
             "opened": WorkOrder.objects.filter(
                 status="Aberto", created_at__year=current_year
             ).count(),
@@ -54,6 +54,7 @@ class HomeView(LoginRequiredMixin, ListView):
             )
             .exclude(status="Fechado")
             .count(),
+            "history": WorkOrder.history.all()[:6],
         }
 
         return context

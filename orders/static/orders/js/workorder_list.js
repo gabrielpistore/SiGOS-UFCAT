@@ -1,5 +1,7 @@
 $(document).ready(function () {
   const table = $("#workorder-table").DataTable({
+    responsive: true,
+    scrollX: true,
     serverSide: true,
     ajax: {
       url: "../api/ordens/",

@@ -20,12 +20,12 @@
   </ul>
 </div>
 <script>
-  const orders_data = {
-    opened: parseInt("{{orders_data.opened}}", 10) || 0,
-    ongoing: parseInt("{{orders_data.ongoing}}", 10) || 0,
-    closed: parseInt("{{orders_data.closed}}", 10) || 0,
+  const orders = {
+    opened: parseInt("{{orders.opened}}", 10) || 0,
+    ongoing: parseInt("{{orders.ongoing}}", 10) || 0,
+    closed: parseInt("{{orders.closed}}", 10) || 0,
   };
-  console.log(orders_data);
+  console.log(orders);
   const chart = document.getElementById("stats");
   const statsChart = new Chart(chart.getContext("2d"), {
     type: "doughnut",
@@ -33,7 +33,7 @@
       labels: ["Abertas", "Em Andamento", "Fechadas"],
       datasets: [
         {
-          data: [orders_data.opened, orders_data.closed, orders_data.ongoing],
+          data: [orders.opened, orders.closed, orders.ongoing],
           backgroundColor: ["#007BFF", "#FFC107", "#DC3545"],
           hoverOffset: 4,
         },
