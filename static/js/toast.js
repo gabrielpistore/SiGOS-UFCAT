@@ -5,5 +5,5 @@ document.addEventListener("DOMContentLoaded", function () {
       message.style.opacity = "0";
       setTimeout(() => message.remove(), 500);
     });
-  }, 5000);
+  }, 3000);
 });

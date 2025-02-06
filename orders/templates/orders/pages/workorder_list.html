@@ -8,7 +8,6 @@
 {% endblock title %}
 {% block main %}
   <h1 class="mb-8 text-5xl font-extralight">Lista de Solicitações</h1>
-  {% include "orders/partials/messages.html" %}
   {% include "orders/partials/workorder_list_filters.html" %}
   <hr class="mb-6 border-t border-gray-300 mt-14">
   <h2 class="text-base font-semibold">Solicitações</h2>
@@ -26,20 +25,23 @@
       </tr>
     </thead>
   </table>
+  {% include "global/partials/toast.html" %}
 {% endblock main %}
 {% block js %}
   <script src="{% static "vendor/dataTables.min.js" %}"></script>
   <script src="{% static "vendor/dataTables-pt-br.js" %}"></script>
   <script src="{% static "orders/js/workorder_list.js" %}"></script>
   <script>
-    $(document).on("click", ".delete-work-order", function () {
+    $(document).on("click", ".delete-work-order", function() {
       const workOrderId = $(this).data("work-order-id");
       if (confirm("Certeza que deseja excluir?")) {
         $.ajax({
           url: `./${workOrderId}/deletar/`,
           type: "DELETE",
-          headers: { "X-CSRFToken": "{{ csrf_token }}" },
-          success: function (response) {
+          headers: {
+            "X-CSRFToken": "{{ csrf_token }}"
+          },
+          success: function(response) {
             $("#workorder-table").DataTable().ajax.reload();
           }
         });
