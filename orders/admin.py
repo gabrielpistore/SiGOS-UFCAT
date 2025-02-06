@@ -1,7 +1,8 @@
 from django.contrib import admin
-
-from orders.models import Category, Department, Employee, WorkOrder
 from simple_history.admin import SimpleHistoryAdmin
+
+from orders.models import Category, Department, Employee, WorkOrder, WorkOrderImage
+
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -20,4 +21,9 @@ class DepartmentAdmin(admin.ModelAdmin):
 
 @admin.register(WorkOrder)
 class WorkOrderAdmin(SimpleHistoryAdmin):
+    pass
+
+
+@admin.register(WorkOrderImage)
+class WorkOrderImageAdmin(admin.ModelAdmin):
     pass

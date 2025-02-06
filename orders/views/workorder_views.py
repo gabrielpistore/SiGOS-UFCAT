@@ -182,7 +182,7 @@ class WorkOrderUpdateView(LoginRequiredMixin, UpdateView):
         return response
 
 
-class WorkOrderDeleteViewJSONResponse(View):
+class WorkOrderDeleteViewJSONResponse(LoginRequiredMixin, View):
     def delete(self, request, pk, *args, **kwargs):
         try:
             work_order = WorkOrder.objects.get(pk=pk)

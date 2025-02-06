@@ -134,6 +134,13 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
+# Media
+
+MEDIA_ROOT = BASE_DIR / "media"
+
+MEDIA_URL = "/media/"
+
+
 # CORS
 
 CORS_ALLOW_ALL_ORIGINS = True

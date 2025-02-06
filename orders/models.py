@@ -131,7 +131,7 @@ class WorkOrderImage(models.Model):
         verbose_name="Ordem de Serviço",
     )
     image = models.ImageField(
-        upload_to="work_orders/%Y/%m/%d/",
+        upload_to="ordens/%Y/%m/%d/",
         validators=[FileExtensionValidator(allowed_extensions=["jpg", "jpeg", "png"])],
         verbose_name="Imagem",
     )
