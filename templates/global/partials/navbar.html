@@ -14,7 +14,7 @@
        class="absolute left-0 hidden w-full bg-white shadow-md md:w-fit top-full md:shadow-none md:relative md:flex md:items-center md:gap-4 md:text-xs text-primary">
     <a href="{% url "orders:home" %}" class="block px-4 py-2 md:p-0 {% if request.path == "/" %}text-secondary{% endif %}">Home</a>
     <a href="{% url "orders:workorder_list" %}" class="block px-4 py-2 md:p-0 {% if request.path == "/ordens/" %}text-secondary{% endif %}">Listar Ordens de Serviço</a>
-    <a href="{% url "orders:workorder_form" %}" class="block px-4 py-2 md:p-0 {% if request.path == "/ordens/novo/" %}text-secondary{% endif %}">Cadastrar Ordem de Serviço</a>
+    <a href="{% url "orders:workorder_create" %}" class="block px-4 py-2 md:p-0 {% if request.path == "/ordens/novo/" %}text-secondary{% endif %}">Cadastrar Ordem de Serviço</a>
     <a href="{% url "orders:history" %}" class="block px-4 py-2 md:p-0 {% if request.path == "/ordens/historico/" %}text-secondary{% endif %}">Histórico</a>
     <span class="hidden h-4 border-l-2 md:block"></span>
     <a href="{% url "account_logout" %}" class="block px-4 py-2 md:p-0">

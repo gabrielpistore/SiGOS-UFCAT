@@ -81,6 +81,7 @@ class Command(BaseCommand):
                 status=random.choice(statuses),
                 title=fake.sentence(nb_words=3),
                 report_description=fake.paragraph(nb_sentences=5),
+                image=None,
                 created_at=timezone.now(),
                 updated_at=timezone.now(),
             )

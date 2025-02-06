@@ -93,6 +93,13 @@ class WorkOrder(models.Model):
     report_description = models.TextField(verbose_name="Detalhamento do Relato")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    image = models.ImageField(
+        upload_to="ordens/%Y/%m/%d/",
+        validators=[FileExtensionValidator(allowed_extensions=["jpg", "jpeg", "png"])],
+        verbose_name="Imagem",
+        blank=True,
+        null=True,
+    )
     history = HistoricalRecords()
 
     def clean(self):
@@ -121,34 +128,3 @@ class WorkOrder(models.Model):
 
     def __str__(self):
         return self.title
-
-
-class WorkOrderImage(models.Model):
-    work_order = models.ForeignKey(
-        WorkOrder,
-        on_delete=models.CASCADE,
-        related_name="images",
-        verbose_name="Ordem de Serviço",
-    )
-    image = models.ImageField(
-        upload_to="ordens/%Y/%m/%d/",
-        validators=[FileExtensionValidator(allowed_extensions=["jpg", "jpeg", "png"])],
-        verbose_name="Imagem",
-    )
-    uploaded_at = models.DateTimeField(auto_now_add=True, verbose_name="Data de Upload")
-
-    class Meta:
-        verbose_name = "Imagem da Ordem de Serviço"
-        verbose_name_plural = "Imagens da Ordem de Serviço"
-
-    def __str__(self):
-        return f"Imagem {self.id} - {self.work_order.title}"
-
-    def clean(self):
-        # Limit the number of images to 3 per WorkOrder
-        if self.work_order.images.count() >= 3:
-            raise ValidationError("Cada ordem de serviço pode ter no máximo 3 imagens.")
-
-    def save(self, *args, **kwargs):
-        self.full_clean()
-        super().save(*args, **kwargs)

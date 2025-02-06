@@ -1,33 +1,10 @@
-{% extends "global/base.html" %}
-{% block title %}
+{% extends "orders/partials/workorder_form.html" %}
+{% block form_title %}
   Cadastrar
-{% endblock title %}
-{% block main %}
-  <h1 class="mb-8 text-5xl font-extralight">Cadastro Ordem de Serviço</h1>
-  <form action="{% url "orders:workorder_form" %}"
-        method="post"
-        class="text-xs md:text-sm">
-    {% csrf_token %}
-    {% if form.non_field_errors %}
-      <div class="p-4 mb-6 text-center text-red-600 border border-red-200 rounded-lg bg-red-50">
-        <ul>
-          {% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
-        </ul>
-      </div>
-    {% endif %}
-    {% include "orders/partials/form_sections/personal_info.html" %}
-    {% include "orders/partials/form_sections/order_details.html" %}
-    {% include "orders/partials/form_sections/report_details.html" %}
-    <div class="flex justify-between">
-      <button type="reset" class="btn text-primary hover:bg-primary/[.08]">
-        <i class="mr-2 fa-solid fa-eraser"></i>Limpar Dados
-      </button>
-      <div class="flex gap-4">
-        <a href="{% url "orders:home" %}"
-           class="btn border text-primary border-primary hover:bg-primary/[.08]">Cancelar</a>
-        <button type="submit"
-                class="text-white btn bg-primary hover:bg-primary/[.95]">Enviar Dados</button>
-      </div>
-    </div>
-  </form>
-{% endblock main %}
+{% endblock form_title %}
+{% block action %}
+  {% url "orders:workorder_create" %}
+{% endblock action %}
+{% block submit_text %}
+  Enviar
+{% endblock submit_text %}

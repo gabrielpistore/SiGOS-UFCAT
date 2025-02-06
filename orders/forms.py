@@ -25,6 +25,7 @@ class WorkOrderForm(forms.ModelForm):
             "status",
             "title",
             "report_description",
+            "image",
         ]
         widgets = {
             "opening_date": forms.DateTimeInput(

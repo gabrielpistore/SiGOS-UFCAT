@@ -1,0 +1,43 @@
+{% extends "global/base.html" %}
+{% block title %}
+  Cadastrar
+{% endblock title %}
+{% block main %}
+  <h1 class="mb-8 text-5xl font-extralight">
+    {% block form_title %}
+    {% endblock form_title %}
+    Ordem de Serviço
+  </h1>
+  <form action="{% block action %}{% endblock action %}"
+        method="post"
+        enctype="multipart/form-data"
+        class="text-xs md:text-sm">
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+      <div class="p-4 mb-6 text-center text-red-600 border border-red-200 rounded-lg bg-red-50">
+        <ul>
+          {% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+    {% include "orders/partials/form_sections/personal_info.html" %}
+    {% include "orders/partials/form_sections/order_details.html" %}
+    {% include "orders/partials/form_sections/report_details.html" %}
+    {% include "orders/partials/form_sections/attachment.html" %}
+    <div class="flex flex-wrap justify-between gap-4 mt-6">
+      <button type="reset"
+              class="btn text-primary hover:bg-primary/[.08] w-full sm:w-auto">
+        <i class="mr-2 fa-solid fa-eraser"></i>Limpar Dados
+      </button>
+      <div class="flex flex-wrap w-full gap-4 sm:w-auto">
+        <a href="{% url "orders:home" %}"
+           class="btn border text-primary border-primary hover:bg-primary/[.08] w-full sm:w-auto">Cancelar</a>
+        <button type="submit"
+                class="text-white btn bg-primary hover:bg-primary/[.95] w-full sm:w-auto">
+          {% block submit_text %}
+          {% endblock submit_text %}
+        </button>
+      </div>
+    </div>
+  </form>
+{% endblock main %}
