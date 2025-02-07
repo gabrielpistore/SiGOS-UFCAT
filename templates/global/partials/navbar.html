@@ -17,13 +17,40 @@
     <a href="{% url "orders:workorder_create" %}" class="block px-4 py-2 md:p-0 {% if request.path == "/ordens/novo/" %}text-secondary{% endif %}">Cadastrar Ordem de Serviço</a>
     <a href="{% url "orders:history" %}" class="block px-4 py-2 md:p-0 {% if request.path == "/ordens/historico/" %}text-secondary{% endif %}">Histórico</a>
     <span class="hidden h-4 border-l-2 md:block"></span>
-    <a href="{% url "account_logout" %}" class="block px-4 py-2 md:p-0">
+    <a id="control-panel" href="#" class="block px-4 py-2 md:p-0"><i class="text-base fa-solid fa-gear"></i></a>
+    <a id="logout"
+       href="{% url "account_logout" %}"
+       class="block px-4 py-2 md:p-0">
       <i class="text-base fa-solid fa-right-from-bracket"></i>
     </a>
   </div>
 </nav>
 <script>
-  document.getElementById("menu-toggle").addEventListener("click", function() {
-    document.getElementById("menu").classList.toggle("hidden");
+  document.addEventListener("DOMContentLoaded", function() {
+    const menuToggle = document.getElementById("menu-toggle");
+    const menu = document.getElementById("menu");
+
+    function updateLogoutButtonText() {
+      if (menu.classList.contains("hidden")) {
+        document.getElementById("control-panel").innerHTML = '<i class="text-base fa-solid fa-gear"></i>';
+        document.getElementById("logout").innerHTML = '<i class="text-base fa-solid fa-right-from-bracket"></i>';
+      } else {
+        document.getElementById("control-panel").innerHTML = "Painel de Controle";
+        document.getElementById("logout").innerHTML = "Sair";
+      }
+    }
+
+    updateLogoutButtonText(); // initial call to update the logout button text
+
+    menuToggle.addEventListener("click", function() {
+      menu.classList.toggle("hidden");
+      updateLogoutButtonText();
+    });
+
+    // Close the menu when the window is resized
+    window.addEventListener("resize", function() {
+      menu.classList.add("hidden");
+      updateLogoutButtonText();
+    });
   });
 </script>
