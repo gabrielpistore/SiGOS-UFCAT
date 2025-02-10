@@ -5,6 +5,10 @@ from orders.models import Category, Department, Employee, WorkOrder
 
 
 class WorkOrderForm(forms.ModelForm):
+    progress = forms.CharField(
+        label="Progresso", widget=forms.Textarea(attrs={"rows": 10}), required=False
+    )
+
     class Meta:
         model = WorkOrder
         fields = [

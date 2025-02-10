@@ -1,7 +1,7 @@
 from django.contrib import admin
 from simple_history.admin import SimpleHistoryAdmin
 
-from orders.models import Category, Department, Employee, WorkOrder
+from orders.models import Category, Department, Employee, WorkOrder, WorkOrderProgress
 
 
 @admin.register(Category)
@@ -21,4 +21,9 @@ class DepartmentAdmin(admin.ModelAdmin):
 
 @admin.register(WorkOrder)
 class WorkOrderAdmin(SimpleHistoryAdmin):
+    pass
+
+
+@admin.register(WorkOrderProgress)
+class WorkOrderProgressAdmin(admin.ModelAdmin):
     pass

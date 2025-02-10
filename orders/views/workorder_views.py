@@ -11,7 +11,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 
 from orders.forms import WorkOrderForm
-from orders.models import Category, WorkOrder
+from orders.models import Category, WorkOrder, WorkOrderProgress
 
 
 class HomeView(LoginRequiredMixin, ListView):
@@ -172,13 +172,34 @@ class WorkOrderUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "orders/pages/workorder_update_form.html"
     success_url = reverse_lazy("orders:workorder_list")
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["workorder_progress"] = WorkOrderProgress.objects.filter(
+            work_order=self.object
+        )
+        return context
+
     def form_valid(self, form):
         response = super().form_valid(form)
+
+        # Get the progress description
+        description = form.cleaned_data.get("progress")
+
+        # If a progress description is provided, create a WorkOrderProgress record
+        if description:
+            WorkOrderProgress.objects.create(
+                work_order=self.object,
+                progress_description=description,
+                progress_date=now(),
+            )
+
         # Explicitly set the history_user
-        self.object.save()  # Ensure the object is saved first
         self.object.history.last().history_user = self.request.user
         self.object.history.last().save()
+
+        # Display a success message
         messages.success(self.request, "Ordem de serviço atualizada com sucesso!")
+
         return response
 
 

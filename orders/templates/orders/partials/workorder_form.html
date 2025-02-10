@@ -29,6 +29,9 @@
     {% include "orders/partials/form_sections/personal_info.html" %}
     {% include "orders/partials/form_sections/order_details.html" %}
     {% include "orders/partials/form_sections/report_details.html" %}
+    {% if "editar" in request.path %}
+      {% include "orders/partials/form_sections/progress.html" %}
+    {% endif %}
     {% include "orders/partials/form_sections/attachment.html" %}
     <div class="flex flex-wrap justify-between gap-4 mt-6">
       <button type="reset"
