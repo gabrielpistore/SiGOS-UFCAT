@@ -234,6 +234,7 @@ class WorkOrderHistoryListViewJSONResponse(View):
             data.append(
                 {
                     "id": record.id,
+                    "requested_by": record.requested_by,
                     "title": record.title,
                     "history_user": str(record.history_user)
                     if record.history_user

@@ -128,3 +128,19 @@ class WorkOrder(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class WorkOrderProgress(models.Model):
+    work_order = models.ForeignKey(
+        WorkOrder, on_delete=models.CASCADE, verbose_name="Ordem de Serviço"
+    )
+    progress_date = models.DateTimeField(auto_now_add=True)
+    progress_description = models.TextField(verbose_name="Descrição do Progresso")
+
+    class Meta:
+        verbose_name = "Progresso da Ordem de Serviço"
+        verbose_name_plural = "Progressos das Ordens de Serviço"
+        ordering = ["-progress_date"]
+
+    def __str__(self):
+        return self.progress_description
