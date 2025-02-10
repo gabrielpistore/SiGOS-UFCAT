@@ -41,9 +41,9 @@
           </div>
         {% endif %}
       </div>
-      <div class="flex flex-col gap-1">
+      <div class="flex flex-col gap-1" x-data>
         <label for="{{ form.phone.id_for_label }}">Telefone</label>
-        {% render_field form.phone class="input" placeholder="(DDD) 00000-0000" x-mask="99 99999-9999" %}
+        {% render_field form.phone class="input" x-mask="99 99999-9999" placeholder="(DDD) 00000-0000" %}
         {% if form.phone.errors %}
           <div class="text-sm text-red-500">
             {% for error in form.phone.errors %}<p>{{ error }}</p>{% endfor %}

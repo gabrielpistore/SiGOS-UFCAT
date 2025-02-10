@@ -1,4 +1,9 @@
 {% extends "global/base.html" %}
+{% load static %}
+{% block head %}
+  <script defer src="{% static "vendor/alpine.mask.min.js" %}"></script>
+  <script defer src="{% static "vendor/alpine.min.js" %}"></script>
+{% endblock head %}
 {% block title %}
   Cadastrar
 {% endblock title %}
@@ -8,7 +13,8 @@
     {% endblock form_title %}
     Ordem de Serviço
   </h1>
-  <form action="{% block action %}{% endblock action %}"
+  <form x-data
+        action="{% block action %}{% endblock action %}"
         method="post"
         enctype="multipart/form-data"
         class="text-xs md:text-sm">

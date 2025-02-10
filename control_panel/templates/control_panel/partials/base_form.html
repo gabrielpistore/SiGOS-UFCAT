@@ -1,5 +1,9 @@
 {% extends "global/base.html" %}
-{% load widget_tweaks %}
+{% load static %}
+{% block head %}
+  <script defer src="{% static "vendor/alpine.mask.min.js" %}"></script>
+  <script defer src="{% static "vendor/alpine.min.js" %}"></script>
+{% endblock head %}
 {% block title %}
   Painel de Controle
 {% endblock title %}
@@ -7,18 +11,19 @@
   <h1 class="mb-8 text-5xl font-extralight">Painel de Controle</h1>
   <div class="grid grid-cols-1 gap-16 md:grid-cols-3">
     <div class="flex flex-col gap-4">
-      <a href=""
+      <a href="{% url "control_panel:category_create" %}"
          class="flex items-center justify-between p-5 border shadow-xl text-primary">
         <i class="text-2xl fas fa-file-alt"></i>
         <span class="text-sm">Categorias</span>
       </a>
-      <a href=""
+      <a href="{% url "control_panel:employee_create" %}"
          class="flex items-center justify-between p-5 border shadow-xl text-primary">
         <i class="text-2xl fas fa-users"></i>
         <span class="text-sm">Funcionários</span>
       </a>
     </div>
-    <form action="{% block action %}{% endblock action %}"
+    <form x-data
+          action="{% block action %}{% endblock action %}"
           method="post"
           class="col-span-2">
       {% csrf_token %}
@@ -26,8 +31,10 @@
         {% block form_title %}
         {% endblock form_title %}
       </h2>
-      {% block fields %}
-      {% endblock fields %}
+      <div class="grid grid-cols-1 gap-6">
+        {% block fields %}
+        {% endblock fields %}
+      </div>
       <div class="flex flex-wrap justify-end w-full gap-3 mt-6 sm:w-auto">
         <a href=""
            class="btn border text-primary border-primary hover:bg-primary/[.08] w-full sm:w-auto">Voltar</a>
