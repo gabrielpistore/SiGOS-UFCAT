@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "simple_history",
     "widget_tweaks",
     # Local
+    "control_panel",
     "orders",
 ]
 

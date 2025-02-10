@@ -25,8 +25,8 @@ class Command(BaseCommand):
 
         # Create Categories
         categories = []
-        for _ in range(10):
-            category = Category.objects.create(name=fake.word().capitalize())
+        for i in range(1, 10 + 1):
+            category = Category.objects.create(name=f"Category {i}")
             categories.append(category)
         self.stdout.write(self.style.SUCCESS(f"Created {len(categories)} categories."))
 

@@ -5,7 +5,7 @@ from simple_history.models import HistoricalRecords
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=150, verbose_name="Nome")
+    name = models.CharField(max_length=150, verbose_name="Nome", unique=True)
 
     class Meta:
         verbose_name = "Categoria"
@@ -29,7 +29,7 @@ class Employee(models.Model):
 
 
 class Department(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Nome")
+    name = models.CharField(max_length=100, verbose_name="Nome", unique=True)
 
     class Meta:
         verbose_name = "Departamento"
