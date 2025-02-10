@@ -10,11 +10,16 @@
 {% block main %}
   <h1 class="mb-8 text-5xl font-extralight">Painel de Controle</h1>
   <div class="grid grid-cols-1 gap-16 md:grid-cols-3">
-    <div class="flex flex-col gap-4">
+    <div class="flex flex-col w-full gap-4">
       <a href="{% url "control_panel:category_create" %}"
          class="flex items-center justify-between p-5 border shadow-xl text-primary">
         <i class="text-2xl fas fa-file-alt"></i>
         <span class="text-sm">Categorias</span>
+      </a>
+      <a href="{% url "control_panel:department_create" %}"
+         class="flex items-center justify-between p-5 border shadow-xl text-primary">
+        <i class="text-2xl fas fa-building"></i>
+        <span class="text-sm">Departamentos</span>
       </a>
       <a href="{% url "control_panel:employee_create" %}"
          class="flex items-center justify-between p-5 border shadow-xl text-primary">

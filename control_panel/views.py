@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView
 
-from orders.models import Category, Employee
+from orders.models import Category, Employee, Department
 
 
 class CategoryCreateView(LoginRequiredMixin, CreateView):
@@ -14,6 +14,18 @@ class CategoryCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         response = super().form_valid(form)
         messages.success(self.request, "Categoria criada com sucesso!")
+        return response
+
+
+class DepartmentCreateView(LoginRequiredMixin, CreateView):
+    model = Department
+    fields = "__all__"
+    template_name = "control_panel/pages/dept_create_form.html"
+    success_url = "/painel-de-controle/departamentos/novo"
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, "Departamento criado com sucesso!")
         return response
 
 
