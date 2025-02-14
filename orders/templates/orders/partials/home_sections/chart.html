@@ -3,7 +3,7 @@
     <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
     <h2>Status</h2>
   </div>
-  <canvas id="stats"></canvas>
+  <canvas id="stats" class="w-full"></canvas>
   <ul class="flex flex-col gap-2">
     <li class="flex gap-2">
       <div class="h-6 w-6 bg-[#007BFF]"></div>
@@ -39,6 +39,7 @@
       ],
     },
     options: {
+      responsive: true,
       cutout: "60%",
       plugins: {
         legend: {
