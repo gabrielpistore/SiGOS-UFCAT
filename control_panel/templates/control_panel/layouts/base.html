@@ -9,8 +9,8 @@
 {% endblock title %}
 {% block main %}
   <h1 class="mb-8 text-5xl font-extralight">Painel de Controle</h1>
-  <div class="grid grid-cols-1 gap-16 md:grid-cols-3">
-    <div class="flex flex-col w-full gap-4">
+  <div class="grid grid-cols-1 gap-y-8 md:gap-x-8 md:grid-cols-3">
+    <div class="flex flex-col w-full col-span-1 gap-4">
       <a href="{% url "control_panel:category_list" %}"
          class="flex items-center justify-between p-5 border shadow-xl text-primary">
         <i class="text-2xl fas fa-file-alt"></i>
@@ -21,7 +21,7 @@
         <i class="text-2xl fas fa-building"></i>
         <span class="text-sm">Departamentos</span>
       </a>
-      <a href="{% url "control_panel:employee_create" %}"
+      <a href="{% url "control_panel:employee_list" %}"
          class="flex items-center justify-between p-5 border shadow-xl text-primary">
         <i class="text-2xl fas fa-users"></i>
         <span class="text-sm">Funcionários</span>

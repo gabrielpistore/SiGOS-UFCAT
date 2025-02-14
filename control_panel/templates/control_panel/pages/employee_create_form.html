@@ -35,3 +35,6 @@
     {% endif %}
   </div>
 {% endblock fields %}
+{% block back_url %}
+  {% url "control_panel:employee_list" %}
+{% endblock back_url %}

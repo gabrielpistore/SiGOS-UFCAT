@@ -12,5 +12,7 @@ urlpatterns = [
     path("departamentos", views.DepartmentListView.as_view(), name="department_list"),
     path("departamentos/<int:pk>/excluir", views.DepartmentDeleteView.as_view(), name="department_delete"),
     path("departamentos/novo", views.DepartmentCreateView.as_view(), name="department_create"),
+    path("funcionarios", views.EmployeeListView.as_view(), name="employee_list"),
+    path("funcionarios/<int:pk>/excluir", views.EmployeeDeleteView.as_view(), name="employee_delete"),
     path("funcionarios/novo", views.EmployeeCreateView.as_view(), name="employee_create"),
 ]

@@ -117,6 +117,33 @@ class DepartmentDeleteView(LoginRequiredMixin, View):
             return JsonResponse({"message": "Failed to delete department."}, status=500)
 
 
+class EmployeeListView(LoginRequiredMixin, ListView):
+    model = Employee
+    template_name = "control_panel/pages/employee_list.html"
+    context_object_name = "employees"
+    paginate_by = 10
+
+    def get(self, request, *args, **kwargs):
+        self.object_list = self.get_queryset()
+        paginator = Paginator(self.object_list, self.paginate_by)
+        page = request.GET.get("page", 1)
+
+        try:
+            employees = paginator.page(page)
+        except Exception:
+            employees = []
+
+        context = {"employees": employees}
+
+        # If it's an HTMX request, return only the employee list
+        if request.htmx:
+            return render(
+                request, "control_panel/partials/employee_list_partial.html", context
+            )
+
+        return render(request, self.template_name, context)
+
+
 class EmployeeCreateView(LoginRequiredMixin, CreateView):
     model = Employee
     fields = "__all__"
@@ -127,3 +154,18 @@ class EmployeeCreateView(LoginRequiredMixin, CreateView):
         response = super().form_valid(form)
         messages.success(self.request, "Funcionário criado com sucesso!")
         return response
+
+
+class EmployeeDeleteView(LoginRequiredMixin, View):
+    def delete(self, request, pk, *args, **kwargs):
+        employee = get_object_or_404(Employee, pk=pk)
+        try:
+            employee.delete()
+            messages.success(request, "Funcionário excluído com sucesso!")
+            return JsonResponse(
+                {"message": "Employee deleted successfully!"}, status=200
+            )
+        except Exception as e:
+            messages.error(request, "Não foi possível excluir o funcionário.")
+            self.raise_exception(e)
+            return JsonResponse({"message": "Failed to delete employee."}, status=500)
