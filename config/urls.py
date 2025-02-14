@@ -9,6 +9,7 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     path("", include("orders.urls")),
     path("painel-de-controle/", include("control_panel.urls")),
+    path("api/", include("api.urls")),
 ]
 
 if settings.DEBUG:

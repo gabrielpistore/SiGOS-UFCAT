@@ -56,15 +56,3 @@ class WorkOrderCreateAPIView(View):
             return JsonResponse({"error": "Category not found"}, status=404)
         except json.JSONDecodeError:
             return JsonResponse({"error": "Invalid JSON"}, status=400)
-
-
-class CategoryListAPIView(View):
-    def get(self, request, *args, **kwargs):
-        cats = Category.objects.values_list("name", flat=True)
-        return JsonResponse(list(cats), safe=False)
-
-
-class DeptListAPIView(View):
-    def get(self, request, *args, **kwargs):
-        depts = Department.objects.values_list("name", flat=True)
-        return JsonResponse(list(depts), safe=False)

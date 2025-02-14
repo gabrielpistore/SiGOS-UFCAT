@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "django_browser_reload",
     "django_htmx",
     "fontawesomefree",
+    "rest_framework",
     "simple_history",
     "widget_tweaks",
     # Local
@@ -177,3 +178,14 @@ AUTHENTICATION_BACKENDS = [
 ACCOUNT_LOGOUT_ON_GET = True
 
 LOGIN_REDIRECT_URL = "/"
+
+
+# Django Rest Framework
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
+    ]
+}

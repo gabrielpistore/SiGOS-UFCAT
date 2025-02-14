@@ -181,6 +181,18 @@ wheels = [
 ]
 
 [[package]]
+name = "djangorestframework"
+version = "3.15.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/2c/ce/31482eb688bdb4e271027076199e1aa8d02507e530b6d272ab8b4481557c/djangorestframework-3.15.2.tar.gz", hash = "sha256:36fe88cd2d6c6bec23dca9804bab2ba5517a8bb9d8f47ebc68981b56840107ad", size = 1067420 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7c/b6/fa99d8f05eff3a9310286ae84c4059b08c301ae4ab33ae32e46e8ef76491/djangorestframework-3.15.2-py3-none-any.whl", hash = "sha256:2b8871b062ba1aefc2de01f773875441a961fefbf79f5eed1e32b2f096944b20", size = 1071235 },
+]
+
+[[package]]
 name = "faker"
 version = "33.1.0"
 source = { registry = "https://pypi.org/simple" }
@@ -340,6 +352,7 @@ dependencies = [
     { name = "django-simple-history" },
     { name = "django-stubs" },
     { name = "django-widget-tweaks" },
+    { name = "djangorestframework" },
     { name = "faker" },
     { name = "fontawesomefree" },
     { name = "pillow" },
@@ -360,6 +373,7 @@ requires-dist = [
     { name = "django-simple-history", specifier = ">=3.8.0" },
     { name = "django-stubs", specifier = ">=5.1.1" },
     { name = "django-widget-tweaks", specifier = ">=1.5.0" },
+    { name = "djangorestframework", specifier = ">=3.15.2" },
     { name = "faker", specifier = ">=33.1.0" },
     { name = "fontawesomefree", specifier = ">=6.6.0" },
     { name = "pillow", specifier = ">=11.1.0" },
