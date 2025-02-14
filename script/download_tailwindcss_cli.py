@@ -17,7 +17,7 @@ SYSTEM = platform.system().lower()
 MACHINE = platform.machine().lower()
 
 # Base URL for TailwindCSS binary
-BASE_URL = f"https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-{SYSTEM}"
+BASE_URL = f"https://github.com/tailwindlabs/tailwindcss/releases/download/v3.4.17/tailwindcss-{SYSTEM}"
 
 # Determine the appropriate download URL based on the architecture
 if MACHINE in ["amd64", "x86_64"]:

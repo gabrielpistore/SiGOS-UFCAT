@@ -20,4 +20,5 @@ dependencies = [
     "python-dotenv>=1.0.1",
     "psycopg2-binary>=2.9.10",
     "psycopg2>=2.9.10",
+    "colorama>=0.4.6",
 ]
