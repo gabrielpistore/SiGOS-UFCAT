@@ -7,6 +7,8 @@ app_name = "control_panel"
 # fmt: off
 urlpatterns = [
     path("categorias/novo", views.CategoryCreateView.as_view(), name="category_create"),
+    path("departamentos", views.DepartmentListView.as_view(), name="department_list"),
     path("departamentos/novo", views.DepartmentCreateView.as_view(), name="department_create"),
+    path("departamentos/<int:pk>/excluir", views.DepartmentDeleteView.as_view(), name="department_delete"),
     path("funcionarios/novo", views.EmployeeCreateView.as_view(), name="employee_create"),
 ]

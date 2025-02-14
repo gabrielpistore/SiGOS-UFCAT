@@ -15,7 +15,7 @@
     <title>{% block title %}{% endblock title %} | SiGOS-UFCAT</title>
     {# djlint: on #}
   </head>
-  <body class="font-rawline">
+  <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="font-rawline">
     {% include "global/partials/navbar.html" %}
     <main class="flex-1 px-4 py-6 sm:px-6 lg:px-20">
       {% block main %}

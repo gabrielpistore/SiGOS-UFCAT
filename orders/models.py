@@ -6,10 +6,13 @@ from simple_history.models import HistoricalRecords
 
 class Category(models.Model):
     name = models.CharField(max_length=150, verbose_name="Nome", unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = "Categoria"
         verbose_name_plural = "Categorias"
+        ordering = ["-created_at", "name"]
 
     def __str__(self):
         return self.name
@@ -19,10 +22,13 @@ class Employee(models.Model):
     name = models.CharField(max_length=100, verbose_name="Nome")
     email = models.EmailField()
     mobile_phone = models.CharField(max_length=20, verbose_name="Celular")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = "Funcionário"
         verbose_name_plural = "Funcionários"
+        ordering = ["-created_at", "name"]
 
     def __str__(self):
         return self.name
@@ -30,10 +36,13 @@ class Employee(models.Model):
 
 class Department(models.Model):
     name = models.CharField(max_length=100, verbose_name="Nome", unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = "Departamento"
         verbose_name_plural = "Departamentos"
+        ordering = ["-created_at", "name"]
 
     def __str__(self):
         return self.name

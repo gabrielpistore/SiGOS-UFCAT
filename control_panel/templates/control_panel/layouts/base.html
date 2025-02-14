@@ -16,7 +16,7 @@
         <i class="text-2xl fas fa-file-alt"></i>
         <span class="text-sm">Categorias</span>
       </a>
-      <a href="{% url "control_panel:department_create" %}"
+      <a href="{% url "control_panel:department_list" %}"
          class="flex items-center justify-between p-5 border shadow-xl text-primary">
         <i class="text-2xl fas fa-building"></i>
         <span class="text-sm">Departamentos</span>
@@ -27,25 +27,9 @@
         <span class="text-sm">Funcionários</span>
       </a>
     </div>
-    <form x-data
-          action="{% block action %}{% endblock action %}"
-          method="post"
-          class="col-span-2">
-      {% csrf_token %}
-      <h2 class="mb-3 text-3xl font-light">
-        {% block form_title %}
-        {% endblock form_title %}
-      </h2>
-      <div class="grid grid-cols-1 gap-6">
-        {% block fields %}
-        {% endblock fields %}
-      </div>
-      <div class="flex flex-wrap justify-end w-full gap-3 mt-6 sm:w-auto">
-        <a href=""
-           class="btn border text-primary border-primary hover:bg-primary/[.08] w-full sm:w-auto">Voltar</a>
-        <button type="submit"
-                class="text-white btn bg-primary hover:bg-primary/[.95] w-full sm:w-auto">Adicionar</button>
-      </div>
-    </form>
+    <div class="col-span-2">
+      {% block content %}
+      {% endblock content %}
+    </div>
   </div>
 {% endblock main %}

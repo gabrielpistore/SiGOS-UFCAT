@@ -1,0 +1,20 @@
+{% extends "control_panel/layouts/base.html" %}
+{% block content %}
+  <form x-data action="{% block action %}{% endblock action %}" method="post">
+    {% csrf_token %}
+    <h2 class="mb-3 text-3xl font-light">
+      {% block form_title %}
+      {% endblock form_title %}
+    </h2>
+    <div class="grid grid-cols-1 gap-6">
+      {% block fields %}
+      {% endblock fields %}
+    </div>
+    <div class="flex flex-wrap justify-end w-full gap-3 mt-6 sm:w-auto">
+      <a href="{% block back_url %}{% endblock back_url %}"
+         class="btn border text-primary border-primary hover:bg-primary/[.08] w-full sm:w-auto">Voltar</a>
+      <button type="submit"
+              class="text-white btn bg-primary hover:bg-primary/[.95] w-full sm:w-auto">Adicionar</button>
+    </div>
+  </form>
+{% endblock content %}

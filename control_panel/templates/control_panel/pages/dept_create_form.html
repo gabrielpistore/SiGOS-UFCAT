@@ -1,4 +1,4 @@
-{% extends "control_panel/partials/base_form.html" %}
+{% extends "control_panel/layouts/form.html" %}
 {% load widget_tweaks %}
 {% block form_title %}
   Adicionar Departamento
@@ -17,3 +17,6 @@
     {% endif %}
   </div>
 {% endblock fields %}
+{% block back_url %}
+  {% url "control_panel:department_list" %}
+{% endblock back_url %}

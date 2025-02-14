@@ -1,8 +1,14 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic.edit import CreateView
+from django.views.generic.list import ListView
 
-from orders.models import Category, Employee, Department
+from orders.models import Category, Department, Employee
 
 
 class CategoryCreateView(LoginRequiredMixin, CreateView):
@@ -17,16 +23,58 @@ class CategoryCreateView(LoginRequiredMixin, CreateView):
         return response
 
 
+class DepartmentListView(LoginRequiredMixin, ListView):
+    model = Department
+    template_name = "control_panel/pages/dept_list.html"
+    context_object_name = "departments"
+    paginate_by = 10
+
+    def get(self, request, *args, **kwargs):
+        self.object_list = self.get_queryset()
+        paginator = Paginator(self.object_list, self.paginate_by)
+        page = request.GET.get("page", 1)
+
+        try:
+            departments = paginator.page(page)
+        except Exception:
+            departments = []
+
+        context = {"departments": departments}
+
+        # If it's an HTMX request, return only the department list
+        if request.htmx:
+            return render(
+                request, "control_panel/partials/dept_list_partial.html", context
+            )
+
+        return render(request, self.template_name, context)
+
+
 class DepartmentCreateView(LoginRequiredMixin, CreateView):
     model = Department
     fields = "__all__"
     template_name = "control_panel/pages/dept_create_form.html"
-    success_url = "/painel-de-controle/departamentos/novo"
+    success_url = reverse_lazy("control_panel:department_list")
 
     def form_valid(self, form):
         response = super().form_valid(form)
         messages.success(self.request, "Departamento criado com sucesso!")
         return response
+
+
+class DepartmentDeleteView(LoginRequiredMixin, View):
+    def delete(self, request, pk, *args, **kwargs):
+        department = get_object_or_404(Department, pk=pk)
+        try:
+            department.delete()
+            messages.success(request, "Departamento excluído com sucesso!")
+            # Respond with a JsonResponse that includes the status and any additional data
+            return JsonResponse(
+                {"message": "Department deleted successfully!"}, status=200
+            )
+        except Exception:
+            messages.error(request, "Não foi possível excluir o departamento.")
+            return JsonResponse({"message": "Failed to delete department."}, status=500)
 
 
 class EmployeeCreateView(LoginRequiredMixin, CreateView):
