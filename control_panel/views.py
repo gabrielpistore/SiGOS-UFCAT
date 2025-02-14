@@ -50,6 +50,20 @@ class CategoryCreateView(LoginRequiredMixin, CreateView):
         return response
 
 
+class CategoryDeleteView(LoginRequiredMixin, View):
+    def delete(self, request, pk, *args, **kwargs):
+        category = get_object_or_404(Category, pk=pk)
+        try:
+            category.delete()
+            messages.success(request, "Categoria excluída com sucesso!")
+            return JsonResponse(
+                {"message": "Category deleted successfully!"}, status=200
+            )
+        except Exception:
+            messages.error(request, "Não foi possível excluir a categoria.")
+            return JsonResponse({"message": "Failed to delete category."}, status=500)
+
+
 class DepartmentListView(LoginRequiredMixin, ListView):
     model = Department
     template_name = "control_panel/pages/dept_list.html"

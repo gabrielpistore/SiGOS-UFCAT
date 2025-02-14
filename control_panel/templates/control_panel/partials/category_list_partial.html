@@ -2,11 +2,11 @@
   <div id="category-{{ category.id }}"
        class="flex justify-between p-3 text-base border-b">
     <p>{{ category.name }}</p>
-    {% comment %} <button hx-delete="{% url "control_panel:department_delete" category.id %}"
-            hx-confirm="Tem certeza que deseja excluir este departamento?"
+    <button hx-delete="{% url "control_panel:category_delete" category.id %}"
+            hx-confirm="Tem certeza que deseja excluir esta categoria?"
             hx-on::after-request="window.location.reload()">
       <i class="fa-solid fa-trash text-primary"></i>
-    </button> {% endcomment %}
+    </button>
   </div>
 {% endfor %}
 {% if categories.has_next %}

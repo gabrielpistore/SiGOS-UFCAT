@@ -63,16 +63,16 @@ class WorkOrder(models.Model):
 
     requested_by = models.CharField(max_length=100, verbose_name="Solicitante")
     dept_name = models.ForeignKey(
-        Department, verbose_name="Departamento", on_delete=models.DO_NOTHING
+        Department, verbose_name="Departamento", on_delete=models.PROTECT
     )
     email = models.EmailField()
     phone = models.CharField(max_length=20, verbose_name="Celular")
     category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, verbose_name="Categoria"
+        Category, on_delete=models.PROTECT, verbose_name="Categoria"
     )
     responsible_employee = models.ForeignKey(
         Employee,
-        on_delete=models.DO_NOTHING,
+        on_delete=models.PROTECT,
         verbose_name="Funcionário Responsável",
         blank=True,
         null=True,
