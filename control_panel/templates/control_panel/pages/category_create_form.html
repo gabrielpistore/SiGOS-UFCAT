@@ -17,3 +17,6 @@
     {% endif %}
   </div>
 {% endblock fields %}
+{% block back_url %}
+  {% url "control_panel:category_list" %}
+{% endblock back_url %}

@@ -11,6 +11,33 @@ from django.views.generic.list import ListView
 from orders.models import Category, Department, Employee
 
 
+class CategoryListView(LoginRequiredMixin, ListView):
+    model = Category
+    template_name = "control_panel/pages/category_list.html"
+    context_object_name = "categories"
+    paginate_by = 10
+
+    def get(self, request, *args, **kwargs):
+        self.object_list = self.get_queryset()
+        paginator = Paginator(self.object_list, self.paginate_by)
+        page = request.GET.get("page", 1)
+
+        try:
+            categories = paginator.page(page)
+        except Exception:
+            categories = []
+
+        context = {"categories": categories}
+
+        # If it's an HTMX request, return only the category list
+        if request.htmx:
+            return render(
+                request, "control_panel/partials/category_list_partial.html", context
+            )
+
+        return render(request, self.template_name, context)
+
+
 class CategoryCreateView(LoginRequiredMixin, CreateView):
     model = Category
     fields = "__all__"
@@ -68,7 +95,6 @@ class DepartmentDeleteView(LoginRequiredMixin, View):
         try:
             department.delete()
             messages.success(request, "Departamento excluído com sucesso!")
-            # Respond with a JsonResponse that includes the status and any additional data
             return JsonResponse(
                 {"message": "Department deleted successfully!"}, status=200
             )
