@@ -1,7 +1,11 @@
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView
 
-from api.serializers import CategorySerializer, DepartmentSerializer
-from orders.models import Category, Department
+from api.serializers import (
+    CategorySerializer,
+    DepartmentSerializer,
+    WorkOrderCreateSerializer,
+)
+from orders.models import Category, Department, WorkOrder
 
 
 class CategoryListView(ListAPIView):
@@ -12,3 +16,8 @@ class CategoryListView(ListAPIView):
 class DepartmentListView(ListAPIView):
     queryset = Department.objects.all()
     serializer_class = DepartmentSerializer
+
+
+class WorkOrderCreateAPIView(CreateAPIView):
+    queryset = WorkOrder.objects.all()
+    serializer_class = WorkOrderCreateSerializer
