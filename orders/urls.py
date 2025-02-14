@@ -14,8 +14,4 @@ urlpatterns = [
     path("ordens/novo/", views.WorkOrderCreateView.as_view(), name="workorder_create"),
     path("api/historico/", views.WorkOrderHistoryListViewJSONResponse.as_view(), name="history_json"),
     path("ordens/historico/", views.WorkOrderHistoryListView.as_view(), name="history"),
-    # UFCAT Mobile API
-    path("api/ordens/novo/", views.WorkOrderCreateAPIView.as_view()),
-    # path("api/depts/", views.DeptListAPIView.as_view()),
-    # path("api/categorias/", views.CategoryListAPIView.as_view()),
 ]

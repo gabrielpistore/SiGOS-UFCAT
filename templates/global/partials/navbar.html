@@ -18,7 +18,7 @@
     <a href="{% url "orders:history" %}" class="block px-4 py-2 md:p-0 {% if request.path == "/ordens/historico/" %}text-secondary{% endif %}">Histórico</a>
     <span class="hidden h-4 border-l-2 md:block"></span>
     <a id="control-panel"
-       href="{% url "control_panel:category_create" %}"
+       href="{% url "control_panel:category_list" %}"
        class="block px-4 py-2 md:p-0"><i class="text-base fa-solid fa-gear"></i></a>
     <a id="logout"
        href="{% url "account_logout" %}"

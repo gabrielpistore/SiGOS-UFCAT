@@ -1,6 +1,6 @@
 {% for dept in departments %}
   <div id="dept-{{ dept.id }}"
-       class="flex justify-between p-3 text-base border-b">
+       class="flex justify-between p-4 text-base border-b">
     <p>{{ dept.name }}</p>
     <button hx-delete="{% url "control_panel:department_delete" dept.id %}"
             hx-confirm="Tem certeza que deseja excluir este departamento?"

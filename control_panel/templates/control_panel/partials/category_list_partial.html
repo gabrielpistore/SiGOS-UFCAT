@@ -1,6 +1,6 @@
 {% for category in categories %}
   <div id="category-{{ category.id }}"
-       class="flex justify-between p-3 text-base border-b">
+       class="flex justify-between p-4 text-base border-b">
     <p>{{ category.name }}</p>
     <button hx-delete="{% url "control_panel:category_delete" category.id %}"
             hx-confirm="Tem certeza que deseja excluir esta categoria?"
