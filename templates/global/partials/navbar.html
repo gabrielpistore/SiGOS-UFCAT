@@ -1,5 +1,5 @@
 {% load static %}
-<nav class="sticky top-0 z-50 flex items-center justify-between w-full px-10 py-2 bg-white shadow-xl lg:px-20">
+<nav class="sticky top-0 z-50 flex items-center justify-between w-full px-10 py-2 bg-white shadow-md lg:px-20">
   <a href="{% url "orders:home" %}">
     <img src="{% static "logo.svg" %}"
          alt="UFCAT logo"
@@ -12,10 +12,10 @@
   </button>
   <div id="menu"
        class="absolute left-0 hidden w-full bg-white shadow-md lg:w-fit top-full lg:shadow-none lg:relative lg:flex lg:items-center lg:gap-4 lg:text-xs text-primary">
-    <a href="{% url "orders:home" %}" class="block px-4 py-2 lg:p-0 {% if request.path == "/" %}text-secondary{% endif %}">Home</a>
-    <a href="{% url "orders:workorder_list" %}" class="block px-4 py-2 lg:p-0 {% if request.path == "/ordens/" %}text-secondary{% endif %}">Listar Ordens de Serviço</a>
-    <a href="{% url "orders:workorder_create" %}" class="block px-4 py-2 lg:p-0 {% if request.path == "/ordens/novo/" %}text-secondary{% endif %}">Cadastrar Ordem de Serviço</a>
-    <a href="{% url "orders:history" %}" class="block px-4 py-2 lg:p-0 {% if request.path == "/ordens/historico/" %}text-secondary{% endif %}">Histórico</a>
+    <a href="{% url "orders:home" %}" class="block px-4 py-2 lg:p-0 {% if request.path == "/" %}text-secondary{% endif %} hover:text-secondary">Home</a>
+    <a href="{% url "orders:workorder_list" %}" class="block px-4 py-2 lg:p-0 {% if request.path == "/ordens/" %}text-secondary{% endif %} hover:text-secondary">Listar Ordens de Serviço</a>
+    <a href="{% url "orders:workorder_create" %}" class="block px-4 py-2 lg:p-0 {% if request.path == "/ordens/novo/" %}text-secondary{% endif %} hover:text-secondary">Cadastrar Ordem de Serviço</a>
+    <a href="{% url "orders:history" %}" class="block px-4 py-2 lg:p-0 {% if request.path == "/ordens/historico/" %}text-secondary{% endif %} hover:text-secondary">Histórico</a>
     <span class="hidden h-4 border-l-2 lg:block"></span>
     <a id="control-panel"
        href="{% url "control_panel:category_list" %}"
