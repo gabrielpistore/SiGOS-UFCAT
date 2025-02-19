@@ -52,13 +52,7 @@ class Command(BaseCommand):
 
         # Create orders
         for _ in range(50):
-            opening_date = timezone.make_aware(
-                fake.date_time_this_year(), timezone.get_current_timezone()
-            )
-            closing_date = opening_date + timedelta(days=random.randint(1, 10))
-            service_start_date = timezone.make_aware(
-                fake.date_time_this_year(), timezone.get_current_timezone()
-            )
+            service_start_date = timezone.now()
             service_end_date = service_start_date + timedelta(
                 days=random.randint(1, 10)
             )
@@ -74,8 +68,6 @@ class Command(BaseCommand):
                 urgency=random.choice(levels),
                 priority=random.choice(levels),
                 location=fake.sentence(nb_words=3),  # shorter fake address
-                opening_date=opening_date,
-                closing_date=closing_date,
                 service_start_date=service_start_date,
                 service_end_date=service_end_date,
                 status=random.choice(statuses),
