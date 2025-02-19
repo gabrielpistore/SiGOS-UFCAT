@@ -1,5 +1,4 @@
 from django import forms
-from django.utils import timezone
 
 from orders.models import Category, Department, Employee, WorkOrder
 
@@ -22,8 +21,6 @@ class WorkOrderForm(forms.ModelForm):
             "urgency",
             "priority",
             "location",
-            "opening_date",
-            "closing_date",
             "service_start_date",
             "service_end_date",
             "status",
@@ -32,12 +29,6 @@ class WorkOrderForm(forms.ModelForm):
             "image",
         ]
         widgets = {
-            "opening_date": forms.DateTimeInput(
-                attrs={"type": "date"}, format="%Y-%m-%d"
-            ),
-            "closing_date": forms.DateTimeInput(
-                attrs={"type": "date"}, format="%Y-%m-%d"
-            ),
             "service_start_date": forms.DateTimeInput(
                 attrs={"type": "date"}, format="%Y-%m-%d"
             ),
@@ -51,7 +42,6 @@ class WorkOrderForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         # Default values
-        self.fields["opening_date"].initial = timezone.now().strftime("%Y-%m-%d")
         self.fields["impact"].initial = "Baixo"
         self.fields["urgency"].initial = "Baixo"
         self.fields["priority"].initial = "Baixo"

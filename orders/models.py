@@ -1,6 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator
 from django.db import models
+from django.utils import timezone
 from simple_history.models import HistoricalRecords
 
 
@@ -87,7 +88,9 @@ class WorkOrder(models.Model):
         max_length=25, choices=LEVEL, blank=True, null=True, verbose_name="Prioridade"
     )
     location = models.CharField(max_length=100, verbose_name="Local do Serviço")
-    opening_date = models.DateTimeField(verbose_name="Data de Abertura")
+    opening_date = models.DateTimeField(
+        verbose_name="Data de Abertura", auto_now_add=True
+    )
     closing_date = models.DateTimeField(
         blank=True, null=True, verbose_name="Data de Fechamento"
     )
@@ -111,7 +114,7 @@ class WorkOrder(models.Model):
     )
     history = HistoricalRecords()
 
-    def clean(self):
+    def clean(self, *args, **kwargs):
         # Validate that opening_date is before closing_date
         if self.closing_date and self.opening_date > self.closing_date:
             raise ValidationError(
@@ -128,7 +131,26 @@ class WorkOrder(models.Model):
                         "service_end_date": "A data de término do serviço deve ser posterior à data de início."
                     }
                 )
+
+        if (
+            self.status == "Fechado"
+            and self.service_start_date
+            and not self.service_end_date
+        ):
+            raise ValidationError(
+                {
+                    "service_end_date": "Não é possível fechar uma orderm, se o serviço ainda não foi concluído."
+                }
+            )
+
         super().clean()
+
+    def save(self, *args, **kwargs):
+        # Set closing_date when status is "Fechado"
+        if self.status == "Fechado":
+            self.closing_date = timezone.now()
+
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = "Ordem de Serviço"

@@ -107,24 +107,6 @@
           </div>
         {% endif %}
       </div>
-      <div class="flex flex-col gap-1">
-        <label for="{{ form.opening_date.id_for_label }}">Data de Abertura</label>
-        {% render_field form.opening_date class="input" placeholder="Insira a data de abertura" %}
-        {% if form.opening_date.errors %}
-          <div class="text-sm text-red-500">
-            {% for error in form.opening_date.errors %}<p>{{ error }}</p>{% endfor %}
-          </div>
-        {% endif %}
-      </div>
-      <div class="flex flex-col gap-1">
-        <label for="{{ form.closing_date.id_for_label }}">Data de Encerramento</label>
-        {% render_field form.closing_date class="input" placeholder="Insira a data de encerramento" %}
-        {% if form.closing_date.errors %}
-          <div class="text-sm text-red-500">
-            {% for error in form.closing_date.errors %}<p>{{ error }}</p>{% endfor %}
-          </div>
-        {% endif %}
-      </div>
     </div>
   </div>
 {% endblock content %}
