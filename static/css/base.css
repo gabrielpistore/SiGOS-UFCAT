@@ -20,13 +20,13 @@
 }
 
 .badge-open {
-  background-color: rgb(229 231 235 / var(--tw-text-opacity, 1));
-  color: #000000;
+  background-color: rgb(21 128 61 / var(--tw-text-opacity, 1));
+  color: #ffffff;
 }
 
 .badge-closed {
-  background-color: rgb(21 128 61 / var(--tw-text-opacity, 1));
-  color: #ffffff;
+  background-color: rgb(229 231 235 / var(--tw-text-opacity, 1));
+  color: #000000;
 }
 
 .badge-ongoing {
