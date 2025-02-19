@@ -1,0 +1,23 @@
+{% extends "orders/partials/accordion.html" %}
+{% block title %}
+  Dados do Soliciante
+{% endblock title %}
+{% block content %}
+  <div class="mb-6 border-b">
+    <h2 class="mb-2 font-medium">Informações Básicas</h2>
+    <div class="grid grid-cols-1 gap-8 mb-10 md:grid-cols-2 lg:grid-cols-3">
+      <div class="flex flex-col gap-1">
+        <p>Nome</p>
+        <p>{{ work_order.requested_by }}</p>
+      </div>
+      <div class="flex flex-col gap-1">
+        <p>Departamento</p>
+        <p>{{ work_order.dept_name }}</p>
+      </div>
+      <div class="flex flex-col gap-1" x-data>
+        <p>Telefone</p>
+        <p>{{ work_order.phone }}</p>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

@@ -7,6 +7,7 @@ from django.utils.dateparse import parse_date
 from django.utils.timezone import now, timedelta
 from django.views import View
 from django.views.generic import TemplateView
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 
@@ -116,7 +117,7 @@ class WorkOrderListViewJSONResponse(LoginRequiredMixin, View):
 
         data = [
             {
-                "id": work_order.id,
+                "id": f"""<a href="{work_order.id}" class="text-primary">{work_order.id}</a>""",
                 "title": work_order.title,
                 "status": work_order.status,
                 "created_at": work_order.created_at.strftime("%d/%m/%Y"),
@@ -151,6 +152,19 @@ class WorkOrderListView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["categories"] = Category.objects.all()
+        return context
+
+
+class WorkOrderDetailView(LoginRequiredMixin, DetailView):
+    model = WorkOrder
+    template_name = "orders/pages/workorder_detail.html"
+    context_object_name = "work_order"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["workorder_progress"] = WorkOrderProgress.objects.filter(
+            work_order=self.object
+        )
         return context
 
 

@@ -14,7 +14,7 @@
   <body class="flex items-center justify-center h-screen font-rawline bg-primary">
     <form action="{% url "account_login" %}"
           method="post"
-          class="flex flex-col justify-center w-11/12 h-screen max-w-md px-8 py-10 bg-white">
+          class="flex flex-col justify-center w-11/12 h-screen max-w-sm px-8 py-10 bg-white 2xl:max-w-md">
       {% csrf_token %}
       <h1 class="mb-6 text-2xl font-medium text-center">Acesso ao sistema</h1>
       <div class="flex flex-col mb-4">

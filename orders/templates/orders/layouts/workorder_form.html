@@ -40,8 +40,8 @@
           <i class="mr-2 fa-solid fa-eraser"></i>Limpar Dados
         </button>
       {% endif %}
-      <div class="flex flex-wrap w-full gap-4 sm:w-auto">
-        <a href="{% url "orders:home" %}"
+      <div class="flex flex-wrap w-full gap-4 bg-white sm:w-auto {% if "editar" in request.path %}ml-auto{% endif %}">
+        <a href="{% url "orders:workorder_list" %}"
            class="btn border text-primary border-primary hover:bg-primary/[.08] w-full sm:w-auto">Cancelar</a>
         <button type="submit"
                 class="text-white btn bg-primary hover:bg-primary/[.95] w-full sm:w-auto">
