@@ -392,7 +392,7 @@ table.dataTable tfoot th {
 
 table.dataTable > thead > tr > th,
 table.dataTable > thead > tr > td {
-  padding: 10px;
+  padding: 15px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 
@@ -433,7 +433,7 @@ table.dataTable > tbody > tr.selected a {
 
 table.dataTable > tbody > tr > th,
 table.dataTable > tbody > tr > td {
-  padding: 8px 10px;
+  padding: 15px;
 }
 
 table.dataTable.row-border > tbody > tr > *,

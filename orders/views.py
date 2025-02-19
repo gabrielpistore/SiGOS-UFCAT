@@ -115,11 +115,19 @@ class WorkOrderListViewJSONResponse(LoginRequiredMixin, View):
         current_page = (start // length) + 1
         page = paginator.get_page(current_page)
 
+        def get_badge(status):
+            if status == "Aberto":
+                return "badge-open"
+            elif status == "Em Andamento":
+                return "badge-ongoing"
+            elif status == "Fechado":
+                return "badge-closed"
+
         data = [
             {
                 "id": f"""<a href="{work_order.id}" class="text-primary">{work_order.id}</a>""",
                 "title": work_order.title,
-                "status": work_order.status,
+                "status": f"""<span class="badge {get_badge(work_order.status)}">{work_order.status}</span>""",
                 "created_at": work_order.created_at.strftime("%d/%m/%Y"),
                 "category": work_order.category.name if work_order.category else "",
                 "actions": f"""
