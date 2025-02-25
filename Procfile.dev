@@ -1,2 +1,2 @@
 web: uv run manage.py runserver
-tailwindcss: bin/tailwindcss -i static/css/base.css -o static/css/styles.css --minify
+tailwindcss: bin/tailwindcss -i static/css/base.css -o static/css/styles.css --watch

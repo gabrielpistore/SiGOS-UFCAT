@@ -3,50 +3,63 @@
   Filtros
 {% endblock title %}
 {% block content %}
-  <div class="grid gap-6 p-6 mb-4 bg-gray-100 md:grid-cols-3 md:place-items-end">
-    <div class="grid w-full gap-4 sm:grid-cols-2 lg:grid-cols-3 md:col-span-2 sm:col-span-3">
+  <div class="grid grid-cols-3 gap-6 p-6 mb-4 bg-gray-100">
+    <!-- Filters Section -->
+    <div class="grid grid-cols-1 gap-4 col-span-full md:col-span-2 md:grid-cols-2 lg:grid-cols-3">
+      <!-- ID Filter -->
       <div class="flex flex-col gap-1">
         <label for="filter-id" class="text-sm font-medium text-gray-700">ID</label>
-        <input type="text" id="filter-id" placeholder="Insira o ID" class="input">
+        <input type="text"
+               id="filter-id"
+               placeholder="Insira o ID"
+               class="w-full input">
       </div>
+      <!-- Category Filter -->
       <div class="flex flex-col gap-1">
         <label for="filter-category" class="text-sm font-medium text-gray-700">Categoria</label>
-        <select id="filter-category" class="input">
+        <select id="filter-category" class="w-full input">
           <option value="">Selecione</option>
           {% for category in categories %}<option value="{{ category.name }}">{{ category.name }}</option>{% endfor %}
         </select>
       </div>
+      <!-- Status Filter -->
       <div class="flex flex-col gap-1">
         <label for="filter-status" class="text-sm font-medium text-gray-700">Status</label>
-        <select id="filter-status" class="input">
+        <select id="filter-status" class="w-full input">
           <option value="">Selecione</option>
           <option value="Aberto">Aberto</option>
           <option value="Em Andamento">Em Andamento</option>
           <option value="Fechado">Fechado</option>
         </select>
       </div>
+      <!-- Location Filter -->
       <div class="flex flex-col gap-1">
         <label for="filter-location" class="text-sm font-medium text-gray-700">Local</label>
         <input type="text"
                id="filter-location"
                placeholder="Insira o local"
-               class="input">
+               class="w-full input">
       </div>
+      <!-- Start Date Filter -->
       <div class="flex flex-col gap-1">
         <label for="filter-start-created-at"
                class="text-sm font-medium text-gray-700">Data de Início</label>
-        <input type="date" id="filter-start-created-at" class="input">
+        <input type="date" id="filter-start-created-at" class="w-full input">
       </div>
+      <!-- End Date Filter -->
       <div class="flex flex-col gap-1">
         <label for="filter-end-created-at" class="text-sm font-medium text-gray-700">Data de Término</label>
-        <input type="date" id="filter-end-created-at" class="input">
+        <input type="date" id="filter-end-created-at" class="w-full input">
       </div>
     </div>
-    <div class="grid w-full gap-4 sm:grid-cols-1 md:grid-cols-2 md:w-fit">
+    <!-- Actions Section -->
+    <div class="flex flex-col items-end h-full gap-4 col-span-full md:col-span-1 md:flex-row">
       <button id="clear-filters"
-              class="btn border text-primary border-primary hover:bg-primary/[.08] sm:w-full md:w-fit">Limpar</button>
+              class="btn border text-primary border-primary hover:bg-primary/[.08] md:w-1/2 h-fit w-full">
+        Limpar
+      </button>
       <button id="apply-filters"
-              class="btn text-white bg-primary hover:bg-primary/[.95] sm:w-full md:w-fit">Filtrar</button>
+              class="btn text-white bg-primary hover:bg-primary/[.95] md:w-1/2 h-fit w-full">Filtrar</button>
     </div>
   </div>
 {% endblock content %}
