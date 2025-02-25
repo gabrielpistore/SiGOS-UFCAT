@@ -125,16 +125,19 @@ class WorkOrderListViewJSONResponse(LoginRequiredMixin, View):
 
         data = [
             {
-                "id": f"""<a href="{work_order.id}" class="text-primary">{work_order.id}</a>""",
+                "id": work_order.id,
                 "title": work_order.title,
                 "status": f"""<span class="badge {get_badge(work_order.status)}">{work_order.status}</span>""",
                 "created_at": work_order.created_at.strftime("%d/%m/%Y"),
                 "category": work_order.category.name if work_order.category else "",
                 "actions": f"""
                     <div class="flex gap-2 text-primary">
+                        <a href="{work_order.id}">
+                            <i class="fas fa-eye"></i>
+                        </a>        
                         <a href="{work_order.id}/editar/">
                             <i class="fa-solid fa-pen-to-square"></i>
-                        </a>                        
+                        </a>
                         <button data-work-order-id="{work_order.id}" class="delete-work-order">
                             <i class="fa-solid fa-trash"></i>
                         </button>

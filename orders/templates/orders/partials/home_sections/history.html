@@ -4,7 +4,7 @@
     <h2>Histórico</h2>
   </div>
   <div class="mb-3">
-    {% if work_orders %}
+    {% if orders.history %}
       <div class="flex flex-col justify-between">
         {% for record in orders.history %}
           <div class="flex items-center justify-between gap-2 px-2 py-4 mb-3 text-sm border-b">
@@ -22,8 +22,8 @@
       <a href="{% url "orders:history" %}" class="font-semibold text-primary">Ver Histórico</a>
     </div>
   {% else %}
-  <div class="flex items-center justify-center h-96">
-    <p>Nenhuma ordem de serviço foi cadastrada ainda.</p>
-  </div>
+    <div class="flex items-center justify-center h-96">
+      <p>Nenhuma ordem de serviço foi cadastrada ainda.</p>
+    </div>
   {% endif %}
 </div>

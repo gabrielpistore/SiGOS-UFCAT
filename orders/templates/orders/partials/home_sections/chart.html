@@ -7,15 +7,15 @@
     <canvas id="stats" class="w-full"></canvas>
     <ul class="flex flex-col gap-2">
       <li class="flex gap-2">
-        <div class="h-6 w-6 bg-[#007BFF]"></div>
+        <div class="w-6 h-6 bg-green-700"></div>
         Abertas
       </li>
       <li class="flex gap-2">
-        <div class="h-6 w-6 bg-[#FFC107]"></div>
+        <div class="h-6 w-6 bg-[#711e6c]"></div>
         Em Andamento
       </li>
       <li class="flex gap-2">
-        <div class="h-6 w-6 bg-[#DC3545]"></div>
+        <div class="w-6 h-6 bg-gray-700"></div>
         Fechadas
       </li>
     </ul>
@@ -37,8 +37,8 @@
     data: {
       labels: ["Abertas", "Em Andamento", "Fechadas"],
       datasets: [{
-        data: [orders.opened, orders.closed, orders.ongoing],
-        backgroundColor: ["#007BFF", "#FFC107", "#DC3545"],
+        data: [orders.opened, orders.ongoing, orders.closed],
+        backgroundColor: ["#15803D", "#711E6C", "#374151"],
         hoverOffset: 4,
       }, ],
     },

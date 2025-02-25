@@ -8,10 +8,11 @@
   Ordem #{{ work_order.id }}
 {% endblock title %}
 {% block main %}
-  <h1 class="mb-8 text-5xl font-extralight">
+  <div class="flex items-center justify-between mb-8">
+    <h1 class="text-5xl font-extralight">Ordem #{{ work_order.id }}</h1>
     <a href="{% url "orders:workorder_update" work_order.id %}"
-       class="text-primary">Ordem #{{ work_order.id }}</a>
-  </h1>
+       class="text-white btn bg-primary hover:bg-primary/[.95] w-fit print:hidden">Editar</a>
+  </div>
   {% include "orders/partials/detail_sections/personal_info.html" %}
   {% include "orders/partials/detail_sections/order_details.html" %}
   {% include "orders/partials/detail_sections/progress.html" %}
