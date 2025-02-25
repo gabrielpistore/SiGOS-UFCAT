@@ -1,0 +1,22 @@
+{% extends "control_panel/layouts/form.html" %}
+{% load widget_tweaks %}
+{% block form_title %}
+  Adicionar Categoria
+{% endblock form_title %}
+{% block action %}
+  {% url "control_panel:category_create" %}
+{% endblock action %}
+{% block fields %}
+  <div class="flex flex-col gap-1">
+    <label for="{{ form.name.id_for_label }}">Nome</label>
+    {% render_field form.name class="input" placeholder="" %}
+    {% if form.name.errors %}
+      <div class="text-sm text-red-500">
+        {% for error in form.name.errors %}<p>{{ error }}</p>{% endfor %}
+      </div>
+    {% endif %}
+  </div>
+{% endblock fields %}
+{% block back_url %}
+  {% url "control_panel:category_list" %}
+{% endblock back_url %}

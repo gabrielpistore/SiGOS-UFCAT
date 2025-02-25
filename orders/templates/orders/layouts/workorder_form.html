@@ -1,4 +1,9 @@
 {% extends "global/base.html" %}
+{% load static %}
+{% block head %}
+  <script defer src="{% static "vendor/alpine.mask.min.js" %}"></script>
+  <script defer src="{% static "vendor/alpine.min.js" %}"></script>
+{% endblock head %}
 {% block title %}
   Cadastrar
 {% endblock title %}
@@ -8,10 +13,11 @@
     {% endblock form_title %}
     Ordem de Serviço
   </h1>
-  <form action="{% block action %}{% endblock action %}"
+  <form x-data
+        action="{% block action %}{% endblock action %}"
         method="post"
         enctype="multipart/form-data"
-        class="text-xs md:text-sm">
+        class="w-full mx-auto text-xs md:text-sm">
     {% csrf_token %}
     {% if form.non_field_errors %}
       <div class="p-4 mb-6 text-center text-red-600 border border-red-200 rounded-lg bg-red-50">
@@ -23,14 +29,19 @@
     {% include "orders/partials/form_sections/personal_info.html" %}
     {% include "orders/partials/form_sections/order_details.html" %}
     {% include "orders/partials/form_sections/report_details.html" %}
+    {% if "editar" in request.path %}
+      {% include "orders/partials/form_sections/progress.html" %}
+    {% endif %}
     {% include "orders/partials/form_sections/attachment.html" %}
-    <div class="flex flex-wrap justify-between gap-4 mt-6">
-      <button type="reset"
-              class="btn text-primary hover:bg-primary/[.08] w-full sm:w-auto">
-        <i class="mr-2 fa-solid fa-eraser"></i>Limpar Dados
-      </button>
-      <div class="flex flex-wrap w-full gap-4 sm:w-auto">
-        <a href="{% url "orders:home" %}"
+    <div class="flex flex-wrap justify-between w-full gap-4 mt-6">
+      {% if not "editar" in request.path %}
+        <button type="reset"
+                class="btn text-primary hover:bg-primary/[.08] w-full sm:w-auto">
+          <i class="mr-2 fa-solid fa-eraser"></i>Limpar Dados
+        </button>
+      {% endif %}
+      <div class="flex flex-wrap w-full gap-4 bg-white sm:w-auto {% if "editar" in request.path %}ml-auto{% endif %}">
+        <a href="{% url "orders:workorder_list" %}"
            class="btn border text-primary border-primary hover:bg-primary/[.08] w-full sm:w-auto">Cancelar</a>
         <button type="submit"
                 class="text-white btn bg-primary hover:bg-primary/[.95] w-full sm:w-auto">

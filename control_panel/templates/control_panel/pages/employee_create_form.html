@@ -1,0 +1,40 @@
+{% extends "control_panel/layouts/form.html" %}
+{% load widget_tweaks %}
+{% block form_title %}
+  Adicionar Funcionário
+{% endblock form_title %}
+{% block action %}
+  {% url "control_panel:employee_create" %}
+{% endblock action %}
+{% block fields %}
+  <div class="flex flex-col gap-1">
+    <label for="{{ form.name.id_for_label }}">Nome</label>
+    {% render_field form.name class="input" placeholder="Nome Completo" %}
+    {% if form.name.errors %}
+      <div class="text-sm text-red-500">
+        {% for error in form.name.errors %}<p>{{ error }}</p>{% endfor %}
+      </div>
+    {% endif %}
+  </div>
+  <div class="flex flex-col gap-1">
+    <label for="{{ form.email.id_for_label }}">Email</label>
+    {% render_field form.email class="input" placeholder="Ex.: email@exemplo.com" %}
+    {% if form.email.errors %}
+      <div class="text-sm text-red-500">
+        {% for error in form.email.errors %}<p>{{ error }}</p>{% endfor %}
+      </div>
+    {% endif %}
+  </div>
+  <div class="flex flex-col gap-1">
+    <label for="{{ form.mobile_phone.id_for_label }}">Celular</label>
+    {% render_field form.mobile_phone class="input" x-mask="99 99999-9999" placeholder="(DDD) 00000-0000" %}
+    {% if form.mobile_phone.errors %}
+      <div class="text-sm text-red-500">
+        {% for error in form.mobile_phone.errors %}<p>{{ error }}</p>{% endfor %}
+      </div>
+    {% endif %}
+  </div>
+{% endblock fields %}
+{% block back_url %}
+  {% url "control_panel:employee_list" %}
+{% endblock back_url %}

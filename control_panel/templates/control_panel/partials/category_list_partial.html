@@ -1,0 +1,22 @@
+{% if categories %}
+  {% for category in categories %}
+    <div id="category-{{ category.id }}"
+         class="flex justify-between p-4 text-base border-b">
+      <p>{{ category.name }}</p>
+      <button hx-delete="{% url "control_panel:category_delete" category.id %}"
+              hx-confirm="Tem certeza que deseja excluir esta categoria?"
+              hx-on::after-request="window.location.reload()">
+        <i class="fa-solid fa-trash text-primary"></i>
+      </button>
+    </div>
+  {% endfor %}
+  {% if categories.has_next %}
+    <div hx-get="?page={{ categories.next_page_number }}"
+         hx-trigger="intersect once"
+         hx-swap="afterend"
+         hx-target="this"
+         hx-indicator="#loading-spinner"></div>
+  {% endif %}
+{% else %}
+  <p class="text-center">Nenhuma categoria foi cadastrada ainda.</p>
+{% endif %}

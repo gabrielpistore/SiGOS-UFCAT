@@ -4,10 +4,9 @@
 {% endblock title %}
 {% block main %}
   <h1 class="mb-8 text-5xl font-extralight">Painel de Atividades</h1>
-  <div class="grid w-full gap-6 md:grid-cols-3">
+  <div class="grid w-full gap-6 md:grid-cols-2 lg:grid-cols-3">
     {% include "orders/partials/home_sections/stats.html" %}
     {% include "orders/partials/home_sections/chart.html" %}
     {% include "orders/partials/home_sections/history.html" %}
   </div>
-  {% include "global/partials/toast.html" %}
 {% endblock main %}

@@ -18,8 +18,9 @@ $(document).ready(function () {
       {
         data: "history_user",
         name: "Usuário",
-        render: function (data) {
-          return data || "Sistema";
+        render: function (data, type, row) {
+          const requested_by = row.requested_by;
+          return data || requested_by;
         },
       },
       { data: "status", name: "Status" },

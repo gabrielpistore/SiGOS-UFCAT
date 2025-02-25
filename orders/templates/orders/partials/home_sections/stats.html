@@ -1,44 +1,50 @@
-<div class="px-4 py-6 bg-white rounded-lg shadow-2xl">
+<div class="py-6 px-4 shadow-2xl max-h-[600px]">
   <div class="flex items-center gap-2 mb-6 text-lg font-semibold text-gray-800">
     <i class="fa-solid fa-table"></i>
     <h2>Estatísticas</h2>
   </div>
-  <ul class="px-4 space-y-6">
-    <li class="flex items-center gap-4 pb-4 border-b text-primary">
-      <div class="text-5xl text-center w-14">
-        <i class="fa-solid fa-plus"></i>
-      </div>
-      <div>
-        <p class="text-sm font-medium text-gray-700">Novas Ordens de Serviço</p>
-        <p class="text-4xl font-bold">{{ orders.new_orders }}</p>
-      </div>
-    </li>
-    <li class="flex items-center gap-4 pb-4 text-red-600 border-b">
-      <div class="text-5xl text-center w-14">
-        <i class="fa-solid fa-exclamation"></i>
-      </div>
-      <div>
-        <p class="text-sm font-medium text-gray-700">Emergente</p>
-        <p class="text-4xl font-bold">{{ orders.high_priority_orders }}</p>
-      </div>
-    </li>
-    <li class="flex items-center gap-4 pb-4 text-yellow-600 border-b">
-      <div class="text-5xl text-center w-14">
-        <i class="fa-solid fa-triangle-exclamation"></i>
-      </div>
-      <div>
-        <p class="text-sm font-medium text-gray-700">Urgente</p>
-        <p class="text-4xl font-bold">{{ orders.critical_priority_orders }}</p>
-      </div>
-    </li>
-    <li class="flex items-center gap-4 text-stone-600">
-      <div class="text-5xl text-center w-14">
-        <i class="fa-solid fa-calendar-check"></i>
-      </div>
-      <div>
-        <p class="text-sm font-medium text-gray-700">Não Urgente</p>
-        <p class="text-4xl font-bold">{{ orders.low_medium_priority_orders }}</p>
-      </div>
-    </li>
-  </ul>
+  {% if work_orders %}
+    <ul class="px-4 space-y-6">
+      <li class="flex items-center gap-4 pb-4 border-b text-primary">
+        <div class="text-5xl text-center w-14">
+          <i class="fa-solid fa-plus"></i>
+        </div>
+        <div>
+          <p class="text-sm font-medium text-gray-700">Novas Ordens de Serviço</p>
+          <p class="text-4xl font-bold">{{ orders.new_orders }}</p>
+        </div>
+      </li>
+      <li class="flex items-center gap-4 pb-4 text-red-600 border-b">
+        <div class="text-5xl text-center w-14">
+          <i class="fa-solid fa-exclamation"></i>
+        </div>
+        <div>
+          <p class="text-sm font-medium text-gray-700">Emergente</p>
+          <p class="text-4xl font-bold">{{ orders.high_priority_orders }}</p>
+        </div>
+      </li>
+      <li class="flex items-center gap-4 pb-4 text-yellow-600 border-b">
+        <div class="text-5xl text-center w-14">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <div>
+          <p class="text-sm font-medium text-gray-700">Urgente</p>
+          <p class="text-4xl font-bold">{{ orders.critical_priority_orders }}</p>
+        </div>
+      </li>
+      <li class="flex items-center gap-4 text-stone-600">
+        <div class="text-5xl text-center w-14">
+          <i class="fa-solid fa-calendar-check"></i>
+        </div>
+        <div>
+          <p class="text-sm font-medium text-gray-700">Não Urgente</p>
+          <p class="text-4xl font-bold">{{ orders.low_medium_priority_orders }}</p>
+        </div>
+      </li>
+    </ul>
+  {% else %}
+    <div class="flex items-center justify-center h-96">
+      <p>Nenhuma ordem de serviço foi cadastrada ainda.</p>
+    </div>
+  {% endif %}
 </div>

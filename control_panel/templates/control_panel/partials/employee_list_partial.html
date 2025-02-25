@@ -1,0 +1,28 @@
+{% if employees %}
+  {% for employee in employees %}
+    <div id="employee-{{ employee.id }}"
+         class="flex justify-between p-4 text-base border-b">
+      <div class="flex items-center gap-3">
+        <i class="text-4xl fas fa-user-circle text-primary"></i>
+        <div>
+          <p>{{ employee.name }}</p>
+          <p class="text-xs">{{ employee.email }}</p>
+        </div>
+      </div>
+      <button hx-delete="{% url "control_panel:employee_delete" employee.id %}"
+              hx-confirm="Tem certeza que deseja excluir este funcionário?"
+              hx-on::after-request="window.location.reload()">
+        <i class="fa-solid fa-trash text-primary"></i>
+      </button>
+    </div>
+  {% endfor %}
+  {% if employees.has_next %}
+    <div hx-get="?page={{ employees.next_page_number }}"
+         hx-trigger="intersect once"
+         hx-swap="afterend"
+         hx-target="this"
+         hx-indicator="#loading-spinner"></div>
+  {% endif %}
+{% else %}
+  <p class="text-center">Nenhum funcionário foi cadastrado ainda.</p>
+{% endif %}

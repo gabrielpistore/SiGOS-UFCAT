@@ -1,0 +1,22 @@
+{% if departments %}
+  {% for dept in departments %}
+    <div id="dept-{{ dept.id }}"
+         class="flex justify-between p-4 text-base border-b">
+      <p>{{ dept.name }}</p>
+      <button hx-delete="{% url "control_panel:department_delete" dept.id %}"
+              hx-confirm="Tem certeza que deseja excluir este departamento?"
+              hx-on::after-request="window.location.reload()">
+        <i class="fa-solid fa-trash text-primary"></i>
+      </button>
+    </div>
+  {% endfor %}
+  {% if departments.has_next %}
+    <div hx-get="?page={{ departments.next_page_number }}"
+         hx-trigger="intersect once"
+         hx-swap="afterend"
+         hx-target="this"
+         hx-indicator="#loading-spinner"></div>
+  {% endif %}
+{% else %}
+  <p class="text-center">Nenhum departamento foi cadastrado ainda.</p>
+{% endif %}

@@ -1,0 +1,15 @@
+{% extends "control_panel/layouts/base.html" %}
+{% block content %}
+  <div id="message-container" class="my-3"></div>
+  <div id="dept-container"
+       class="w-full p-4 overflow-y-auto rounded-lg max-h-96 "
+       hx-trigger="scroll-to-bottom"
+       hx-target="this"
+       hx-swap="beforeend"
+       hx-indicator="#loading-spinner">{% include "control_panel/partials/dept_list_partial.html" %}</div>
+  <span id="loading-spinner" class="htmx-indicator">Loading...</span>
+  <div class="flex justify-end mt-3">
+    <a href="{% url "control_panel:department_create" %}"
+       class="text-white btn bg-primary hover:bg-primary/[.95] w-full sm:w-auto">Adicionar</a>
+  </div>
+{% endblock content %}

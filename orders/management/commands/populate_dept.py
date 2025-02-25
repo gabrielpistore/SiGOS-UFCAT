@@ -4,7 +4,7 @@ from orders.models import Department
 
 
 class Command(BaseCommand):
-    help = "Populate the Department model with initial data"
+    help = "Populate departments"
 
     def handle(self, *args, **kwargs):
         dept_names = [

@@ -1,23 +1,29 @@
-<div class="px-4 py-2 shadow-2xl">
+<div class="py-6 px-4 shadow-2xl max-h-[600px]">
   <div class="flex items-baseline gap-2 mb-4 text-base font-semibold">
     <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
     <h2>Status</h2>
   </div>
-  <canvas id="stats"></canvas>
-  <ul class="flex flex-col gap-2">
-    <li class="flex gap-2">
-      <div class="h-6 w-6 bg-[#007BFF]"></div>
-      Abertas
-    </li>
-    <li class="flex gap-2">
-      <div class="h-6 w-6 bg-[#FFC107]"></div>
-      Em Andamento
-    </li>
-    <li class="flex gap-2">
-      <div class="h-6 w-6 bg-[#DC3545]"></div>
-      Fechadas
-    </li>
-  </ul>
+  {% if work_orders %}
+    <canvas id="stats" class="w-full"></canvas>
+    <ul class="flex flex-col gap-2">
+      <li class="flex gap-2">
+        <div class="h-6 w-6 bg-[#007BFF]"></div>
+        Abertas
+      </li>
+      <li class="flex gap-2">
+        <div class="h-6 w-6 bg-[#FFC107]"></div>
+        Em Andamento
+      </li>
+      <li class="flex gap-2">
+        <div class="h-6 w-6 bg-[#DC3545]"></div>
+        Fechadas
+      </li>
+    </ul>
+  {% else %}
+    <div class="flex items-center justify-center h-96">
+      <p>Nenhuma ordem de serviço foi cadastrada ainda.</p>
+    </div>
+  {% endif %}
 </div>
 <script>
   const orders = {
@@ -30,15 +36,14 @@
     type: "doughnut",
     data: {
       labels: ["Abertas", "Em Andamento", "Fechadas"],
-      datasets: [
-        {
-          data: [orders.opened, orders.closed, orders.ongoing],
-          backgroundColor: ["#007BFF", "#FFC107", "#DC3545"],
-          hoverOffset: 4,
-        },
-      ],
+      datasets: [{
+        data: [orders.opened, orders.closed, orders.ongoing],
+        backgroundColor: ["#007BFF", "#FFC107", "#DC3545"],
+        hoverOffset: 4,
+      }, ],
     },
     options: {
+      responsive: true,
       cutout: "60%",
       plugins: {
         legend: {

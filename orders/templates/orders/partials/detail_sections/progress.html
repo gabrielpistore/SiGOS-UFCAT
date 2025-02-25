@@ -1,0 +1,18 @@
+{% extends "orders/partials/accordion.html" %}
+{% block title %}
+  Status de Progresso
+{% endblock title %}
+{% block content %}
+  <div class="mb-10">
+    <ul>
+      {% for progress in workorder_progress %}
+        <li class="flex flex-col py-2">
+          <p class="text-justify">{{ progress.progress_description }}</p>
+          <p class="self-end">{{ progress.progress_date|date:"d/m/Y" }}</p>
+        </li>
+      {% empty %}
+        <li class="text-gray-500">Nenhum progresso registrado ainda.</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock content %}

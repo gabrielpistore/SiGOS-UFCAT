@@ -23,14 +23,19 @@ class Command(BaseCommand):
         if not User.objects.filter(username="admin").exists():
             User.objects.create_superuser("admin", "", "admin")
 
-        # Create Categories
-        categories = []
-        for _ in range(10):
-            category = Category.objects.create(name=fake.word().capitalize())
-            categories.append(category)
-        self.stdout.write(self.style.SUCCESS(f"Created {len(categories)} categories."))
+        # Create categories
+        categories = list(Category.objects.all())
+        if not categories:
+            call_command("populate_categories")
+            categories = list(Category.objects.all())
 
-        # Create Employees
+        # Create departments
+        departments = list(Department.objects.all())
+        if not departments:
+            call_command("populate_dept")
+            departments = list(Department.objects.all())
+
+        # Create employees
         employees = []
         for _ in range(10):
             employee = Employee.objects.create(
@@ -41,24 +46,12 @@ class Command(BaseCommand):
             employees.append(employee)
         self.stdout.write(self.style.SUCCESS(f"Created {len(employees)} employees."))
 
-        # Ensure departments are populated
-        departments = list(Department.objects.all())
-        if not departments:
-            call_command("populate_dept")
-            departments = list(Department.objects.all())
-
         levels = [choice[0] for choice in WorkOrder.LEVEL]
         statuses = [choice[0] for choice in WorkOrder.STATUS]
 
         # Create orders
         for _ in range(50):
-            opening_date = timezone.make_aware(
-                fake.date_time_this_year(), timezone.get_current_timezone()
-            )
-            closing_date = opening_date + timedelta(days=random.randint(1, 10))
-            service_start_date = timezone.make_aware(
-                fake.date_time_this_year(), timezone.get_current_timezone()
-            )
+            service_start_date = timezone.now()
             service_end_date = service_start_date + timedelta(
                 days=random.randint(1, 10)
             )
@@ -73,9 +66,7 @@ class Command(BaseCommand):
                 impact=random.choice(levels),
                 urgency=random.choice(levels),
                 priority=random.choice(levels),
-                location=fake.sentence(nb_words=3),  # shorter fake address
-                opening_date=opening_date,
-                closing_date=closing_date,
+                location=fake.sentence(nb_words=3),
                 service_start_date=service_start_date,
                 service_end_date=service_end_date,
                 status=random.choice(statuses),

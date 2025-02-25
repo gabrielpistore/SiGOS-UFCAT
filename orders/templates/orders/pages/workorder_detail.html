@@ -1,0 +1,19 @@
+{% extends "global/base.html" %}
+{% load static %}
+{% block head %}
+  <script defer src="{% static "vendor/alpine.mask.min.js" %}"></script>
+  <script defer src="{% static "vendor/alpine.min.js" %}"></script>
+{% endblock head %}
+{% block title %}
+  Ordem #{{ work_order.id }}
+{% endblock title %}
+{% block main %}
+  <h1 class="mb-8 text-5xl font-extralight">
+    <a href="{% url "orders:workorder_update" work_order.id %}"
+       class="text-primary">Ordem #{{ work_order.id }}</a>
+  </h1>
+  {% include "orders/partials/detail_sections/personal_info.html" %}
+  {% include "orders/partials/detail_sections/order_details.html" %}
+  {% include "orders/partials/detail_sections/progress.html" %}
+  {% include "orders/partials/detail_sections/attachment.html" %}
+{% endblock main %}

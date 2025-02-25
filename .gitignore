@@ -88,9 +88,6 @@ coverage.xml
 # Jupyter Notebook 
 .ipynb_checkpoints 
 
-# pyenv 
-.python-version 
-
 # celery 
 celerybeat-schedule.* 
 
@@ -141,4 +138,3 @@ GitHub.sublime-settings
 bin/*
 !bin/.keep
 !bin/dev
-static/css/styles.css

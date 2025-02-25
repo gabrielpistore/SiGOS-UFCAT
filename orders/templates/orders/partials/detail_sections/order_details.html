@@ -1,0 +1,101 @@
+{% extends "orders/partials/accordion.html" %}
+{% load widget_tweaks %}
+{% block title %}
+  Detalhes da Solicitação
+{% endblock title %}
+{% block content %}
+  <div class="mb-6 border-b">
+    <!-- Dados de Gerenciamento-->
+    <div class="mb-6">
+      <h2 class="mb-2 font-medium">Dados de Gerenciamento</h2>
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div class="flex flex-col gap-1">
+          <p>Categoria</p>
+          <p>{{ work_order.category }}</p>
+        </div>
+        <div class="flex flex-col gap-1">
+          <p>Funcionário Responsável</p>
+          <p>{{ work_order.responsible_employee }}</p>
+        </div>
+      </div>
+    </div>
+    <!-- Critérios de Classificação -->
+    <div class="mb-6">
+      <h2 class="mb-2 font-medium">Critérios de Classificação</h2>
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div class="flex flex-col gap-1">
+          <p>Impacto</p>
+          <p>{{ work_order.impact }}</p>
+        </div>
+        <div class="flex flex-col gap-1">
+          <p>Urgência</p>
+          <p>{{ work_order.urgency }}</p>
+        </div>
+        <div class="flex flex-col gap-1">
+          <p>Prioridade</p>
+          <p>{{ work_order.priority }}</p>
+        </div>
+      </div>
+    </div>
+    <!-- Informações de Serviço -->
+    <div class="mb-6">
+      <h2 class="mb-2 font-medium">Informações do Serviço</h2>
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div class="flex flex-col gap-1">
+          <p>Local</p>
+          <p>{{ work_order.location }}</p>
+        </div>
+        <div class="flex flex-col gap-1">
+          <p>Data de Início</p>
+          <p>
+            {% if work_order.service_start_date %}
+              {{ work_order.service_start_date|date:"d/m/Y" }}
+            {% else %}
+              <span>---</span>
+            {% endif %}
+          </p>
+        </div>
+        <div class="flex flex-col gap-1">
+          <p>Data de Término</p>
+          <p>
+            {% if work_order.service_end_date %}
+              {{ work_order.service_end_date|date:"d/m/Y" }}
+            {% else %}
+              <span>---</span>
+            {% endif %}
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- Informações da Ordem de Serviço -->
+    <div class="mb-10">
+      <h2 class="mb-2 font-medium">Informações da Ordem de Serviço</h2>
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div class="flex flex-col gap-1">
+          <p>Status</p>
+          <p>{{ work_order.status }}</p>
+        </div>
+        <div class="flex flex-col gap-1">
+          <p>Data de Abertura</p>
+          <p>
+            {% if work_order.opening_date %}
+              {{ work_order.opening_date|date:"d/m/Y" }}
+            {% else %}
+              <span>---</span>
+            {% endif %}
+          </p>
+        </div>
+        <div class="flex flex-col gap-1">
+          <p>Data de Encerramento</p>
+          <p>
+            {% if work_order.closing_date %}
+              {{ work_order.closing_date|date:"d/m/Y" }}
+            {% else %}
+              <span>---</span>
+            {% endif %}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

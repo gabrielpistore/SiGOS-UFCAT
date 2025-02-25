@@ -7,11 +7,12 @@ from django.utils.dateparse import parse_date
 from django.utils.timezone import now, timedelta
 from django.views import View
 from django.views.generic import TemplateView
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 
 from orders.forms import WorkOrderForm
-from orders.models import Category, WorkOrder
+from orders.models import Category, WorkOrder, WorkOrderProgress
 
 
 class HomeView(LoginRequiredMixin, ListView):
@@ -114,11 +115,19 @@ class WorkOrderListViewJSONResponse(LoginRequiredMixin, View):
         current_page = (start // length) + 1
         page = paginator.get_page(current_page)
 
+        def get_badge(status):
+            if status == "Aberto":
+                return "badge-open"
+            elif status == "Em Andamento":
+                return "badge-ongoing"
+            elif status == "Fechado":
+                return "badge-closed"
+
         data = [
             {
-                "id": work_order.id,
+                "id": f"""<a href="{work_order.id}" class="text-primary">{work_order.id}</a>""",
                 "title": work_order.title,
-                "status": work_order.status,
+                "status": f"""<span class="badge {get_badge(work_order.status)}">{work_order.status}</span>""",
                 "created_at": work_order.created_at.strftime("%d/%m/%Y"),
                 "category": work_order.category.name if work_order.category else "",
                 "actions": f"""
@@ -154,6 +163,19 @@ class WorkOrderListView(LoginRequiredMixin, TemplateView):
         return context
 
 
+class WorkOrderDetailView(LoginRequiredMixin, DetailView):
+    model = WorkOrder
+    template_name = "orders/pages/workorder_detail.html"
+    context_object_name = "work_order"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["workorder_progress"] = WorkOrderProgress.objects.filter(
+            work_order=self.object
+        )
+        return context
+
+
 class WorkOrderCreateView(LoginRequiredMixin, CreateView):
     model = WorkOrder
     form_class = WorkOrderForm
@@ -172,13 +194,34 @@ class WorkOrderUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "orders/pages/workorder_update_form.html"
     success_url = reverse_lazy("orders:workorder_list")
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["workorder_progress"] = WorkOrderProgress.objects.filter(
+            work_order=self.object
+        )
+        return context
+
     def form_valid(self, form):
         response = super().form_valid(form)
+
+        # Get the progress description
+        description = form.cleaned_data.get("progress")
+
+        # If a progress description is provided, create a WorkOrderProgress record
+        if description:
+            WorkOrderProgress.objects.create(
+                work_order=self.object,
+                progress_description=description,
+                progress_date=now(),
+            )
+
         # Explicitly set the history_user
-        self.object.save()  # Ensure the object is saved first
         self.object.history.last().history_user = self.request.user
         self.object.history.last().save()
+
+        # Display a success message
         messages.success(self.request, "Ordem de serviço atualizada com sucesso!")
+
         return response
 
 
@@ -234,6 +277,7 @@ class WorkOrderHistoryListViewJSONResponse(View):
             data.append(
                 {
                     "id": record.id,
+                    "requested_by": record.requested_by,
                     "title": record.title,
                     "history_user": str(record.history_user)
                     if record.history_user

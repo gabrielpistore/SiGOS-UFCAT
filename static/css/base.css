@@ -10,6 +10,26 @@
     @apply border border-[#8888] rounded p-2 focus:border-2 focus:border-primary focus:outline-none placeholder:font-medium;
   }
   .toast {
-    @apply fixed z-50 p-4 mb-6 text-xs border rounded-lg shadow-lg bottom-5 right-5 w-72
+    @apply fixed z-50 p-4 mb-6 text-xs border rounded-lg shadow-lg bottom-5 right-5 w-72;
   }
+}
+
+.badge {
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+}
+
+.badge-open {
+  background-color: rgb(21 128 61 / var(--tw-text-opacity, 1));
+  color: #ffffff;
+}
+
+.badge-closed {
+  background-color: rgb(229 231 235 / var(--tw-text-opacity, 1));
+  color: #000000;
+}
+
+.badge-ongoing {
+  background-color: #711e6c;
+  color: #ffffff;
 }
