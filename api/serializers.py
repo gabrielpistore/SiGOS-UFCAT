@@ -32,6 +32,7 @@ class WorkOrderCreateSerializer(serializers.ModelSerializer):
         fields = [
             "requested_by",
             "dept_name",
+            "email",
             "phone",
             "category",
             "location",
