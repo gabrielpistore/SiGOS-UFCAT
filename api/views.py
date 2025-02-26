@@ -1,4 +1,5 @@
 from rest_framework.generics import CreateAPIView, ListAPIView
+from rest_framework.permissions import AllowAny
 
 from api.serializers import (
     CategorySerializer,
@@ -21,3 +22,4 @@ class DepartmentListView(ListAPIView):
 class WorkOrderCreateAPIView(CreateAPIView):
     queryset = WorkOrder.objects.all()
     serializer_class = WorkOrderCreateSerializer
+    permission_classes = [AllowAny]
