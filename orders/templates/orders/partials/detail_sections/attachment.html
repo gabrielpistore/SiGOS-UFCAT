@@ -6,7 +6,9 @@
   <div class="flex items-center justify-between p-2 mb-10 bg-white border rounded-md file-info sm:w-full md:w-1/3">
     <div class="flex items-center gap-2">
       {% if work_order.image %}
-        <a href="/media/{{ work_order.image }}"
+        <a href="{{ work_order.image.url }}"
+           target="_blank"
+           rel="noopener noreferrer"
            class="text-sm file-name text-primary">{{ work_order.image.name }}</a>
         <p class="text-xs text-gray-500 file-size">{{ work_order.image.size|filesizeformat }}</p>
       {% else %}
