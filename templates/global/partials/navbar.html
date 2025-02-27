@@ -1,30 +1,32 @@
 {% load static %}
-<nav class="sticky top-0 z-50 flex items-center justify-between w-full px-10 py-2 mb-3 bg-white shadow-md lg:px-20 print:hidden">
-  <a href="{% url "orders:home" %}">
-    <img src="{% static "logo.svg" %}"
-         alt="UFCAT logo"
-         height="auto"
-         width="auto">
-  </a>
-  <button id="menu-toggle"
-          class="block lg:hidden text-primary focus:outline-none">
-    <i class="text-xl fa-solid fa-bars"></i>
-  </button>
-  <div id="menu"
-       class="absolute left-0 hidden w-full bg-white shadow-md lg:w-fit top-full lg:shadow-none lg:relative lg:flex lg:items-center lg:gap-4 lg:text-xs text-primary">
-    <a href="{% url "orders:home" %}" class="block px-4 py-2 lg:p-0 {% if request.path == "/" %}text-secondary{% endif %} hover:text-secondary">Home</a>
-    <a href="{% url "orders:workorder_list" %}" class="block px-4 py-2 lg:p-0 {% if request.path == "/ordens/" %}text-secondary{% endif %} hover:text-secondary">Listar Ordens de Serviço</a>
-    <a href="{% url "orders:workorder_create" %}" class="block px-4 py-2 lg:p-0 {% if request.path == "/ordens/novo/" %}text-secondary{% endif %} hover:text-secondary">Cadastrar Ordem de Serviço</a>
-    <a href="{% url "orders:history" %}" class="block px-4 py-2 lg:p-0 {% if request.path == "/ordens/historico/" %}text-secondary{% endif %} hover:text-secondary">Histórico</a>
-    <span class="hidden h-4 border-l-2 lg:block"></span>
-    <a id="control-panel"
-       href="{% url "control_panel:category_list" %}"
-       class="block px-4 py-2 lg:p-0"><i class="text-base fa-solid fa-gear"></i></a>
-    <a id="logout"
-       href="{% url "account_logout" %}"
-       class="block px-4 py-2 lg:p-0">
-      <i class="text-base fa-solid fa-right-from-bracket"></i>
+<nav class="sticky top-0 z-50 w-full bg-white shadow-md print:hidden">
+  <div class="flex items-center justify-between px-4 py-2 mx-auto mb-3 max-w-7xl md:px-10">
+    <a href="{% url "orders:home" %}">
+      <img src="{% static "logo.svg" %}"
+           alt="UFCAT logo"
+           height="auto"
+           width="auto">
     </a>
+    <button id="menu-toggle"
+            class="block lg:hidden text-primary focus:outline-none">
+      <i class="text-xl fa-solid fa-bars"></i>
+    </button>
+    <div id="menu"
+         class="absolute left-0 hidden w-full bg-white shadow-md lg:w-fit top-full lg:shadow-none lg:relative lg:flex lg:items-center lg:gap-4 lg:text-xs text-primary">
+      <a href="{% url "orders:home" %}" class="block px-4 py-2 lg:p-0 {% if request.path == "/" %}text-secondary{% endif %} hover:text-secondary">Home</a>
+      <a href="{% url "orders:workorder_list" %}" class="block px-4 py-2 lg:p-0 {% if request.path == "/ordens/" %}text-secondary{% endif %} hover:text-secondary">Listar Ordens de Serviço</a>
+      <a href="{% url "orders:workorder_create" %}" class="block px-4 py-2 lg:p-0 {% if request.path == "/ordens/novo/" %}text-secondary{% endif %} hover:text-secondary">Cadastrar Ordem de Serviço</a>
+      <a href="{% url "orders:history" %}" class="block px-4 py-2 lg:p-0 {% if request.path == "/ordens/historico/" %}text-secondary{% endif %} hover:text-secondary">Histórico</a>
+      <span class="hidden h-4 border-l-2 lg:block"></span>
+      <a id="control-panel"
+         href="{% url "control_panel:category_list" %}"
+         class="block px-4 py-2 lg:p-0"><i class="text-base fa-solid fa-gear"></i></a>
+      <a id="logout"
+         href="{% url "account_logout" %}"
+         class="block px-4 py-2 lg:p-0">
+        <i class="text-base fa-solid fa-right-from-bracket"></i>
+      </a>
+    </div>
   </div>
 </nav>
 <script>

@@ -1,24 +1,26 @@
-<div class="py-6 px-4 shadow-2xl max-h-[600px]">
-  <div class="flex items-baseline gap-2 mb-4 text-base font-semibold">
+<div class="py-6 px-4 shadow-2xl max-h-[550px]">
+  <div class="flex items-baseline gap-2 mb-6 text-base font-semibold">
     <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
     <h2>Status</h2>
   </div>
   {% if work_orders %}
-    <canvas id="stats" class="w-full"></canvas>
-    <ul class="flex flex-col gap-2">
-      <li class="flex gap-2">
-        <div class="w-6 h-6 bg-green-700"></div>
-        Abertas
-      </li>
-      <li class="flex gap-2">
-        <div class="h-6 w-6 bg-[#711e6c]"></div>
-        Em Andamento
-      </li>
-      <li class="flex gap-2">
-        <div class="w-6 h-6 bg-gray-700"></div>
-        Fechadas
-      </li>
-    </ul>
+    <div class="flex flex-col justify-between gap-6 min-h-96">
+      <canvas id="stats" class="w-full mx-auto lg:max-w-96 md:max-w-72"></canvas>
+      <ul class="flex flex-col gap-2">
+        <li class="flex gap-2">
+          <div class="w-6 h-6 bg-green-700"></div>
+          Abertas
+        </li>
+        <li class="flex gap-2">
+          <div class="h-6 w-6 bg-[#711e6c]"></div>
+          Em Andamento
+        </li>
+        <li class="flex gap-2">
+          <div class="w-6 h-6 bg-gray-700"></div>
+          Fechadas
+        </li>
+      </ul>
+    </div>
   {% else %}
     <div class="flex items-center justify-center h-96">
       <p>Nenhuma ordem de serviço foi cadastrada ainda.</p>
