@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "allauth.account",
     "corsheaders",
     "django_browser_reload",
+    "django_extensions",
     "django_htmx",
     "fontawesomefree",
     "rest_framework",

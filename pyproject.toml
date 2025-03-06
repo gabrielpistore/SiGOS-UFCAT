@@ -26,4 +26,8 @@ dependencies = [
     "whitenoise>=6.9.0",
     "gunicorn>=23.0.0",
     "django-heroku>=0.3.1",
+    "django-extensions>=3.2.3",
+    "pyparsing>=3.2.1",
+    "pydot>=3.0.4",
+    "pygraphviz>=1.14",
 ]
