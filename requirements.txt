@@ -24,7 +24,6 @@ pillow==11.1.0
 psycopg2==2.9.10
 psycopg2-binary==2.9.10
 pydot==3.0.4
-pygraphviz==1.14
 pyparsing==3.2.1
 python-dotenv==1.0.1
 requests==2.32.3
