@@ -15,7 +15,13 @@
         </div>
         <div class="flex flex-col gap-1">
           <p>Funcionário Responsável</p>
-          <p>{{ work_order.responsible_employee }}</p>
+          <p>
+            {% if work_order.responsible_employee %}
+              {{ work_order.responsible_employee }}
+            {% else %}
+              <span>---</span>
+            {% endif %}
+          </p>
         </div>
       </div>
     </div>
