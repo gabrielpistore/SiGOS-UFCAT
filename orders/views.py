@@ -238,7 +238,7 @@ class WorkOrderDeleteViewJSONResponse(LoginRequiredMixin, View):
             return JsonResponse({"error": "Work order not found."}, status=404)
 
 
-class WorkOrderHistoryListViewJSONResponse(View):
+class WorkOrderHistoryListViewJSONResponse(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         draw = int(request.GET.get("draw", 1))
         start = int(request.GET.get("start", 0))
