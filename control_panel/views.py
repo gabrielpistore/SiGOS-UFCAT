@@ -42,7 +42,7 @@ class CategoryCreateView(LoginRequiredMixin, CreateView):
     model = Category
     fields = "__all__"
     template_name = "control_panel/pages/category_create_form.html"
-    success_url = "/painel-de-controle/categorias/novo"
+    success_url = reverse_lazy("control_panel:category_list")
 
     def form_valid(self, form):
         response = super().form_valid(form)
